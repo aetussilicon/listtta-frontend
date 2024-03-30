@@ -1,4 +1,4 @@
-import "../../Styles/Components/Header.css"
+import "../../Styles/Components/Header/Header.css"
 
 export default function Header() {
 
@@ -23,19 +23,19 @@ export default function Header() {
                         <div id="menu-to-display" className="nav-links">
                             <ul>
                                 <li>
-                                    <a>Home</a>
+                                    <a href="/">Home</a>
                                 </li>
                                 <li>
-                                    <a>Sobre o Listtta</a>
+                                    <a href="/about-us">Sobre o Listtta</a>
                                 </li>
                                 <li>
-                                    <a>Profissionais</a>
+                                    <a href="search">Profissionais</a>
                                 </li>
                                 <li>
-                                    <a>Como funciona?</a>
+                                    <a href="/how-it-works">Como funciona?</a>
                                 </li>
                                 <li>
-                                    <a>Contato</a>
+                                    <a href="contact">Contato</a>
                                 </li>
                             </ul>
                             <div id="menu-to-display" className="nav-register menu-buttons hidden-inverse">
