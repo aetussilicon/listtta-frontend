@@ -1,0 +1,19 @@
+:root {
+    --white-text: #ffffff;
+    --span-red: #ff073b;
+    --grey-text: #c3c4c6;
+    --white-border: #ffffff;
+
+    font-family: 'Poppins', sans-serif;
+    background-color: #ffffff;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    padding: 15px;
+    margin: 0 15%;
+}
