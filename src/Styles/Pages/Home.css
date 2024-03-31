@@ -1,101 +1,154 @@
 @media screen and (max-width: 480px) {
-.first-banner-block {
+  .first-banner-block {
     height: 550px;
-}
+  }
 
-   .first-block-content {
+  .first-block-content {
     flex-direction: column;
     gap: 3px !important;
     padding-bottom: 0 !important;
-   } 
+  }
 
-   .slogan h1 {
+  .slogan h1 {
     font-size: 30px !important;
     width: 350px !important;
     text-align: center;
     line-height: 40px !important;
-   }
+  }
 
-   .first-card-block {
+  .first-card-block {
     background-color: transparent !important;
     padding: 0 !important;
-   }
+  }
 
-   .first-card-block .home-first-card-content h1  {
+  .first-card-block .home-first-card-content h1 {
     width: 340px !important;
     font-size: 30px !important;
-   }
+  }
 
-   .btn {
+  .btn {
     width: 300px !important;
     margin-bottom: 0 !important;
-   }
+  }
 }
 
 .first-banner-block {
-    background-image: var(--home-banner);
-    background-size: cover;
-    padding-bottom: 30px;
+  background-image: var(--home-banner);
+  background-size: cover;
+  padding-bottom: 30px;
 }
 
 .home-container {
-    height: 1000px;
+  height: 1000px;
 }
 
 .first-block-content {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 50px;
-    margin-top: 50px;
-    margin-bottom: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 50px;
+  margin-top: 50px;
+  margin-bottom: 50px;
 }
 
-.slogan h1{
-    color: var(--white-text);
-    font-size: 50px;
-    width: 480px;
-    line-height: 60px;
+.slogan h1 {
+  color: var(--white-text);
+  font-size: 50px;
+  width: 480px;
+  line-height: 60px;
 }
 
 .slogan h1 span {
-    color: var(--span-red); 
+  color: var(--span-red);
 }
 
 .first-card-block {
-    background-color: var(--home-banner-color); 
-    height: 220px; 
-    padding: 50px;
-    border-radius: 10px;
+  background-color: var(--home-banner-color);
+  height: 220px;
+  padding: 50px;
+  border-radius: 10px;
 }
 
-.first-card-block h1, span {
-    color: var(--white-text);
+.first-card-block h1,
+span {
+  color: var(--white-text);
 }
 
 .first-card-block .home-first-card-content {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between; 
-    align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .first-card-block .home-first-card-content h1 {
-    font-size: 40px;
-    width: 450px;
-    text-align: center;
-    margin: 0;
+  font-size: 40px;
+  width: 450px;
+  text-align: center;
+  margin: 0;
 }
 
 .btn {
-    background-color: var(--default-button);
-    color: var(--white-text);
-    border: none;
-    border-radius: 50px;
-    margin-top: 30px;
-    margin-bottom: 10px;
-    width: 500px;
-    padding: 15px;
-    font-size: 18px;
-    font-weight: 600;
+  background-color: var(--default-button);
+  color: var(--white-text);
+  border: none;
+  border-radius: 50px;
+  margin-top: 30px;
+  margin-bottom: 10px;
+  width: 500px;
+  padding: 15px;
+  font-size: 18px;
+  font-weight: 600;cursor: pointer;
+}
+
+/* sponser */
+.sponsers-div {
+  display: flex;
+  background-color: var(--sponser-div);
+  flex-direction: column;
+  justify-content: center;
+  height: 100px;
+}
+
+.sponsers-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.sponsers-container span {
+  color: var(--grey-text);
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.about-listtta-block {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.about-listtta {
+    width: 550px;
+}
+
+.about-listtta span {
+    color: var(--span-red);
+}
+
+.about-listtta h1 {
+    margin-top: 0;
+}
+
+.about-listtta button {
+    width: 200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+}
+
+.about-listtta button span {
+    display: inline;
+    color: var(--white-text); 
 }

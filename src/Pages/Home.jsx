@@ -20,15 +20,17 @@ export default function Home() {
                     </div>
                 </div>
             </div>
-            <div className="container home-container">
-                <div className="sponsers">
-                    <div>Nossos parceiros</div>
+            <div className="sponsers-div">
+                <div className="sponsers-container container">
+                    <span>Nossos parceiros:</span>
                     <img src="Assets/icons/logo/mono-logo.png" alt="Listtta-mono-logo" />
                     <img src="Assets/icons/logo/mono-logo.png" alt="Listtta-mono-logo" />
                     <img src="Assets/icons/logo/mono-logo.png" alt="Listtta-mono-logo" />
                     <img src="Assets/icons/logo/mono-logo.png" alt="Listtta-mono-logo" />
                     <img src="Assets/icons/logo/mono-logo.png" alt="Listtta-mono-logo" />
                 </div>
+            </div>
+            <div className="container home-container">
                 <div className="about-listtta-block">
                     <div className="about-listtta">
                         <span>Como funciona?</span>
@@ -38,7 +40,7 @@ export default function Home() {
                             Se for tatuador, escolhe o tema ou técnica da tatuagem (por exemplo floral, black work, aquarela etc)
                             e aí aparece a lista de tatuadores com foto, nome e seu perfil no instagram.
                         </p>
-                        <button>Saiba mais <span className="material-symbols-outlined">east</span></button>
+                        <button className="btn">Saiba mais <span className="material-symbols-outlined">east</span></button>
                     </div>
                     <div><img src="Assets/imgs/miscellaneous/woman.png" /></div>
                 </div>
