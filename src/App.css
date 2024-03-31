@@ -3,12 +3,24 @@
     --span-red: #ff073b;
     --grey-text: #c3c4c6;
     --white-border: #ffffff;
+    --footer-container-color: #131829;
+    --footer-top-line: #FD083B;
+    --footer-bottom: #0E1323;
+    --home-banner-color: #0C1020;
+    --default-button: #FF093B;
 
     font-family: 'Poppins', sans-serif;
     background-color: #ffffff;
+
+    --home-banner: url('Assets/imgs/banners/main-banner.png');
+}
+
+* {
+   
 }
 
 body {
+    box-sizing: border-box;
     margin: 0;
     padding: 0;
 }
