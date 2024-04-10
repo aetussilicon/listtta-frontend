@@ -8,15 +8,20 @@
     --footer-bottom: #0E1323;
     --home-banner-color: #0C1020;
     --default-button: #FF093B;
+    --sponser-div: #F4F4F4;
+    --home-search: #0E1323;
+    --home-blog-section-text: #313131;
+    --filters-container: #f8f8fa;
+
+    --faq-page-banner: #1b2038;
 
     font-family: 'Poppins', sans-serif;
     background-color: #ffffff;
 
     --home-banner: url('Assets/imgs/banners/main-banner.png');
-}
-
-* {
-   
+    --home-second-banner: url('Assets/imgs/banners/descont-banner.png');
+    --home-second-banner-responsive: url('Assets/imgs/banners/descont-banner-responsive.png');
+    --search-banner: url('Assets/imgs/banners/search-banner.png');
 }
 
 body {
@@ -27,5 +32,16 @@ body {
 
 .container {
     padding: 15px;
-    margin: 0 15%;
+    margin: 0 20%;
+}
+
+.default-input {
+    border: 1px solid #384676;
+    border-radius: 50px;
+    padding: 12px 20px 12px 40px;
+    margin-top: 10px;
+    background-position: 10px 10px;
+    background-repeat: no-repeat;
+    font-size: 15px;
+    outline: none;
 }

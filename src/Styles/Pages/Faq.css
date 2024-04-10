@@ -1,0 +1,30 @@
+.faq-section {
+    background-color: var(--faq-page-banner);
+    height: 400px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.faq-container {
+    width: 100%;
+}
+
+.search-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+.search-section h1 {
+    font-size: 50px;
+    color: var(--white-text);
+}
+
+.faq-itens-container {
+    margin-top: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}

@@ -1,0 +1,36 @@
+.home-blog-card-area {
+    width: 350px;
+    border-radius: 10px;
+    background-color: #ffffff;
+    margin-bottom: 60px;
+}
+
+.home-blog-card-area img {
+    width: 350px;
+    border-radius: 10px 10px 0 0;
+}
+
+.home-blog-post-info {
+    padding: 20px;
+}
+
+.home-blog-post-info h3 {
+    font-weight: 400;
+    font-size: 22px;
+    margin: 0;
+}
+
+.home-blog-post-info h3, p {
+    margin-bottom: 10px;
+}
+
+.home-blog-post-info p {
+    width: 280px;
+}
+
+.home-blog-post-info a {
+    text-decoration: none;
+    font-size: 17px;
+    color: #000000;
+    font-weight: 600;
+}

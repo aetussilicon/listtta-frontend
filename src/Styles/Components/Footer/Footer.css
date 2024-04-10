@@ -29,7 +29,7 @@
 
 .footer-section {
   background-color: var(--footer-container-color);
-  margin-top: 60px; 
+  /* margin-top: 60px;  */
 }
 
 .top-line {

@@ -1,0 +1,17 @@
+.faq-item {
+    width: 100%;
+    background-color: #e0e1ea;
+    padding: 20px;
+    font-size: 20px;
+    border-radius: 15px;
+    margin-bottom: 20px;
+}
+
+.space{
+    display: flex;
+    justify-content: space-between;
+}
+
+.faq-item-container span {
+    color: black;
+}
