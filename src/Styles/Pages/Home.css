@@ -83,6 +83,7 @@
   .woman-img {
     height: 500px !important;
   }
+
   .woman-img img {
     height: 500px !important;
   }
@@ -107,7 +108,7 @@
 
   .second-card-block-info {
     width: 100% !important;
-    text-align: center; 
+    text-align: center;
   }
 
   .second-card-block-info h1 {
@@ -123,10 +124,61 @@
     margin-top: 0 !important;
   }
 
-  .solo-text h1{
+  .solo-text h1 {
     font-size: 23px;
     /* margin-top: 0 !important; */
     padding: 15px;
+  }
+
+  /* Home search buttom */
+  .home-search-container {
+    flex-direction: column;
+    margin: 0;
+  }
+
+  .blog-section-top-bar .section-title {
+    align-items: center;
+  }
+
+  .breaker {
+    display: none;
+  }
+
+
+  .home-search-block .search-block-text {
+    width: 250px !important;
+    text-align: center;
+  }
+
+  .home-search-container .search-block-text h1 {
+    font-size: 25px !important;
+
+  }
+
+  /* Blog section */
+  .home-blog-container {
+    margin: 0;
+  }
+
+  .blog-section-top-bar {
+    flex-direction: column;
+  }
+
+  .latest-blog-posts {
+    flex-direction: column;
+  }
+
+  .blog-section-top-bar .section-text-button {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .blog-section-top-bar .section-text-button .btn {
+    display: none;
+  }
+
+  .blog-section-top-bar .section-text-button span {
+    width: auto !important;
   }
 }
 
@@ -143,7 +195,7 @@
   align-items: center;
   justify-content: center;
   gap: 50px;
-  margin-top: 50px;
+  /* margin-top: 50px; */
   margin-bottom: 50px;
 }
 
@@ -224,6 +276,7 @@ span {
 .about-container {
   padding-bottom: 0;
 }
+
 .about-listtta-block {
   display: flex;
   align-items: center;
@@ -285,7 +338,7 @@ span {
 }
 
 .second-card-block-info h1 {
-  font-size: 33px;  
+  font-size: 33px;
   margin: 0;
 }
 
@@ -356,7 +409,7 @@ span {
   margin-top: 10px;
 }
 
-.blog-section{
+.blog-section {
   background-color: #f4f4f4;
   /* margin-bottom: 40px; */
 }
@@ -377,7 +430,7 @@ span {
   justify-content: center;
 }
 
-.blog-section-top-bar .section-title span{
+.blog-section-top-bar .section-title span {
   color: var(--span-red);
 }
 
