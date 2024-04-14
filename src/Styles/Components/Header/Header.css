@@ -54,7 +54,7 @@
 }
 
 nav {
-  background-image: url(Assets/imgs/banners/header-banner.png);
+  background-image: url(/Assets/imgs/banners/header-banner.png);
   background-size: cover;
   padding: 0;
   height: 80px;

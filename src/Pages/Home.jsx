@@ -2,6 +2,11 @@ import HomePostCard from "../Components/Blog/PostCards/HomePostCard";
 import Footer from "../Components/Footer/Footer";
 import Header from "../Components/Header/Header";
 import '../Styles/Pages/Home.css';
+import { Pagination } from 'swiper/modules';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import 'swiper/css';
+import 'swiper/css/pagination';
+import 'swiper/css/scrollbar';
 
 export default function Home() {
     return (
@@ -98,6 +103,45 @@ export default function Home() {
                         <HomePostCard />
                         <HomePostCard />
                     </div>
+                    {/* <Swiper
+                        slidesPerView={1}
+                        spaceBetween={10}
+                        pagination={{
+                            clickable: true,
+                        }}
+                        breakpoints={{
+                            640: {
+                                slidesPerView: 2,
+                                spaceBetween: 20,
+                            },
+                            768: {
+                                slidesPerView: 4,
+                                spaceBetween: 40,
+                            },
+                            1024: {
+                                slidesPerView: 5,
+                                spaceBetween: 50,
+                            },
+                        }}
+
+                        modules={[Pagination]}
+                        className="swiper-container"
+                    >
+
+                        <SwiperSlide>
+                            <HomePostCard />
+                        </SwiperSlide>
+                        <SwiperSlide>
+                            <HomePostCard />
+                        </SwiperSlide>
+                        <SwiperSlide>
+                            <HomePostCard />
+                        </SwiperSlide>
+                        <SwiperSlide>
+                            <HomePostCard />
+                        </SwiperSlide>
+                  
+                    </Swiper> */}
                 </div>
             </div>
             <Footer />

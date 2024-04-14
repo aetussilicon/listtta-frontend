@@ -180,6 +180,19 @@
   .blog-section-top-bar .section-text-button span {
     width: auto !important;
   }
+
+  .latest-blog-posts {
+    display: none !important;
+  }
+
+  .swiper-container {
+    margin-top: 30px;
+   /* width: 350px; */
+  }
+  .aligned-slides {
+    display: flex;
+    align-items: center;
+  }
 }
 
 /* ------------------ */
@@ -293,6 +306,7 @@ span {
 
 .about-listtta h1 {
   margin-top: 0;
+  line-height: 40px;
 }
 
 .about-listtta button {

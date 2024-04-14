@@ -1,0 +1,94 @@
+@media screen and (max-width: 480px) {
+    .results-area .filters-container {
+        display: none;
+    }
+
+    .search-container h1 {
+        font-size: 26px !important;
+        text-align: center;
+        width: 190px !important;
+        line-height: 25px;
+        margin-bottom: 10px !important;
+    }
+
+    .search-container span{
+        width: auto !important;
+    }
+
+    .card-results-top-bar {
+        flex-direction: column;
+    }
+
+    .card-results-top-bar button {
+        margin-top: 10px;
+    }
+
+    .card-results-top-bar .filter-order-by:before {
+        content: "Filtros Avançados" !important;
+    }
+}
+.search-banner {
+    background-image: var(--search-banner);
+    height: 300px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.search-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.search-container h1, span {
+    color: var(--white-text);
+}
+
+.search-container h1 {
+    font-size: 50px;
+    margin: 0;
+}
+
+.search-container span {
+    text-align: center;
+    width: 500px;
+}
+
+.results-area {
+    display: flex;
+
+}
+
+.cards-results {
+    width: 100%;
+}
+
+.card-results-top-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.card-results-top-bar p, button {
+    margin: 0;
+}
+
+.results-container {
+    margin: 0;
+}
+
+.professionals-result {
+    margin-top: 50px;
+}
+
+.filter-order-by {
+    width: 200px;
+    background-color: transparent;
+    color: black;
+    border: 1px solid black;
+} 
+
+.filter-order-by:before {
+    content: "Ordernar Por";
+}

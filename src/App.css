@@ -18,10 +18,13 @@
     font-family: 'Poppins', sans-serif;
     background-color: #ffffff;
 
-    --home-banner: url('Assets/imgs/banners/main-banner.png');
-    --home-second-banner: url('Assets/imgs/banners/descont-banner.png');
-    --home-second-banner-responsive: url('Assets/imgs/banners/descont-banner-responsive.png');
-    --search-banner: url('Assets/imgs/banners/search-banner.png');
+    --home-banner: url('/Assets/imgs/banners/main-banner.png');
+    --home-second-banner: url('/Assets/imgs/banners/descont-banner.png');
+    --home-second-banner-responsive: url('/Assets/imgs/banners/descont-banner-responsive.png');
+    --search-banner: url('/Assets/imgs/banners/search-banner.png');
+
+    /* buttons imgs */
+    
 }
 
 body {
