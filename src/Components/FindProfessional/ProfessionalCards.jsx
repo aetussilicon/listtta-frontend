@@ -7,7 +7,7 @@ export default function ProfessionalCards() {
     useEffect(() => {
         async function fetchProfessionals() {
             try {
-                const response = await fetch('https://listtta-backend.lryftz.easypanel.host:80/professionals/list/all');
+                const response = await fetch('https://listtta-backend.lryftz.easypanel.host/professionals/list/all');
 
                 const data = await response.json();
                 console.log(data);
