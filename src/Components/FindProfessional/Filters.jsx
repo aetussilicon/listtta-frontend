@@ -4,7 +4,7 @@ import '../../Styles/Components/FindProfessionals/Filters.css';
 export default function Filters() {
 
     const [filters, setFilter] = useState([]);
-    const url = "http://localhost:8080/filters/list/all";
+    const url = "https://listtta-backend.lryftz.easypanel.host/filters/list/all";
 
     useEffect(() => {
         async function fetchFilters() {

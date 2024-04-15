@@ -26,7 +26,7 @@ export default function SignupUser() {
 
     const handleSignupSubmit = async(event) => {
         try {
-            const response = await fetch('http://localhost:8080/auth/signup', {
+            const response = await fetch('https://listtta-backend.lryftz.easypanel.host/auth/signup', {
                 method: "POST", // or 'PUT'
                 headers: {
                   "Content-Type": "application/json",

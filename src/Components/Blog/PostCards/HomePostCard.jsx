@@ -9,7 +9,7 @@ export default function HomePostCard() {
     useEffect(() => {
         async function fetchPosts() {
             try {
-                const response = await fetch("http://localhost:8080/blog/get/all");
+                const response = await fetch("https://listtta-backend.lryftz.easypanel.host/blog/get/all");
                 const data = await response.json();
                 console.log(data);
 
