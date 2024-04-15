@@ -9,13 +9,14 @@ import 'swiper/css/pagination';
 import 'swiper/css/scrollbar';
 import { useState } from "react";
 import Login from "../Components/Signup/Login";
+import HomeHeader from "../Components/Header/HomeHeader";
 
 export default function Home() {
     const [loginPopupButton, setLoginPopupButton] = useState(false);
     return (
         <>
+            <HomeHeader />
             <div className="first-banner-block">
-                <Header />
                 <div className="first-block-content container">
                     <div className="slogan">
                         <h1>Venha fazer parte desta revolução na <span>tatuagem</span> e <span>piercing</span></h1>
@@ -106,6 +107,46 @@ export default function Home() {
                         <HomePostCard />
                         <HomePostCard />
                     </div>
+                    <Swiper
+                        slidesPerView={1}
+                        spaceBetween={10}
+                        pagination={{
+                            clickable: true,
+                        }}
+                        breakpoints={{
+                            640: {
+                                slidesPerView: 2,
+                                spaceBetween: 20,
+                            },
+                            768: {
+                                slidesPerView: 4,
+                                spaceBetween: 40,
+                            },
+                            1024: {
+                                slidesPerView: 5,
+                                spaceBetween: 50,
+                            },
+                        }}
+
+                        modules={[Pagination]}
+                        className="swiper-container swipper-hidden"
+                    >
+
+                        <SwiperSlide>
+                            <HomePostCard />
+                        </SwiperSlide>
+                        <SwiperSlide>
+                            <HomePostCard />
+                        </SwiperSlide>
+                        <SwiperSlide>
+                            <HomePostCard />
+                        </SwiperSlide>
+                        <SwiperSlide>
+                            <HomePostCard />
+                        </SwiperSlide>
+
+                    </Swiper>
+
                 </div>
             </div>
             <Footer />
