@@ -7,8 +7,11 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/scrollbar';
+import { useState } from "react";
+import Login from "../Components/Signup/Login";
 
 export default function Home() {
+    const [loginPopupButton, setLoginPopupButton] = useState(false);
     return (
         <>
             <div className="first-banner-block">
@@ -21,7 +24,7 @@ export default function Home() {
                         <div className="home-first-card-content">
                             <h1>Cadastre-se tatuador e piercing</h1>
                             <span>Você não paga nada para se cadastrar</span>
-                            <button className="btn">Quero cadastrar agora mesmo</button>
+                            <button className="btn" onClick={() => setLoginPopupButton(true)}>Quero cadastrar agora mesmo</button>
                         </div>
                     </div>
                 </div>
@@ -103,48 +106,10 @@ export default function Home() {
                         <HomePostCard />
                         <HomePostCard />
                     </div>
-                    {/* <Swiper
-                        slidesPerView={1}
-                        spaceBetween={10}
-                        pagination={{
-                            clickable: true,
-                        }}
-                        breakpoints={{
-                            640: {
-                                slidesPerView: 2,
-                                spaceBetween: 20,
-                            },
-                            768: {
-                                slidesPerView: 4,
-                                spaceBetween: 40,
-                            },
-                            1024: {
-                                slidesPerView: 5,
-                                spaceBetween: 50,
-                            },
-                        }}
-
-                        modules={[Pagination]}
-                        className="swiper-container"
-                    >
-
-                        <SwiperSlide>
-                            <HomePostCard />
-                        </SwiperSlide>
-                        <SwiperSlide>
-                            <HomePostCard />
-                        </SwiperSlide>
-                        <SwiperSlide>
-                            <HomePostCard />
-                        </SwiperSlide>
-                        <SwiperSlide>
-                            <HomePostCard />
-                        </SwiperSlide>
-                  
-                    </Swiper> */}
                 </div>
             </div>
             <Footer />
+            <Login trigger={loginPopupButton} setTrigger={setLoginPopupButton} />
         </>
 
     );

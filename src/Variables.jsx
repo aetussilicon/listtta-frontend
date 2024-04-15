@@ -17,6 +17,7 @@ export const variables = {
     faqPage: '/faq',
     aboutUsPage: '/about-us',
     contactUsPage: '/contact',
+    signUpUser: '/signup/user',
 
     //Buttons
     closeMenu: '/Assets/icons/buttons/close-button.png'

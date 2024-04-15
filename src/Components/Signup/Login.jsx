@@ -9,7 +9,7 @@ export default function Login(props) {
     return (props.trigger) ? (
         <div className="login-container">
             <div className="login-popup">
-                <button className="login-close-button" onClick={() => setTrigger(false)}><img src={variables.closeMenu}></img></button>
+                <button className="login-close-button" onClick={() => props.setTrigger(false)}><img src={variables.closeMenu}></img></button>
                 <div className="login-signup-container">
                     <div className="login-banner">
                         <img src={variables.loginBanner} alt="" />
@@ -17,11 +17,11 @@ export default function Login(props) {
                     <div className="login-fields">
                         <div className="login-top">
                             <p>Criar uma nova conta</p>
-                            <p>Já tem uma conta? <a href="#">Entrar</a></p>
+                            <span>Já tem uma conta? <a href="#">Entrar</a></span>
                         </div>
                         <div className="login-buttons">
                             <button><img src="Assets/icons/social-networks/google.png" />Continuar com o Google</button>
-                            <button><img src="Assets/icons/social-networks/email.png" />Continuar com o e-mail</button>
+                            <a href={variables.signUpUser}><button><img src="Assets/icons/social-networks/email.png" />Continuar com o e-mail</button></a>
                             <div className="login-breaker">
                                 <p>ou</p>
                             </div>
@@ -33,8 +33,7 @@ export default function Login(props) {
                         <div className="listtta-terms">
                             <p>
                                 Ao inscrever-se, você concorda com os <a href="#">Termos de Serviço</a> do Listtta
-                                e aceita receber nossos e-mails ocasionalmente. Leia nossa <a href="#">Política de Privacidade</a>
-                                para saber como usamos seus dados pessoais.
+                                e aceita receber nossos e-mails ocasionalmente. Leia nossa <a href="#">Política de Privacidade</a> para saber como usamos seus dados pessoais.
                             </p>
                         </div>
                     </div>

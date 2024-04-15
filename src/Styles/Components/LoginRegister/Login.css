@@ -52,10 +52,21 @@
     justify-content: space-between;
 }
 
-.login-top p{
+.login-top {
+    padding-top: 80px;
+}
+
+.login-top p {
+    color: var(--black-text);
+    font-weight: 600;
+    font-size: 20px;
+}
+
+.login-top span{
     font-weight: normal;
     color: #3e4042;
     text-align: start;
+    font-size: 11px;
 }
 
 
@@ -64,6 +75,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    margin-bottom: 80px;
 }
 
 .login-buttons {
@@ -76,7 +88,7 @@
     display: flex;
     align-items: center;
     padding: 5px;
-    justify-content: space-between;
+    justify-content: space-evenly;
     border: 1px solid #e5e6e9;
     background-color: transparent;
     font-weight: 800;
@@ -93,6 +105,12 @@
     width: 28px;
 }
 
+.login-breaker p {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--grey-text);
+}
+
 .other-methods {
     display: flex;
     gap: 10px;
@@ -104,8 +122,11 @@
 }
 
 .listtta-terms p {
-    color: #404040;
     text-decoration: none;
-    font-size: 12px;
+    font-size: 11px;
     text-align: justify;
+}
+
+.listtta-terms p, a {
+    color: #404040;
 }
