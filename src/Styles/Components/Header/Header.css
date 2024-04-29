@@ -1,3 +1,16 @@
+@media screen and (min-width: 1024px) and (max-width: 1200px) {
+  .header-container {
+    margin: 0 1%;
+  }
+  nav img {
+    height: 25px;
+  }
+
+  nav .nav-register {
+    margin-left: 40px !important;
+  }
+}
+
 @media screen and (min-width: 320px) and (max-width: 1024px) {
   .hidden {
     display: none !important;
@@ -58,9 +71,6 @@
   .nav-links {
     display: block !important;
   }
-  /* #menu-to-display {
-    display: block !important;
-  } */
 
   .header-container {
     justify-content: center !important;
