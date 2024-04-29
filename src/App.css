@@ -49,3 +49,7 @@ body {
     font-size: 15px;
     outline: none;
 }
+
+.default-span {
+    color: var(--black-text);
+}
