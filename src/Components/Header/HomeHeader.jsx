@@ -21,7 +21,7 @@ export default function HomeHeader() {
                     <div className="container header-container">
                         <div className="header-right-side">
                             <div className="header-top-line">
-                                <a><img src="/Assets/icons/logo/colorful-logo.png" alt="Listtta-logo" /></a>
+                                <a href="/"><img src="/Assets/icons/logo/colorful-logo.png" alt="Listtta-logo" /></a>
                                 <span onClick={menuClick} className="material-symbols-outlined">menu</span>
                             </div>
                             <div id="menu-to-display" className="nav-links">
