@@ -64,6 +64,31 @@
     .listtta-terms p {
         margin: 0;
     }
+
+    /*LoginType Screen*/
+
+    .login-type-popup-block-content img{
+        height: 80px !important;
+    }
+
+    .login-type-popup-block-content span {
+        font-size: 20px;
+        font-weight: 600;
+    }
+
+    .login-type-popup-block-two {
+        margin-top: 20px !important;
+    }
+
+    .login-type-popup-block-content .block-two-img {
+        height: 60px !important;
+        width: 90px !important;
+    }
+
+    .login-type-popup-block {
+        border: 0 !important;
+    }
+
 }
 
 .login-container {
@@ -203,7 +228,7 @@
     display: none;
 }
 
-.user-chosser-container {
+.login-type-popup-container {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -211,45 +236,49 @@
     text-align: center;
 }
 
-.who-you-are h1 {
+.login-type-popup h1 {
     font-size: 20px;
 }
 
-.who-you-are-block-one {
+.login-type-popup-block-one {
     display: flex;
     gap: 20px;
 }
 
-.who-block {
+.login-type-popup-block {
     display: flex;
     flex-direction: column;
     align-items: center;
     border: 2px solid #1C2545;
     border-radius: 10px;
-    padding: 40px;
+    padding: 10px;
+    background-color: transparent;
+    cursor: pointer;
 }
 
-.who-block-content {
+.login-type-popup-block-content {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    width: 200px;
+    width: 80px;
 }
 
-.who-block span {
+
+
+.login-type-popup-block span {
     margin-top: 10px;
 }
 
-.who-block a {
+.login-type-popup-block a {
     text-decoration: none;
 }
 
-.who-block img {
+.login-type-popup-block img {
     height: 120px;
 }
 
-.who-you-are-block-two {
+.login-type-popup-block-two {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -260,7 +289,7 @@
     width: 200px;
 }
 
-.who-block .block-two-img {
+.login-type-popup-block .block-two-img {
     height: 90px;
     width: 110px;
 }
@@ -344,3 +373,10 @@
     background-color: #F3F3F3;
     cursor: pointer;
 }
+
+.login-signup-hidden,
+login-type-hidden,
+user-signup {
+    display: none;
+}
+

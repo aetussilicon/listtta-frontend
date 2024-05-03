@@ -72,7 +72,7 @@ export default function Login(props) {
         const signup = document.getElementById('user-signup');
 
         // Verifica se o menu está visível
-        if (menu.style.display == 'block') {
+        if (menu.style.display === 'block' || menu.style.display === '') {
             menu.style.display = 'none'; // Oculta o menu
             type.style.display = 'block'; // Exibe a seção type
         } else {
@@ -383,62 +383,46 @@ export default function Login(props) {
         }
     }
 
-    return (props.trigger) ? (
-        <div className="login-container">
-            <div className="login-popup" id="login-signup-hidden">
-                <button className="login-close-button" onClick={() => props.setTrigger(false)}><img src={variables.closeMenu}></img></button>
-                <div className="login-signup-container" >
-                    <div className="login-banner">
-                        <img src={variables.loginBanner} alt="" />
-                    </div>
-                    <div className="login-fields">
-                        <div className="login-top">
-                            <p>Criar uma nova conta</p>
-                            <span>Já tem uma conta? <a href="#">Entrar</a></span>
-                        </div>
-                        <div className="login-buttons">
-                            <button><img src="Assets/icons/social-networks/google.png" />Continuar com o Google</button>
-                            <button onClick={menuClickForUserSelect}><img src="Assets/icons/social-networks/email.png" />Continuar com o e-mail</button>
-                            <div className="login-breaker">
-                                <p>ou</p>
-                            </div>
-                            <div className="other-methods">
-                                <button><img src="Assets/icons/social-networks/apple.png" />Apple</button>
-                                <button><img src="Assets/icons/social-networks/facebook.png" />Facebook</button>
-                            </div>
-                        </div>
-                        <div className="listtta-terms">
-                            <p>
-                                Ao inscrever-se, você concorda com os <a href="#">Termos de Serviço</a> do Listtta
-                                e aceita receber nossos e-mails ocasionalmente. Leia nossa <a href="#">Política de Privacidade</a> para saber como usamos seus dados pessoais.
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
+    const loginType = () => {
+        return (
             <div className="login-popup" id="login-type-hidden">
-                <button className="login-close-button" onClick={() => { resetForm(); props.setTrigger(false) }}><img src={variables.closeMenu}></img></button>
-                <div className="login-signup-container user-chosser-container">
-                    <div className="who-you-are">
+                <button className="login-close-button" onClick={() => {
+                    resetForm();
+                    props.setTrigger(false)
+                }}><img src={variables.closeMenu}></img></button>
+                <div className="login-signup-container login-type-popup-container">
+                    <div className="login-type-popup">
                         <h1>Você é?</h1>
-                        <div className="who-you-are-block-one">
-                            <button className="who-block" onClick={() => { menuClickForUserSignup(); setRole("PROFESSIONAL"); setType('TATTOO') }}>
-                                <div className="who-block-content">
-                                    <img src="Assets/icons/accounts/tattoo.png" alt="Tattoo" />
+                        <div className="login-type-popup-block-one">
+                            <button className="login-type-popup-block" onClick={() => {
+                                menuClickForUserSignup();
+                                setRole("PROFESSIONAL");
+                                setType('TATTOO')
+                            }}>
+                                <div className="login-type-popup-block-content">
+                                    <img src="Assets/icons/accounts/tattoo.png" alt="Tattoo"/>
                                     <span><a href="/signup/tattoo">Tatuador</a></span>
                                 </div>
                             </button>
-                            <button className="who-block" onClick={() => { menuClickForUserSignup(); setRole("PROFESSIONAL"); setType('PIERCER') }}>
-                                <div className="who-block-content">
-                                    <img src="Assets/icons/accounts/ear.png" alt="Piercer" />
+                            <button className="login-type-popup-block" onClick={() => {
+                                menuClickForUserSignup();
+                                setRole("PROFESSIONAL");
+                                setType('PIERCER')
+                            }}>
+                                <div className="login-type-popup-block-content">
+                                    <img src="Assets/icons/accounts/ear.png" alt="Piercer"/>
                                     <span className="default-span">Piercer</span>
                                 </div>
                             </button>
                         </div>
-                        <div className="who-you-are-block-two">
-                            <button className="who-block block-two" onClick={() => { menuClickForUserSignup(); setRole("USER") }}>
-                                <div className="who-block-content">
-                                    <img className="block-two-img" src="Assets/icons/accounts/customer.png" alt="Cliente" />
+                        <div className="login-type-popup-block-two">
+                            <button className="login-type-popup-block block-two" onClick={() => {
+                                menuClickForUserSignup();
+                                setRole("USER")
+                            }}>
+                                <div className="login-type-popup-block-content">
+                                    <img className="block-two-img" src="Assets/icons/accounts/customer.png"
+                                         alt="Cliente"/>
                                     <span className="default-span">Cliente</span>
                                 </div>
                             </button>
@@ -446,14 +430,62 @@ export default function Login(props) {
                     </div>
                 </div>
             </div>
+        );
+    }
+    const signUpContainer = () => {
+        return (
             <div className="login-popup user-signup-div" id="user-signup">
-                <button className="login-close-button" onClick={() => { resetForm(); props.setTrigger(false) }}><img src={variables.closeMenu}></img></button>
+                <button className="login-close-button" onClick={() => {
+                    resetForm();
+                    props.setTrigger(false)
+                }}><img src={variables.closeMenu}></img></button>
                 <div className="container login-signup-container signup-container">
                     <div className="login-signup-content">
                         {signUpForms()}
                     </div>
                 </div>
             </div>
+        );
+    }
+    return (props.trigger) ? (
+        <div className="login-container">
+            <div className="login-popup" id="login-signup-hidden">
+                <button className="login-close-button" onClick={() => props.setTrigger(false)}><img
+                    src={variables.closeMenu}></img></button>
+                <div className="login-signup-container">
+                    <div className="login-banner">
+                        <img src={variables.loginBanner} alt=""/>
+                    </div>
+                    <div className="login-fields">
+                        <div className="login-top">
+                            <p>Criar uma nova conta</p>
+                            <span>Já tem uma conta? <a href="#">Entrar</a></span>
+                        </div>
+                        <div className="login-buttons">
+                            <button><img src="Assets/icons/social-networks/google.png"/>Continuar com o Google</button>
+                            <button onClick={menuClickForUserSelect}><img src="Assets/icons/social-networks/email.png"/>Continuar
+                                com o e-mail
+                            </button>
+                            <div className="login-breaker">
+                                <p>ou</p>
+                            </div>
+                            <div className="other-methods">
+                                <button><img src="Assets/icons/social-networks/apple.png"/>Apple</button>
+                                <button><img src="Assets/icons/social-networks/facebook.png"/>Facebook</button>
+                            </div>
+                        </div>
+                        <div className="listtta-terms">
+                            <p>
+                                Ao inscrever-se, você concorda com os <a href="#">Termos de Serviço</a> do Listtta
+                                e aceita receber nossos e-mails ocasionalmente. Leia nossa <a href="#">Política de
+                                Privacidade</a> para saber como usamos seus dados pessoais.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {loginType()}
+            {signUpContainer()}
         </div>
     ) : "";
 }
