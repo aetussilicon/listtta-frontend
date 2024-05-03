@@ -1,3 +1,71 @@
+@media screen and (max-width: 768px) {
+    .login-popup,
+    .login-signup-container,
+    .login-fields{
+        width: 380px !important;
+        height: 430px !important;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .login-fields {
+        padding: 0 !important;
+        justify-content: space-evenly !important;
+    }
+
+    .login-top {
+        padding: 0 !important;
+        margin: 0px !important;
+        margin-top: 30px !important;
+        width: 300px;
+    }
+
+    .login-top p, span{
+        margin: 0;
+    }
+
+    .login-banner {
+        display: none;
+    }
+
+    .login-buttons,
+    .login-top,
+    .listtta-terms {
+        width: 300px;
+    }
+
+    .listtta-terms p{
+        text-align: center !important;
+        font-size: 12px !important;
+    }
+
+    .login-buttons {
+        margin: 0 !important;
+        align-items: center !important;
+    }
+
+    .login-buttons button,
+    .other-methods button {
+        position: relative;
+        padding: 10px !important;
+    }
+
+    .login-buttons button img,
+    .other-methods button img{
+        position: absolute;
+        left: 10px;
+        width: 20px !important;
+    }
+
+    .login-breaker p {
+        margin: 0;
+    }
+
+    .listtta-terms p {
+        margin: 0;
+    }
+}
+
 .login-container {
     position: fixed;
     top: 0;
@@ -88,7 +156,7 @@
     display: flex;
     align-items: center;
     padding: 5px;
-    justify-content: space-evenly;
+    justify-content: center;
     border: 1px solid #e5e6e9;
     background-color: transparent;
     font-weight: 800;
@@ -195,4 +263,84 @@
 .who-block .block-two-img {
     height: 90px;
     width: 110px;
+}
+
+.user-signup-div {
+    display: none ;
+}
+
+.signup-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    margin: 0 !important;
+}
+
+.signup-input{
+    display: flex;
+    flex-direction: column;
+
+}
+
+.filters-dropdown-menu {
+    position: relative;
+    display: inline-block;
+}
+
+.filters-dropdown-content-desktop {
+    overflow-y: auto;
+    background-color: #ffffff;
+    height: 220px;
+    min-width: 260px;
+    z-index: 1;
+    border-radius: 15px;
+    border: 3px solid #D7D6D6;
+    display: none;
+    position: absolute;
+}
+
+.filters-dropdown-menu {
+    position: relative;
+    display: inline-block;
+}
+
+.filters-dropdown-content {
+    display: none;
+    position: absolute;
+    margin-top: 10px;
+}
+
+.filters-dropdown-content {
+    overflow-y: auto;
+    background-color: #ffffff;
+    height: 220px;
+    width: 400px;
+    z-index: 1;
+    border-radius: 15px;
+    border: 3px solid #D7D6D6;
+}
+
+.dropdown-ul {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    text-align: left;
+}
+
+.dropdown-li {
+    margin-bottom: 10px;
+}
+
+.dropdown-li span {
+    margin: 0 20px;
+}
+
+.dropdown-li:hover {
+    background-color: #F3F3F3;
+    cursor: pointer;
 }
