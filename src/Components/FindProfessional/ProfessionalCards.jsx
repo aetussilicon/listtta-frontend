@@ -1,47 +1,37 @@
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import '../../Styles/Components/FindProfessionals/ProfessionalCards.css';
+import { ProfessionalsContext } from '../../Contexts/ProfessionalsContext';
 
 export default function ProfessionalCards() {
-    const [professionals, setProfessionals] = useState([]);
+  const { filteredData } = useContext(ProfessionalsContext);
+  const [filteredProfessionals, setFilteredProfessionals] = useState([]);
 
-    useEffect(() => {
-        async function fetchProfessionals() {
-            try {
-                const response = await fetch('https://listtta-backend.lryftz.easypanel.host/professionals/list/all');
+  useEffect(() => {
+    setFilteredProfessionals(filteredData);
+  }, [filteredData]);
 
-                const data = await response.json();
-                console.log(data);
-                setProfessionals(data);
-            } catch (error) {
-                console.error(error);
-            }
-        }
-
-        fetchProfessionals();
-    }, [])
-
-    return (
-        <div className="professional-card-container">
-            {professionals.length > 0 ? (
-                professionals.map((professionals) =>
-                    <div key={professionals.userTag} className="professionals-card">
-                        <div className="professional-picture">
-                            {/* <img src="Assets/imgs/cards/users-card-placeholder.png" alt="" /> */}
-                        </div>
-                        <div className="professional-info">
-                            <h3>{professionals.userTag}</h3>
-                            <div className="professional-locale">
-                                <img src="Assets/icons/miscellaneous/location.png" alt="" />
-                                <p>São Paulo/SP</p>
-                            </div>
-                            <button className='btn'><img src="Assets/icons/social-networks/mono-instagram.svg" alt="" />@{professionals.instagramUrl}</button>
-                        </div>
-                    </div>
-                )
-
-            ) : (
-                <p>Sem profissionais para exibir</p>
-            )}
+  return (
+    <div className="professional-card-container">
+      {filteredProfessionals.map((professional) => (
+        <div key={professional.puid} className="professionals-card">
+          <div className="professional-picture">
+            {/* Imagem não utilizada */}
+          </div>
+          <div className="professional-info">
+            <h3>{professional.fullName}</h3>
+            <div className="professional-locale">
+              <img src="Assets/icons/miscellaneous/location.png" alt="" />
+              <p>{professional.city}/{professional.state}</p>
+            </div>
+            <button className="btn">
+              <img src="Assets/icons/social-networks/mono-instagram.svg" alt="" />
+              @{professional.instagramUrl}
+            </button>
+          </div>
         </div>
-    );
+      ))}
+      {/* Adicione uma mensagem para indicar que não há resultados */}
+      {filteredProfessionals.length === 0 && <p>Nenhum profissional encontrado.</p>}
+    </div>
+  );
 }

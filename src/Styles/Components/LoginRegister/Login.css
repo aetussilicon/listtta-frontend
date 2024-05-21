@@ -1,7 +1,9 @@
 @media screen and (max-width: 768px) {
     .login-popup,
     .login-signup-container,
-    .login-fields{
+    .signup-container
+    .login-screen-container,
+    .login-fields {
         width: 380px !important;
         height: 430px !important;
         flex-direction: column;
@@ -20,7 +22,7 @@
         width: 300px;
     }
 
-    .login-top p, span{
+    .login-top p, span {
         margin: 0;
     }
 
@@ -34,7 +36,7 @@
         width: 300px;
     }
 
-    .listtta-terms p{
+    .listtta-terms p {
         text-align: center !important;
         font-size: 12px !important;
     }
@@ -51,7 +53,7 @@
     }
 
     .login-buttons button img,
-    .other-methods button img{
+    .other-methods button img {
         position: absolute;
         left: 10px;
         width: 20px !important;
@@ -66,8 +68,7 @@
     }
 
     /*LoginType Screen*/
-
-    .login-type-popup-block-content img{
+    .login-type-popup-block-content img {
         height: 80px !important;
     }
 
@@ -89,6 +90,44 @@
         border: 0 !important;
     }
 
+    /*Signup Fields*/
+    .signup-container {
+        padding: 0 !important;
+    }
+
+    .default-dropdown-menu {
+        position: relative;
+        width: 140px;
+    }
+
+    .location-details-dropdowns {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .default-dropdown-button {
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 140px;
+        border-radius: 50px;
+        border: 1px solid #000000;
+        font-size: 15px;
+        font-weight: 600;
+        padding: 10px;
+        cursor: pointer;
+        background-color: transparent;
+    }
+
+    .default-dropdown-button span {
+        position: absolute;
+        top: 8px;
+        right: 5px;
+        color: #000000 !important;
+    }
 }
 
 .login-container {
@@ -109,7 +148,7 @@
     cursor: pointer;
 }
 
-.login-close-button img{
+.login-close-button img {
     width: 20px;
 }
 
@@ -121,7 +160,8 @@
     background-color: #ffffff;
     border-radius: 20px;
 }
-.login-close-button{
+
+.login-close-button {
     position: absolute;
     top: 16px;
     right: 16px;
@@ -133,7 +173,7 @@
     height: 607px;
 }
 
-.login-signup-container .login-banner img{
+.login-signup-container .login-banner img {
     border-radius: 20px 0 0 20px;
     height: 600px;
 }
@@ -155,7 +195,7 @@
     font-size: 20px;
 }
 
-.login-top span{
+.login-top span {
     font-weight: normal;
     color: #3e4042;
     text-align: start;
@@ -192,7 +232,7 @@
 .login-buttons span {
     margin-right: 60px;
     color: #2e3032 !important;
-} 
+}
 
 .login-buttons button img {
     width: 28px;
@@ -209,7 +249,7 @@
     gap: 10px;
 }
 
-.other-methods  button {
+.other-methods button {
     width: 150px;
     padding: 7px 20px !important;
 }
@@ -265,7 +305,6 @@
 }
 
 
-
 .login-type-popup-block span {
     margin-top: 10px;
 }
@@ -295,7 +334,7 @@
 }
 
 .user-signup-div {
-    display: none ;
+    display: none;
 }
 
 .signup-container {
@@ -307,48 +346,37 @@
     margin: 0 !important;
 }
 
-.signup-input{
+#user-form {
     display: flex;
     flex-direction: column;
-
+    gap: 10px;
 }
 
-.filters-dropdown-menu {
-    position: relative;
-    display: inline-block;
+.signup-input {
+    display: flex;
+    flex-direction: column;
 }
 
-.filters-dropdown-content-desktop {
+.login-form-input {
+    margin: 0;
+}
+
+.default-dropdown-content {
     overflow-y: auto;
+    overflow-x: hidden;
     background-color: #ffffff;
     height: 220px;
-    min-width: 260px;
-    z-index: 1;
+    width: 160px;
+    z-index: 10;
     border-radius: 15px;
     border: 3px solid #D7D6D6;
     display: none;
     position: absolute;
 }
 
-.filters-dropdown-menu {
-    position: relative;
-    display: inline-block;
-}
-
-.filters-dropdown-content {
-    display: none;
-    position: absolute;
-    margin-top: 10px;
-}
-
-.filters-dropdown-content {
-    overflow-y: auto;
-    background-color: #ffffff;
-    height: 220px;
-    width: 400px;
-    z-index: 1;
-    border-radius: 15px;
-    border: 3px solid #D7D6D6;
+.dropdown-li {
+    font-size: 12px;
+    text-wrap: nowrap;
 }
 
 .dropdown-ul {
@@ -375,8 +403,68 @@
 }
 
 .login-signup-hidden,
-login-type-hidden,
-user-signup {
+.login-type-hidden,
+.user-signup {
     display: none;
 }
 
+/*Dropdown*/
+
+.default-dropdown-menu {
+    position: relative;
+    width: 140px;
+}
+
+.location-details-dropdowns {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.default-dropdown-button {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 140px;
+    border-radius: 50px;
+    border: 1px solid #000000;
+    font-size: 15px;
+    font-weight: 600;
+    padding: 10px 0;
+    cursor: pointer;
+    background-color: transparent;
+}
+
+.default-dropdown-button span {
+    position: absolute;
+    top: 8px;
+    right: 5px;
+    color: #000000 !important;
+}
+
+.checkbox-lgpd-input {
+    width: 300px;
+}
+
+.checkbox-lgpd-input label {
+    font-size: 12px;
+}
+
+.checkbox-lgpd-input input {
+    cursor: pointer;
+}
+
+#login-screen {
+    display: none;
+}
+
+
+
+.login-screen-container form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}

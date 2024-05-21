@@ -31,7 +31,7 @@
     }
 
     .button-inverse-hidden {
-        display: block;
+        display: block !important;
     }
 
 }
@@ -123,4 +123,8 @@
     background-color: transparent;
     color: var(--default-button);
     border: 2px solid var(--default-button) ;
+}
+
+.button-inverse-hidden {
+    display: none;
 }

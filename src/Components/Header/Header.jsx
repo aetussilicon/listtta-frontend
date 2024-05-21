@@ -1,6 +1,6 @@
 import { useState } from "react";
 import "../../Styles/Components/Header/Header.css"
-import Login from "../Signup/Login";
+import Signup from "../Signup/Register/Signup.jsx";
 
 export default function Header() {
     const [loginScreen, setLoginScreen] = useState(false);
@@ -54,7 +54,7 @@ export default function Header() {
                         </div>
                     </div>
                 </nav>
-                <Login trigger={loginScreen} setTrigger={setLoginScreen} />
+                <Signup trigger={loginScreen} setTrigger={setLoginScreen} />
             </header>
         </>
 

@@ -8,7 +8,7 @@ import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/scrollbar';
 import { useState } from "react";
-import Login from "../Components/Signup/Login";
+import Signup from "../Components/Signup/Register/Signup.jsx";
 import HomeHeader from "../Components/Header/HomeHeader";
 
 export default function Home() {
@@ -81,7 +81,7 @@ export default function Home() {
                 </div>
             </div>
 
-            <Login trigger={loginPopupButton} setTrigger={setLoginPopupButton} />
+            <Signup trigger={loginPopupButton} setTrigger={setLoginPopupButton} />
             <Footer />
         </div>
     );

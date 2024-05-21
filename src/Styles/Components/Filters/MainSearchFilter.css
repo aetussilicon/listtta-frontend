@@ -1,0 +1,76 @@
+.main-filters-container {
+    background-color: #F7F7F7;
+    width: 350px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.filters-button-section {
+    display: flex;
+    flex-direction: column;
+    margin-top: 60px;
+    align-items: center;
+    justify-content: center;
+}
+
+.filters-button-section button {
+    background-color: #F7F7F7;
+}
+
+.selected-filter-button {
+    background-color: var(--default-button) !important;
+    color: var(--white-text);
+    border: 1px solid var(--default-button);
+}
+
+.location-filters {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+}
+
+.location-filters-span {
+    font-weight: 400;
+    font-size: 16px;
+    margin-left: 5px;
+    margin-bottom: 5px;
+}
+
+.filters-dropdown-menu,
+.filters-dropdown-menu button {
+    width: 270px;
+}
+
+.filters-dropdown-menu{
+    margin-bottom: 10px;
+}
+
+.default-dropdown-menu button {
+    padding: 15px;
+    font-size: 18px;
+    
+}
+
+.default-dropdown-menu span {
+    top: 15px;
+    right: 8px;
+}
+
+.location-dropdown-content {
+    width: 265px;
+}
+
+.location-filters-dropdown-li {
+    font-size: 15px;
+}
+
+.filters-section {
+    width: 270px;
+}
+
+.filters-ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}

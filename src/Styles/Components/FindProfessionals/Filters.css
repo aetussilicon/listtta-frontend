@@ -1,50 +1,17 @@
-.filters-container {
-    background-color: #f8f8fa;
-    max-width: 300px;
-    height: 100%;
-    padding: 50px;
+@media screen and (max-width: 1200px) {
+    .filters-container-desktop {
+        display: none !important;
+    }
 }
 
 .filters-section {
     margin-bottom: 20px;
 }
 
-.professional-type-select {
-    display: flex;
-    flex-direction: column;
-}
-
-.filters-container ul {
-    list-style-type: none;
-    padding: 0;
-    margin: 0;
-}
-
 .categories-filters {
     display: flex;
     flex-direction: column;
     align-items: start;
-}
-
-.filters {
-    margin-bottom: 20px;
-}
-
-.filters li {
-    display: flex;
-    gap: 5px;
-    align-items: center;
-}
-
-.theme-filter {
-    display: flex;
-    flex-direction: column;
-}
-
-.filters-ul {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
 }
 
 .checkbox-round {
@@ -64,10 +31,6 @@
     background-color: gray;
 }
 
-.filters-span {
-    margin-bottom: 15px;
-}
-
 .filters-span span {
     font-size: 18px;
     color: #343434;
@@ -80,26 +43,73 @@
     width: 300px;
 }
 
-/* .result-filter-container {
-    background-color: var(--filters-container);
-    max-width: 300px;
-    height: 100%;
-    padding: 50px;
+.filters-container-desktop {
+    min-width: 340px;
+    background-color: #f8f8fa;
+    padding: 3%;
+    height: max-content;
 }
 
-.filters-section {
-    margin-bottom: 20px;
-}
-
-.filters-section button {
-    width: 300px;
-}
-
-.professional-type-select {
+.filters-section-desktop {
+    text-align: left;
     display: flex;
     flex-direction: column;
-} 
+    /*align-items: center;*/
+}
 
-.filters-container ul {
+.filters-btn-desktop {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    width: 270px;
+    margin: 0 0 10px 0;
+}
+
+.filters-btn-desktop span {
+    position: absolute;
+    right: 10px;
+    color: var(--black-text);
+}
+
+.filters-dropdown-menu {
+    position: relative;
+    display: inline-block;
+}
+
+.filters-dropdown-content-desktop {
+    overflow-y: auto;
+    background-color: #ffffff;
+    height: 220px;
+    min-width: 260px;
+    z-index: 1;
+    border-radius: 15px;
+    border: 3px solid #D7D6D6;
+    display: none;
+    position: absolute;
+    margin-top: 10px;
+}
+
+.filters-desktop {
     list-style-type: none;
-} */
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 0px;
+}
+
+.filters-desktop-center-div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.filters-desktop-left-div {
+    display: flex;
+    flex-direction: column;
+    margin-left: 30px;
+}
+
+.mbt-10 {
+    margin-top: 10px;
+}

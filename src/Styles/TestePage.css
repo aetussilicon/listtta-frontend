@@ -1,1 +1,23 @@
-/*  */
+.login-page-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.login-area {
+    background-color: var(--grey-text);
+    width: 800px;
+}
+
+.login-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.login-data-input {
+    display: flex;
+    flex-direction: column;
+}

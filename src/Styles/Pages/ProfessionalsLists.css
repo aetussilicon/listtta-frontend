@@ -1,8 +1,4 @@
 @media screen and (max-width: 480px) {
-    .results-area .filters-container {
-        display: none;
-    }
-
     .search-container h1 {
         font-size: 26px !important;
         text-align: center;
@@ -15,17 +11,31 @@
         width: auto !important;
     }
 
+    .card-results-top-bar button {
+        margin-top: 10px;
+    }
+}
+
+@media screen and (min-width: 1200px) {
+    .top-bar-professionals-button{
+        display: none !important;
+        margin-right: 0;
+    }
+}
+
+@media screen and (min-width: 480px) and (max-width: 1024px)  {
     .card-results-top-bar {
         flex-direction: column;
     }
 
-    .card-results-top-bar button {
-        margin-top: 10px;
+    .search-container h1 {
+        font-size: 35px !important;
+        text-align: center;
     }
+}
 
-    .card-results-top-bar .filter-order-by:before {
-        content: "Filtros Avançados" !important;
-    }
+@media screen and (min-width: 1024px) and (max-width: 1200px) {
+
 }
 .search-banner {
     background-image: var(--search-banner);
@@ -91,4 +101,13 @@
 
 .filter-order-by:before {
     content: "Ordernar Por";
+}
+
+.top-bar-professionals-button {
+    margin-right: 50px;
+}
+
+.results-block {
+    display: flex;
+    gap: 100px;
 }
