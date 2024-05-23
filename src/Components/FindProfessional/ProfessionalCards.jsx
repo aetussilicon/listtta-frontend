@@ -2,13 +2,14 @@ import { useContext, useEffect, useState } from 'react';
 import '../../Styles/Components/FindProfessionals/ProfessionalCards.css';
 import { ProfessionalsContext } from '../../Contexts/ProfessionalsContext';
 
-export default function ProfessionalCards() {
+export default function ProfessionalCards({ displayCount }) {
   const { filteredData } = useContext(ProfessionalsContext);
   const [filteredProfessionals, setFilteredProfessionals] = useState([]);
 
   useEffect(() => {
-    setFilteredProfessionals(filteredData);
-  }, [filteredData]);
+    const slicedData = filteredData.slice(0, displayCount);
+    setFilteredProfessionals(slicedData);
+  }, [filteredData, displayCount]);
 
   return (
     <div className="professional-card-container">

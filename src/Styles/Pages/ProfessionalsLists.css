@@ -9,10 +9,16 @@
 
     .search-container span{
         width: auto !important;
+    } 
+
+    .results-block {
+        display: block !important;
+        gap: 0 !important;
     }
 
-    .card-results-top-bar button {
-        margin-top: 10px;
+    .cards-results {
+        align-items: center;
+        gap: 15px;
     }
 }
 
@@ -23,11 +29,15 @@
     }
 }
 
-@media screen and (min-width: 480px) and (max-width: 1024px)  {
-    .card-results-top-bar {
-        flex-direction: column;
+@media screen and (min-width: 480px) {
+    .cards-results {
+        flex-direction: row !important;
+        align-items: center;
+        justify-content: space-between !important;
     }
+}
 
+@media screen and (min-width: 480px) and (max-width: 1024px)  {
     .search-container h1 {
         font-size: 35px !important;
         text-align: center;
@@ -65,49 +75,23 @@
     width: 500px;
 }
 
-.results-area {
-    display: flex;
-
-}
-
 .cards-results {
-    width: 100%;
-}
-
-.card-results-top-bar {
     display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
-
-.card-results-top-bar p, button {
-    margin: 0;
+    flex-direction: column;
+    justify-content: center;
+    margin-top: 30px !important;
+    margin-bottom: 50px !important;
 }
 
 .results-container {
     margin: 0;
 }
 
-.professionals-result {
-    margin-top: 50px;
-}
-
-.filter-order-by {
-    width: 200px;
-    background-color: transparent;
-    color: black;
-    border: 1px solid black;
-} 
-
-.filter-order-by:before {
-    content: "Ordernar Por";
-}
-
-.top-bar-professionals-button {
-    margin-right: 50px;
-}
-
 .results-block {
     display: flex;
-    gap: 100px;
+    gap: 20px;
+}
+
+.load-more {
+    margin-bottom: 50px;
 }

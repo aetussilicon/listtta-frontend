@@ -1,15 +1,12 @@
 import HomePostCard from "../Components/Blog/PostCards/HomePostCard";
 import Footer from "../Components/Footer/Footer";
-import Header from "../Components/Header/Header";
 import '../Styles/Pages/Home.css';
-import { Pagination } from 'swiper/modules';
-import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/scrollbar';
 import { useState } from "react";
-import Signup from "../Components/Signup/Register/Signup.jsx";
 import HomeHeader from "../Components/Header/HomeHeader";
+import SignupScreen from "../Components/Signup/Register/SignupScreen.jsx";
 
 export default function Home() {
     const [loginPopupButton, setLoginPopupButton] = useState(false);
@@ -81,7 +78,7 @@ export default function Home() {
                 </div>
             </div>
 
-            <Signup trigger={loginPopupButton} setTrigger={setLoginPopupButton} />
+            <SignupScreen trigger={loginPopupButton} setTrigger={setLoginPopupButton} />
             <Footer />
         </div>
     );

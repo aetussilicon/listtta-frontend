@@ -1,3 +1,9 @@
+@media screen and (max-width: 1024px ) {
+    .main-filters-container {
+        display: none !important;
+    }
+}
+
 .main-filters-container {
     background-color: #F7F7F7;
     width: 350px;

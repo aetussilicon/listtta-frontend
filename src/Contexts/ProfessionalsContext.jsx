@@ -6,7 +6,9 @@ export const ProfessionalsContext = createContext();
 export const ProfessionalsProvider = ({children}) => {
     const [professionalsAPI, setProfessionalsAPI] = useState([]);
     const [filteredData, setFilteredData] = useState([]);
-    let professionalsUrl = 'http://localhost:8080/professionals/list/all';
+    const [resultsCount, setResultsCount] = useState(0);
+
+    let professionalsUrl = 'http://192.168.15.6:8080/professionals/list/all';
 
     useEffect(() => {
         getProfessionals();
@@ -16,7 +18,8 @@ export const ProfessionalsProvider = ({children}) => {
         try {
             const response = await axios.get(professionalsUrl);
             const data = await response.data;
-            console.log(data);
+            
+            setResultsCount(data.length > 500 ? "mais de 500" : data.length);
             setProfessionalsAPI(data);
             setFilteredData(data);
         } catch (error) {
@@ -25,7 +28,7 @@ export const ProfessionalsProvider = ({children}) => {
     }
 
     return (
-        <ProfessionalsContext.Provider value={{professionalsAPI, filteredData, setFilteredData}}>
+        <ProfessionalsContext.Provider value={{professionalsAPI, resultsCount,  filteredData, setFilteredData}}>
             {children}
         </ProfessionalsContext.Provider>
     );

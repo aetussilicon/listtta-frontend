@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import "../../Styles/Components/Filters/MainSearchFilter.css";
 import { StatesContext } from "../../Contexts/StatesContext";
 import { CitiesContext } from "../../Contexts/CitiesContext";
@@ -6,25 +6,28 @@ import { FiltersContext } from "../../Contexts/FiltersConxtext";
 import { ProfessionalsContext } from "../../Contexts/ProfessionalsContext";
 
 export default function MainSearchFilter() {
-  const { professionalsAPI, filteredData, setFilteredData } = useContext(ProfessionalsContext);
-
+  //Contextos
+  const { professionalsAPI, setFilteredData } =
+    useContext(ProfessionalsContext);
   const { statesAPI } = useContext(StatesContext);
-  const { stateName, setStateName, citiesAPI } = useContext(CitiesContext);
+  const { setStateName, citiesAPI } = useContext(CitiesContext);
   const { specialtiesAPI } = useContext(FiltersContext);
 
+  //Botões e Dropdowns
   const [seletectButton, setSelectedButton] = useState("");
   const [selectedState, setSelectedState] = useState("Selecione o estado");
   const [selectedCity, setSelectedCity] = useState("Selecione a cidade");
 
-  //   const [filters, setFilters] = useState([]);
-  const filterState = stateName;
-  const filterCity = selectedCity;
-  const [filterGender, setFilterGender] = useState("");
-  const [filterUserType, setFilterUserType] = useState("");
+  //Filters
+  const [state, setState] = useState("");
+  const [city, setCity] = useState("");
+  const [type, setType] = useState("");
+  const [userGender, setUserGender] = useState("");
+  const [selectedSkills, setSelectedSkills] = useState([]);
 
-  const handleProfessionalTypeButtoClick = (buttonName) => {
-    setSelectedButton(buttonName);
-  };
+  useEffect(() => {
+    applyFilters();
+  }, [state, city, seletectButton, type, userGender, selectedSkills]);
 
   function openDropdownMenuStates() {
     const dropdown = document.getElementById("dropdownStatesId");
@@ -57,43 +60,91 @@ export default function MainSearchFilter() {
 
     // Se clicar em "Ambos", limpar todos os valores
     if (value === "Ambos" && checked) {
-      setFilterGender("");
+      setUserGender("");
     } else if (checked) {
       // Se clicar em Masculino ou Feminino, definir o valor correspondente
-      setFilterGender(value);
+      setUserGender(value);
     }
   };
 
   const applyFilters = () => {
     let filteredProfessionals = professionalsAPI;
 
-    if (filterState !== "") {
+    // Filtrar por estado, se selecionado
+    if (state !== "") {
       filteredProfessionals = filteredProfessionals.filter(
-        (professional) => professional.state === filterState
+        (professional) => professional.state === state
       );
     }
 
-    if (filterCity !== "") {
+    // Filtrar por cidade, se selecionado
+    if (city !== "") {
       filteredProfessionals = filteredProfessionals.filter(
-        (professional) => professional.city === filterCity
+        (professional) => professional.city === city
       );
     }
 
-    if (filterGender !== "") {
+    // Filtrar por gênero, se selecionado
+    if (userGender !== "") {
       filteredProfessionals = filteredProfessionals.filter(
-        (professional) => professional.userGender === filterGender
+        (professional) => professional.userGender === userGender
       );
     }
 
-    if (filterUserType !== "") {
+    // Filtrar por tipo de profissional, se selecionado
+    if (type !== "") {
       filteredProfessionals = filteredProfessionals.filter(
-        (professional) => professional.type === filterUserType
+        (professional) => professional.type === type
       );
     }
 
+    if (selectedSkills.length > 0) {
+      filteredProfessionals = filteredProfessionals.filter((professional) =>
+        professional.skills.some((skill) =>
+          selectedSkills.includes(skill.filterId.toString())
+        )
+      );
+    }
+
+    // Atualizar o estado com os resultados filtrados
     setFilteredData(filteredProfessionals);
-    console.log(filteredData);
-    console.log(professionalsAPI);
+  };
+
+  useEffect(() => {
+    console.log("Estado " + state);
+    console.log("Cidade " + city);
+    console.log("Tipo " + type);
+    console.log("Gênero " + userGender);
+  });
+
+  const stateDropdownClick = (stateAcronym, stateName) => {
+    setStateName(stateAcronym);
+    setState(stateAcronym);
+    handleSelectedState(stateName);
+    openDropdownMenuStates();
+  };
+
+  const cityDropdownClick = (cityName) => {
+    setCity(cityName);
+    handleSelectedCity(cityName);
+    openDropdownMenuCity();
+  };
+
+  const handleSelectedUserTypeButton = (button, type) => {
+    setSelectedButton(button);
+    setType(type);
+  };
+
+  const handleSkillChange = (event) => {
+    const { value } = event.target;
+
+    if (event.target.checked) {
+      setSelectedSkills([...selectedSkills, value]);
+      console.log(selectedSkills);
+    } else {
+      setSelectedSkills(selectedSkills.filter((id) => id !== value));
+      console.log(selectedSkills);
+    }
   };
 
   return (
@@ -104,9 +155,7 @@ export default function MainSearchFilter() {
             seletectButton === "button1" ? "selected-filter-button" : ""
           }`}
           onClick={() => {
-            handleProfessionalTypeButtoClick("button1");
-            setFilterUserType("");
-            console.log(filterUserType);
+            handleSelectedUserTypeButton("button1", "");
           }}
         >
           Todos
@@ -116,9 +165,7 @@ export default function MainSearchFilter() {
             seletectButton === "button2" ? "selected-filter-button" : ""
           }`}
           onClick={() => {
-            handleProfessionalTypeButtoClick("button2");
-            setFilterUserType("TATTOO");
-            console.log(filterUserType);
+            handleSelectedUserTypeButton("button2", "TATTOO");
           }}
         >
           Tatuador
@@ -128,9 +175,7 @@ export default function MainSearchFilter() {
             seletectButton === "button3" ? "selected-filter-button" : ""
           }`}
           onClick={() => {
-            handleProfessionalTypeButtoClick("button3");
-            setFilterUserType("PIERCER");
-            console.log(filterUserType);
+            handleSelectedUserTypeButton("button3", "PIERCER");
           }}
         >
           Body Piercer
@@ -158,10 +203,7 @@ export default function MainSearchFilter() {
                     <li
                       className="dropdown-li location-filters-dropdown-li"
                       onClick={() => {
-                        setStateName(statesAPI.sigla);
-                        handleSelectedState(statesAPI.nome);
-                        openDropdownMenuStates();
-                        console.log(filterState);
+                        stateDropdownClick(statesAPI.sigla, statesAPI.nome);
                       }}
                     >
                       <span className="dropdown-span default-span">
@@ -201,8 +243,7 @@ export default function MainSearchFilter() {
                     <li
                       className="dropdown-li"
                       onClick={() => {
-                        handleSelectedCity(citiesAPI.nome);
-                        openDropdownMenuCity();
+                        cityDropdownClick(citiesAPI.nome);
                       }}
                     >
                       <span className="dropdown-span default-span">
@@ -234,10 +275,10 @@ export default function MainSearchFilter() {
               <input
                 className="checkbox-round"
                 type="checkbox"
-                id="tatuador"
+                id="ambos"
                 name="gender"
                 value={"Ambos"}
-                checked={filterGender === ""}
+                checked={userGender === ""}
                 onChange={handleCheckboxChange}
               />
               <label htmlFor="tatuador">Ambos</label>
@@ -249,7 +290,7 @@ export default function MainSearchFilter() {
                 id="tatuador"
                 name="gender"
                 value={"MASCULINO"}
-                checked={filterGender === "MASCULINO"}
+                checked={userGender === "MASCULINO"}
                 onChange={handleCheckboxChange}
               />
               <label htmlFor="tatuador">Tatuador</label>
@@ -261,7 +302,7 @@ export default function MainSearchFilter() {
                 id="tatuador"
                 name="gender"
                 value={"FEMININO"}
-                checked={filterGender === "FEMININO"}
+                checked={userGender === "FEMININO"}
                 onChange={handleCheckboxChange}
               />
               <label htmlFor="tatuador">Tatuadora</label>
@@ -274,17 +315,19 @@ export default function MainSearchFilter() {
         <form action="">
           <ul className="filters-ul">
             {specialtiesAPI.length > 0 ? (
-              specialtiesAPI.map((specialtiesAPI) => (
-                <div key={specialtiesAPI.filterId}>
+              specialtiesAPI.map((skill) => (
+                <div key={skill.filterId}>
                   <li>
                     <input
                       className="checkbox-round"
                       type="checkbox"
-                      id={specialtiesAPI.filterName}
+                      id={skill.filterName}
                       name="filters-input"
+                      value={skill.filterId}
+                      onChange={handleSkillChange}
                     />
-                    <label htmlFor={specialtiesAPI.filterName}>
-                      {specialtiesAPI.displayName}
+                    <label htmlFor={skill.filterName}>
+                      {skill.displayName}
                     </label>
                   </li>
                 </div>
@@ -294,9 +337,6 @@ export default function MainSearchFilter() {
             )}
           </ul>
         </form>
-      </div>
-      <div>
-        <button onClick={applyFilters}>aplicar</button>
       </div>
     </div>
   );

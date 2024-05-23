@@ -3,8 +3,20 @@ import ProfessionalCards from "../Components/FindProfessional/ProfessionalCards"
 import "../Styles/Pages/ProfessionalsLists.css";
 import Footer from "../Components/Footer/Footer";
 import MainSearchFilter from "../Components/Filters/MainSearchFilter";
+import { useContext, useState } from "react";
+import { ProfessionalsContext } from "../Contexts/ProfessionalsContext";
+import MobileFilter from "../Components/FindProfessional/MobileFilter";
 
 export default function ProfessionalsLists() {
+  
+  const {resultsCount} = useContext(ProfessionalsContext);
+  const [displayCount, setDisplayCount] = useState(12);
+  const [filterMenu, setFilterMenu] = useState(false);
+
+  const loadMoreCards = () => {
+    setDisplayCount(displayCount + 12);
+  }
+  
   return (
     <>
       <Header />
@@ -23,18 +35,27 @@ export default function ProfessionalsLists() {
         </div>
         <div className="professionals-results-area">
           <div className="cards-results container results-container">
-            <p>Total de resultados: </p>
+            <span className="default-span">Total de resultados: {resultsCount} </span>
             <button
-              className="btn filters-btn top-bar-professionals-button"
-            //   onClick={() => setFilterMenu(true)}
+              className="white-btn top-bar-professionals-button"
+              onClick={() => setFilterMenu(true)}
             >
               Filtros Avançados
             </button>
           </div>
-          <ProfessionalCards />
+          <ProfessionalCards displayCount={displayCount}/>
+          <div className="load-more">
+              <button
+                className="btn load-more-btn"
+                onClick={loadMoreCards}
+              >
+                Carregar Mais
+              </button>
+            </div>
         </div>
       </div>
       <Footer />
+      <MobileFilter trigger={filterMenu} setTrigger={setFilterMenu} />
     </>
   );
 }

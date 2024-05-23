@@ -5,7 +5,7 @@ export const FiltersContext = createContext();
 
 export const FiltersProvider = ({children}) => {
     const [specialtiesAPI, setSpecialtiesAPI] = useState([]);
-    const specialtiesUrl = 'http://localhost:8080/filters/list/all';
+    const specialtiesUrl = 'http://192.168.15.6:8080/filters/list/all';
 
     useEffect(() => {
         getSpecialties();

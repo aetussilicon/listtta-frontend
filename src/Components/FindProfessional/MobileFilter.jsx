@@ -1,234 +1,363 @@
-import { useEffect, useState } from "react";
-import '../../Styles/Components/FindProfessionals/MobileFilters.css';
+import "../../Styles/Components/FindProfessionals/MobileFilters.css";
+import { ProfessionalsContext } from "../../Contexts/ProfessionalsContext";
+import { StatesContext } from "../../Contexts/StatesContext";
+import { CitiesContext } from "../../Contexts/CitiesContext";
+import { FiltersContext } from "../../Contexts/FiltersConxtext";
+import { useContext, useEffect, useState } from "react";
 
 export default function MobileFilter(props) {
+  //   Contextos
+  const { professionalsAPI, setFilteredData } =
+    useContext(ProfessionalsContext);
+  const { statesAPI } = useContext(StatesContext);
+  const { setStateName, citiesAPI } = useContext(CitiesContext);
+  const { specialtiesAPI } = useContext(FiltersContext);
 
-    //Variáveis padrão
-    const [selectedButton, setSelectedButton] = useState('');
-    const [showFilterMenu, setShowFilterMenu] = useState('none');
-    const [selectedTextForState, setSelectedTextForState] = useState('Selecione uma opção');
-    const [selectedTextForCity, setSelectedTextForCity] = useState('Selecione a cidade');
-    const [selectedStateName, setSelectedStateName] = useState('');
-    const [selectdCityName, setSelectedCity] = useState('');
+  //Botões e Dropdowns
+  const [seletectButton, setSelectedButton] = useState("");
+  const [selectedState, setSelectedState] = useState("Selecione o estado");
+  const [selectedCity, setSelectedCity] = useState("Selecione a cidade");
 
-    //Jsons recebenidos das APIs
-    const [filters, setFilter] = useState([]);
-    const [states, setStates] = useState([]);
-    const [cities, setCities] = useState([]);
+  //Filters
+  const [state, setState] = useState("");
+  const [city, setCity] = useState("");
+  const [type, setType] = useState("");
+  const [userGender, setUserGender] = useState("");
+  const [selectedSkills, setSelectedSkills] = useState([]);
 
-    //Url do banco de dados da hostinger
-    // const url = "https://listtta-backend.lryftz.easypanel.host/filters/list/all"; 
-    const filtersUrl = "https://listtta-backend.lryftz.easypanel.host/filters/list/all";
-    const statesUrl = 'https://brasilapi.com.br/api/ibge/uf/v1';
+  function openDropdownMenuStates() {
+    const dropdown = document.getElementById("dropdownStatesMobileId");
+    if (dropdown.style.display === "none" || dropdown.style.display === "") {
+      dropdown.style.display = "block";
+    } else {
+      dropdown.style.display = "none";
+    }
+  }
 
-    //Formulário para pesquisa
-    // let state = use;
-    // let city = selectdCityName;
-    const [professionalType, setProfessionalType] = useState('');
-    const [userGender, setUserGender] = useState('');
+  function openDropdownMenuCity() {
+    const dropdown = document.getElementById("dropdownCityMobileId");
+    if (dropdown.style.display === "none" || dropdown.style.display === "") {
+      dropdown.style.display = "block";
+    } else {
+      dropdown.style.display = "none";
+    }
+  }
 
-    // let searchForm = {
-    //     state,
-    //     city
-    // }
+  const handleSelectedState = (option) => {
+    setSelectedState(option);
+  };
 
-    //Funções para abrir os menus dropdown
-    function openDropdownStates() {
-        const dropdown = document.getElementById("dropdownIdStates");
-        if (dropdown.style.display === "none") {
-            dropdown.style.display = "block";
-        } else {
-            dropdown.style.display = "none";
-        }
+  const handleSelectedCity = (option) => {
+    setSelectedCity(option);
+  };
+
+  const handleCheckboxChange = (event) => {
+    const { value, checked } = event.target;
+
+    // Se clicar em "Ambos", limpar todos os valores
+    if (value === "Ambos" && checked) {
+      setUserGender("");
+    } else if (checked) {
+      // Se clicar em Masculino ou Feminino, definir o valor correspondente
+      setUserGender(value);
+    }
+  };
+
+  const applyFilters = () => {
+    let filteredProfessionals = professionalsAPI;
+
+    // Filtrar por estado, se selecionado
+    if (state !== "") {
+      filteredProfessionals = filteredProfessionals.filter(
+        (professional) => professional.state === state
+      );
     }
 
-    function openDropdownCities() {
-        const dropdown = document.getElementById("dropdownIdCities");
-        if (dropdown.style.display === "none") {
-            dropdown.style.display = "block";
-        } else {
-            dropdown.style.display = "none";
-        }
+    // Filtrar por cidade, se selecionado
+    if (city !== "") {
+      filteredProfessionals = filteredProfessionals.filter(
+        (professional) => professional.city === city
+      );
     }
 
-    //Função para trocar cor de botão
-    const handleProfessionalTypeButtoClick = (buttoName) => {
-        setSelectedButton(buttoName);
+    // Filtrar por gênero, se selecionado
+    if (userGender !== "") {
+      filteredProfessionals = filteredProfessionals.filter(
+        (professional) => professional.userGender === userGender
+      );
     }
 
-    //Requisções para buscar estados e cidades
-    //Requisição para pegar os filtros no banco de dados
-    useEffect(() => {
-        async function fetchFilters() {
-            try {
-                const resposne = await fetch(filtersUrl, {
-                    headers: {
-                        'Content-Type': 'application.json',
-                        // Authorization: 'Bearer ' + localStorage.getItem('user_token')
-                    }
-                });
-
-                const data = await resposne.json();
-                console.log(data);
-                setFilter(data);
-            } catch (error) {
-                console.error(error);
-            }
-        }
-        fetchFilters();
-    }, [])
-
-    //Fetch para os estados do dropdown menu
-    useEffect(() => {
-        async function fetchStates() {
-            try {
-                const response = await fetch(statesUrl);
-
-                const data = await response.json();
-                console.log(data);
-                setStates(data);
-            } catch (error) {
-                console.log(error);
-            }
-        }
-        fetchStates();
-    }, [])
-
-    //Fetch para as cidades do segundo dropdown menu
-    async function fetchCities() {
-        const citiesUrl = 'https://brasilapi.com.br/api/ibge/municipios/v1/' + selectedStateName + '?providers=dados-abertos-br,gov,wikipedia';
-
-        try {
-            const response = await fetch(citiesUrl);
-
-            const data = await response.json();
-            console.log(data);
-            setCities(data);
-        } catch (error) {
-            console.log(error);
-        }
+    // Filtrar por tipo de profissional, se selecionado
+    if (type !== "") {
+      filteredProfessionals = filteredProfessionals.filter(
+        (professional) => professional.type === type
+      );
     }
 
-    //Setando os textos dos botões
-    const handleSelectState = (option) => {
-        setSelectedTextForState(option);
-    };
+    if (selectedSkills.length > 0) {
+      filteredProfessionals = filteredProfessionals.filter((professional) =>
+        professional.skills.some((skill) =>
+          selectedSkills.includes(skill.filterId.toString())
+        )
+      );
+    }
 
-    const handleSelectCity = (option) => {
-        setSelectedCity(option);
-    };
+    // Atualizar o estado com os resultados filtrados
+    setFilteredData(filteredProfessionals);
+    props.setTrigger(false);
+  };
 
-    //Logs
-    console.log(professionalType);
+  useEffect(() => {
+    console.log("Estado " + state);
+    console.log("Cidade " + city);
+    console.log("Tipo " + type);
+    console.log("Gênero " + userGender);
+  });
 
-    return (props.trigger) ? (
-        <>
-            <div className="main-filter-content">
-                <div className="filter-top-bar">
-                    <span>Filtros Avançados</span>
-                    <button onClick={() => props.setTrigger(false)} className="login-button">
-                        <span className="material-symbols-outlined">close</span>
-                    </button>
+  const stateDropdownClick = (stateAcronym, stateName) => {
+    setStateName(stateAcronym);
+    setState(stateAcronym);
+    handleSelectedState(stateName);
+    openDropdownMenuStates();
+  };
+
+  const cityDropdownClick = (cityName) => {
+    setCity(cityName);
+    handleSelectedCity(cityName);
+    openDropdownMenuCity();
+  };
+
+  const handleSelectedUserTypeButton = (button, type) => {
+    setSelectedButton(button);
+    setType(type);
+  };
+
+  const handleSkillChange = (event) => {
+    const { value } = event.target;
+
+    if (event.target.checked) {
+      setSelectedSkills([...selectedSkills, value]);
+      console.log(selectedSkills);
+    } else {
+      setSelectedSkills(selectedSkills.filter((id) => id !== value));
+      console.log(selectedSkills);
+    }
+  };
+
+  return props.trigger ? (
+    <>
+      <div className="main-filter-content">
+        <div className="filter-top-bar">
+          <span>Filtros Avançados</span>
+          <button
+            onClick={() => props.setTrigger(false)}
+            className="login-button"
+          >
+            <span className="material-symbols-outlined">close</span>
+          </button>
+        </div>
+        <div className="filters-container-mobile">
+          <div className="filters-section location-filters location-filters-mobile">
+            <span className="default-span mobile-filter-span">Localização</span>
+            <div className="default-dropdown-menu filters-dropdown-menu filters-dropdown-menu-mobile">
+              <button
+                type="button"
+                className="default-dropdown-button mobile-dropdown-button"
+                onClick={openDropdownMenuStates}
+              >
+                {selectedState}
+                <span className="material-symbols-outlined">expand_more</span>
+              </button>
+              <div
+                className="default-dropdown-content location-dropdown-content location-dropdown-content-mobile"
+                id="dropdownStatesMobileId"
+              >
+                {statesAPI.length > 0 ? (
+                  statesAPI.map((statesAPI) => (
+                    <div key={statesAPI.sigla}>
+                      <ul className="dropdown-ul">
+                        <li
+                          className="dropdown-li location-filters-dropdown-li"
+                          onClick={() => {
+                            stateDropdownClick(statesAPI.sigla, statesAPI.nome);
+                          }}
+                        >
+                          <span className="dropdown-span default-span">
+                            {statesAPI.nome}
+                          </span>
+                        </li>
+                      </ul>
+                    </div>
+                  ))
+                ) : (
+                  <div>
+                    <ul className="dropdown-ul">
+                      <li className="dropdown-li location-filters-dropdown-li">
+                        <span className="default-span"></span>
+                      </li>
+                    </ul>
+                  </div>
+                )}
+              </div>
+              <div className="default-dropdown-menu filters-dropdown-menu filters-dropdown-menu-mobile">
+                <button
+                  className="default-dropdown-button mobile-dropdown-button"
+                  onClick={openDropdownMenuCity}
+                >
+                  {selectedCity}
+                  <span className="material-symbols-outlined">expand_more</span>
+                </button>
+                <div
+                  className="default-dropdown-content location-dropdown-content location-dropdown-content-mobile"
+                  id="dropdownCityMobileId"
+                >
+                  {citiesAPI.length > 0 ? (
+                    citiesAPI.map((citiesAPI) => (
+                      <div key={citiesAPI.codigo_ibge}>
+                        <ul className="dropdown-ul">
+                          <li
+                            className="dropdown-li"
+                            onClick={() => {
+                              cityDropdownClick(citiesAPI.nome);
+                            }}
+                          >
+                            <span className="dropdown-span default-span">
+                              {citiesAPI.nome}
+                            </span>
+                          </li>
+                        </ul>
+                      </div>
+                    ))
+                  ) : (
+                    <div>
+                      <ul className="dropdown-ul">
+                        <li className="dropdown-li">
+                          <span className="default-span">
+                            Nenhuma cidade encontrada
+                          </span>
+                        </li>
+                      </ul>
+                    </div>
+                  )}
                 </div>
-                <div className="filters-container-mobile">
-                    <div className="filters-section filters-section-mobile location-filters">
-                        <p>Localização</p>
-                        <div className="filters-dropdown-menu">
-                            <button className="btn filters-btn filters-btn-mobile" id="state-dropdown-button" onClick={openDropdownStates}>{selectedTextForState}<span className="material-symbols-outlined">expand_more</span></button>
-                            <div className="filters-dropdown-content" id="dropdownIdStates">
-                                {states.length > 0 ? (
-                                    states.map((states) => (
-                                        <div key={states.id} className="states-div">
-                                            <ul className="dropdown-ul">
-                                                <li className="dropdown-li" onClick={() => { handleSelectState(states.nome); setSelectedStateName(states.sigla); fetchCities() }}>
-                                                    <span className="dropdown-span default-span">{states.nome}</span>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    ))
-                                ) : (
-                                    <span>Nenhum estado encontrado</span>
-                                )}
-                            </div>
-                        </div>
-                        <div className="filters-dropdown-menu">
-                            <button className="btn filters-btn filters-btn-mobile" onClick={openDropdownCities}>{selectedTextForCity}<span className="material-symbols-outlined">expand_more</span></button>
-                            <div className="filters-dropdown-content" id="dropdownIdCities">
-                                {cities.length > 0 ? (
-                                    cities.map((cities) => (
-                                        <div>
-                                            <ul className="dropdown-ul">
-                                                <li className="dropdown-li" onClick={() => { handleSelectCity(cities.nome); setSelectedTextForCity(cities.nome) }}>
-                                                    <span className="dropdown-span default-span">{cities.nome}</span>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    ))
-                                ) : (
-                                    <span>Nenhuma cidade encontrado</span>
-                                )}
-                            </div>
-                        </div>
-                    </div>
-                    <div className="filters-section filters-section-mobile">
-                        <p>Escolha o profissional</p>
-                        <button className={`btn filters-btn filters-btn-mobile ${selectedButton === 'button1' ? 'selected' : ''}`} onClick={() => handleProfessionalTypeButtoClick('button1')}>Tudo</button>
-                        <button className={`btn filters-btn filters-btn-mobile ${selectedButton === 'button2' ? 'selected' : ''}`} onClick={() => { setProfessionalType("TATTOO"); handleProfessionalTypeButtoClick('button2') }}>Tatuador</button>
-                        <button className={`btn filters-btn filters-btn-mobile ${selectedButton === 'button3' ? 'selected' : ''}`} onClick={() => { setProfessionalType("PIERCER"); handleProfessionalTypeButtoClick('button3') }}>Body Piercer</button>
-                    </div>
-                    <div className="filters-section categories-filters">
-                        <div className="filters filters-mobile  gen-filter">
-                            <div className="filters-span filter-span-mobile">
-                                <span>Gênero</span>
-                            </div>
-                            <form>
-                                <ul className="filters-ul filters-ul-mobile">
-                                    <li>
-                                        <input className="checkbox-round" type="checkbox" id="tatuador" name="gender" />
-                                        <label htmlFor="tatuador">Ambos</label>
-                                    </li>
-                                    <li>
-                                        <input className="checkbox-round" type="checkbox" id="tatuador" name="gender" />
-                                        <label htmlFor="tatuador">Tatuador</label>
-                                    </li>
-                                    <li>
-                                        <input className="checkbox-round" type="checkbox" id="tatuadora" name="gender" />
-                                        <label htmlFor="tatuadora">Tatuadora</label>
-                                    </li>
-                                </ul>
-                            </form>
-                        </div>
-                        <div className="filter-breaker" />
-                        <div className="filters filters-mobile theme-filter">
-                            <div className="filters-span filter-span-mobile">
-                                <span>Tipos de tattoo</span>
-                            </div>
-                            <div className="mobile-filter-form">
-                                <form>
-                                    <ul className="filters-ul filters-ul-mobile">
-                                        {filters.length > 0 ? (
-                                            filters.map((filters) => (
-                                                <div key={filters.filterId} className="filters-div">
-                                                    <li className="filters-name">
-                                                        <input className="checkbox-round" type="checkbox" id={filters.filterName} name="filters-input" />
-                                                        <label htmlFor={filters.filterName}>{filters.displayName}</label>
-                                                    </li>
-                                                </div>
-                                            ))
-                                        ) : (
-                                            <span className="filters-span">Nenhum filtro encontrado</span>
-                                        )}
-                                    </ul>
-                                </form>
-                            </div>
-                        </div>
-                        <div className="filter-breaker" />
-                        <div className="apply-button">
-                            <button className="btn">Aplicar</button>
-                        </div>
-                    </div>
-                </div>
+              </div>
             </div>
-        </>
-    ) : "";
+          </div>
+          <div className="filters-section filters-button-section filters-button-section-mobile">
+            <span className="default-span mobile-filter-span">
+              Escolha o Professional
+            </span>
+            <div className="filters-section filters-button-section filters-button-section-mobile filters-dropdown-menu-mobile">
+              <button
+                className={`white-btn mobile-dropdown-button ${
+                  seletectButton === "button1" ? "selected-filter-button" : ""
+                }`}
+                onClick={() => {
+                  handleSelectedUserTypeButton("button1", "");
+                }}
+              >
+                Todos
+              </button>
+              <button
+                className={`white-btn mobile-dropdown-button ${
+                  seletectButton === "button2" ? "selected-filter-button" : ""
+                }`}
+                onClick={() => {
+                  handleSelectedUserTypeButton("button2", "TATTOO");
+                }}
+              >
+                Tatuador
+              </button>
+              <button
+                className={`white-btn mobile-dropdown-button ${
+                  seletectButton === "button3" ? "selected-filter-button" : ""
+                }`}
+                onClick={() => {
+                  handleSelectedUserTypeButton("button3", "PIERCER");
+                }}
+              >
+                Body Piercer
+              </button>
+            </div>
+          </div>
+          <div className="filters-section gender-filters gender-filters-mobile">
+            <span className="filters-span default-span mobile-span">
+              Gênero
+            </span>
+            <ul className="filters-ul mobile-filter-ul">
+              <li>
+                <input
+                  className="checkbox-round"
+                  type="checkbox"
+                  id="ambos"
+                  name="gender"
+                  value={"Ambos"}
+                  checked={userGender === ""}
+                  onChange={handleCheckboxChange}
+                />
+                <label htmlFor="tatuador">Ambos</label>
+              </li>
+              <li>
+                <input
+                  className="checkbox-round"
+                  type="checkbox"
+                  id="tatuador"
+                  name="gender"
+                  value={"MASCULINO"}
+                  checked={userGender === "MASCULINO"}
+                  onChange={handleCheckboxChange}
+                />
+                <label htmlFor="tatuador">Tatuador</label>
+              </li>
+              <li>
+                <input
+                  className="checkbox-round"
+                  type="checkbox"
+                  id="tatuador"
+                  name="gender"
+                  value={"FEMININO"}
+                  checked={userGender === "FEMININO"}
+                  onChange={handleCheckboxChange}
+                />
+                <label htmlFor="tatuador">Tatuadora</label>
+              </li>
+            </ul>
+          </div>
+          <div className="filters-section tattoo-filters filters-ul-mobile">
+            <span className="default-span mobile-span">Temas de tatuagem</span>
+            <ul className="filters-ul mobile-filter-ul">
+              {specialtiesAPI.length > 0 ? (
+                specialtiesAPI.map((skill) => (
+                  <div key={skill.filterId}>
+                    <li>
+                      <input
+                        className="checkbox-round"
+                        type="checkbox"
+                        id={skill.filterName}
+                        name="filters-input"
+                        value={skill.filterId}
+                        onChange={handleSkillChange}
+                      />
+                      <label htmlFor={skill.filterName}>
+                        {skill.displayName}
+                      </label>
+                    </li>
+                  </div>
+                ))
+              ) : (
+                <span className="filters-span">Nenhum filtro encontrado</span>
+              )}
+            </ul>
+          </div>
+          <div className="center-button">
+            <button className="btn apply-button" onClick={applyFilters}>
+              Aplicar
+            </button>
+          </div>
+        </div>
+      </div>
+    </>
+  ) : (
+    ""
+  );
 }

@@ -24,7 +24,7 @@ export const variables = {
 
     //APIs
     hostingerURl : 'https://listtta-backend.lryftz.easypanel.host',
-    localhost : 'http://localhost:8080',
+    localhost : 'http://192.168.15.6:8080',
     statesUrl : 'https://brasilapi.com.br/api/ibge/uf/v1',
     citiesUrl : 'https://brasilapi.com.br/api/ibge/municipios/v1/'
 

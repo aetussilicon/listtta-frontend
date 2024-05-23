@@ -9,11 +9,20 @@ export const CitiesProvider = ({children}) => {
 
     const cityUrl = 'https://brasilapi.com.br/api/ibge/municipios/v1/';
 
+    const capitalize = (str) => {
+        return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
+    };
+
     const getCities = async () => {
         try {
             if(stateName.trim() !== ''){
                 const response = await axios.get(cityUrl + stateName + '?providers=dados-abertos-br,gov,wikipedia');
                 let data = await response.data;
+                data = data.map(city => ({
+                    ...city,
+                    nome: capitalize(city.nome)
+                }));
+
                 data = data.sort((a, b) => a.nome.localeCompare(b.nome));
                 console.log(data);
                 setCitiesAPI(data);
