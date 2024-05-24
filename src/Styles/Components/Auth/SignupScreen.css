@@ -1,6 +1,6 @@
 @media screen and (max-width: 768px) {
     .login-popup,
-    .login-signup-container,
+    .signup-screen-container,
     .signup-container
     .login-screen-container,
     .login-fields {
@@ -167,13 +167,13 @@
     right: 16px;
 }
 
-.login-signup-container {
+.signup-screen-container {
     display: flex;
     width: 850px;
     height: 607px;
 }
 
-.login-signup-container .login-banner img {
+.signup-screen-container .login-banner img {
     border-radius: 20px 0 0 20px;
     height: 600px;
 }
@@ -454,17 +454,4 @@
 
 .checkbox-lgpd-input input {
     cursor: pointer;
-}
-
-#login-screen {
-    display: none;
-}
-
-
-
-.login-screen-container form {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
 }

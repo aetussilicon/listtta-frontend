@@ -1,5 +1,6 @@
 import axios from "axios";
 import { createContext, useEffect, useState } from "react";
+import { variables } from "../Variables";
 
 export const ProfessionalsContext = createContext();
 
@@ -8,7 +9,7 @@ export const ProfessionalsProvider = ({children}) => {
     const [filteredData, setFilteredData] = useState([]);
     const [resultsCount, setResultsCount] = useState(0);
 
-    let professionalsUrl = 'http://192.168.15.6:8080/professionals/list/all';
+    let professionalsUrl = `${variables.hostingerURl}/professionals/list/all`;
 
     useEffect(() => {
         getProfessionals();

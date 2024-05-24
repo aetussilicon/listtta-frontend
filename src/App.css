@@ -83,3 +83,8 @@ body {
 .checkbox-round:checked {
     background-color: gray;
 }
+
+.arrow-span {
+    color: black !important;
+    font-size: 30px;
+}

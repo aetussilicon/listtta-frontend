@@ -1,11 +1,12 @@
 import axios from "axios";
 import { createContext, useEffect, useState } from "react";
+import { variables } from "../Variables";
 
 export const FiltersContext = createContext();
 
 export const FiltersProvider = ({children}) => {
     const [specialtiesAPI, setSpecialtiesAPI] = useState([]);
-    const specialtiesUrl = 'http://192.168.15.6:8080/filters/list/all';
+    const specialtiesUrl = `${variables.hostingerURl}/filters/list/all`;
 
     useEffect(() => {
         getSpecialties();
