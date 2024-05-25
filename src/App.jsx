@@ -6,11 +6,12 @@ import LoginPrototype from "./Pages/LoginPrototype";
 import Profile from "./Pages/Profile.jsx";
 
 import ProfessionalsListWIthContext from "./ContextPages/ProfessionalsListWIthContext.jsx";
+import HomeWithContext from "./ContextPages/HomeWithContext.jsx";
 
 function App() {
   return (
     <Routes>
-      <Route Component={Home} exact path="/" />
+      <Route Component={HomeWithContext} exact path="/" />
       <Route Component={Profile} exact path="/profile" />
       <Route Component={TesteComponente} path="testing" />
       <Route Component={LoginPrototype} path="/login" />
