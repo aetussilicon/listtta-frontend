@@ -1,40 +1,36 @@
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import "../../../Styles/Components/Auth/SignupScreen.css";
 import { variables } from "../../../Variables";
 import Login from "../Login/Login";
+import UserTypeSelectionScreen from "./UserTypeSelectionScreen";
+import TattooSignup from "./TattooSignup";
+import { SignupFormContext } from "../../../Contexts/SignupLoginFormContext";
 
 export default function SignupScreen(props) {
   const [currentScreen, setCurrentScreen] = useState("main");
+  const { signupFormData } = useContext(SignupFormContext);
 
   function closeSignupScreen() {
     props.setTrigger(false);
     setCurrentScreen("main");
   }
 
-  // function menuClickLogin() {
-  //     setLoginPopup(true);
-
-  //     const menu = document.getElementById("signup-screen");
-  //     const login = document.getElementById("login-screen");
-
-  //     if(menu.style.display === "block" || menu.style.display === "") {
-  //         menu.style.display = "none";
-  //         login.style.display = "block";
-  //     } else {
-  //         menu.style.display = "block";
-  //         login.style.display = "none";
-  //     }
-  // }
+  useEffect(() => {
+    if (signupFormData.role === "TATTOO") {
+      setCurrentScreen("tattoo");
+    } else if (signupFormData.role === "PIERCER") {
+      setCurrentScreen("piercer");
+    } else if (signupFormData.role === "USER") {
+      setCurrentScreen("user");
+    }
+  }, [signupFormData.role]);
 
   return props.trigger ? (
     <>
       {currentScreen === "main" && (
         <div className="login-container" id="signup-screen">
           <div className="login-popup">
-            <button
-              className="login-close-button"
-              onClick={closeSignupScreen}
-            >
+            <button className="login-close-button" onClick={closeSignupScreen}>
               <img src={variables.closeMenu}></img>
             </button>
             <div className="signup-screen-container">
@@ -46,7 +42,7 @@ export default function SignupScreen(props) {
                   <p>Criar uma nova conta</p>
                   <span>
                     Já tem uma conta?
-                    <button onClick={() => setCurrentScreen("login")}>Entrar</button>
+                    <a onClick={() => setCurrentScreen("login")}> Entrar</a>
                   </span>
                   {/*Adicionar tela de login */}
                 </div>
@@ -55,7 +51,7 @@ export default function SignupScreen(props) {
                     <img src="Assets/icons/social-networks/google.png" />
                     Continuar com o Google
                   </button>
-                  <button>
+                  <button onClick={() => setCurrentScreen("email")}>
                     <img src="Assets/icons/social-networks/email.png" />
                     Continuar com o e-mail
                   </button>
@@ -89,6 +85,15 @@ export default function SignupScreen(props) {
       )}
       {currentScreen === "login" && (
         <Login trigger={true} setTrigger={() => setCurrentScreen("main")} />
+      )}
+      {currentScreen === "email" && (
+        <UserTypeSelectionScreen
+          trigger={true}
+          setTrigger={() => setCurrentScreen("main")}
+        />
+      )}
+      {currentScreen === "tattoo" && (
+        <TattooSignup trigger={true} setTrigger={() => setCurrentScreen("main")} />
       )}
     </>
   ) : (
