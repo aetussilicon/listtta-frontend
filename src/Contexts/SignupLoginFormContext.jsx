@@ -2,9 +2,9 @@ import axios from "axios";
 import { createContext, useState } from "react";
 import { variables } from "../Variables";
 
-export const SignupLoginFormContext = createContext();
+export const SignupFormContext = createContext();
 
-export const SignupLoginFormProvider = ({children}) => {
+export const SignupFormProvider = ({children}) => {
 
     const [signupFormData, setSignupFormData] = useState({
         email: '',
@@ -21,17 +21,20 @@ export const SignupLoginFormProvider = ({children}) => {
         }
     })
 
-    const handleInputChange = (e) => {
-        const { name, value } = e.target;
-       
+    const handleInputChange = (e, nameValue = null, valueValue = null) => {
+        const name = nameValue || e?.target.name;
+        const value = valueValue || e?.target.value;
+
+        if (!name) return;
+
         const nameParts = name.split('.');
         if (nameParts.length > 1) {
             setSignupFormData(prevState => {
                 const newFormData = { ...prevState };
                 let current = newFormData;
 
-                for (let i = 0; 1 < nameParts.length - 1; i++) {
-                    current - current[nameParts[i]];
+                for (let i = 0; i < nameParts.length - 1; i++) {
+                    current = current[nameParts[i]];
                 }
                 current[nameParts[nameParts.length - 1]] = value;
                 return newFormData;
@@ -39,7 +42,7 @@ export const SignupLoginFormProvider = ({children}) => {
         } else {
             setSignupFormData({
                 ...signupFormData,
-                [name] : value,
+                [name]: value,
             });
         }
     };
@@ -64,9 +67,9 @@ export const SignupLoginFormProvider = ({children}) => {
 
 
     return (
-        <SignupLoginFormContext.Provider value={{ signupFormData, handleInputChange, signupuUser }}>
+        <SignupFormContext.Provider value={{ signupFormData, handleInputChange, signupuUser }}>
             {children}
-        </SignupLoginFormContext.Provider>
+        </SignupFormContext.Provider>
     )
 
 }
