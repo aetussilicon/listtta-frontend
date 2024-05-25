@@ -14,13 +14,22 @@ export default function Login(props) {
         password
     }
 
-  async function loginUser() {
+  const loginUser = async (e) => {
+    e.preventDefault();
     const loginUrl = `${variables.localhost}/auth/login`;
 
     try {
         const response = await axios.post(loginUrl, loginPayload);
         const data = await response.data
         console.log(data);
+
+        if(response.status === 200){
+            window.location.href = "/search";
+            alert("Login realizado com sucesso");
+        } else {
+            alert("Erro no login")
+            console.log("Erro no login")
+        }
     } catch (error) {
         console.error(error);
     }
