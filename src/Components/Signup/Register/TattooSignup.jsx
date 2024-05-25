@@ -1,11 +1,21 @@
-
 import "../../../Styles/Components/Auth/SignupScreen.css";
 import "../../../Styles/Components/Auth/Login.css";
-import { useState } from "react";
+import { useContext, useDebugValue, useEffect, useState } from "react";
+import { SignupFormContext } from "../../../Contexts/SignupLoginFormContext";
 
 export default function TattooSignup(props) {
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
+  const { signupFormData, handleInputChange, signupUser } =
+    useContext(SignupFormContext);
+
+  const handleSignupSubmit = (e) => {
+    e.preventDefault();
+    signupUser();
+  };
+
+  useEffect(() => {
+    console.log(signupFormData);
+  }, [handleInputChange])
+
   return props.trigger ? (
     <div className="login-container">
       <div className="login-popup">
@@ -19,19 +29,29 @@ export default function TattooSignup(props) {
         </button>
         <div className="signup-screen-container login-screen-container">
           <div className="login-form">
-            <form action="">
-                <div className="login-fields">
-                    <label htmlFor="email">Email</label>
-                    <input type="email" className="default-input signup-screen-input" placeholder="john@gmail.com" value={email} name="email" onChange={(e) => {
-                        setEmail(e.target.value)
-                    }} />
-                </div>
-                <div className="login-fields">
-                    <label htmlFor="password">Senha</label>
-                    <input type="password" className="default-input signup-screen-input" placeholder="**********" value={email} name="email" onChange={(e) => {
-                        setEmail(e.target.value)
-                    }} />
-                </div>
+            <form onSubmit={handleSignupSubmit}>
+              <div className="login-fields">
+                <label htmlFor="email">Email</label>
+                <input
+                  type="email"
+                  className="default-input signup-screen-input"
+                  placeholder="john@gmail.com"
+                  value={signupFormData.email}
+                  name="email"
+                  onChange={handleInputChange}
+                />
+              </div>
+              <div className="login-fields">
+                <label htmlFor="password">Senha</label>
+                <input
+                  type="password"
+                  className="default-input signup-screen-input"
+                  placeholder="**********"
+                  value={signupFormData.password}
+                  name="password"
+                  onChange={handleInputChange}
+                />
+              </div>
             </form>
           </div>
         </div>
