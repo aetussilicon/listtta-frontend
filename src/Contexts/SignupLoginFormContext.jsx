@@ -10,6 +10,7 @@ export const SignupFormProvider = ({children}) => {
         email: '',
         password: '',
         role: '',
+        userGender: '',
         address: {
             state: '',
             city: ''
@@ -19,7 +20,25 @@ export const SignupFormProvider = ({children}) => {
             instagramUrl: '',
             skills: []
         }
+    });
+
+   const handleSkillChange = (skill) => {
+    setSignupFormData(prevState => {
+        const newSkills = prevState.professionalsDto.skills.includes(skill) 
+        ? prevState.professionalsDto.skills.filter(s => s !== skill)
+        : [...prevState.professionalsDto.skills, skill];
+
+        if (newSkills.length > 5) return prevState;
+
+        return {
+            ...prevState,
+            professionalsDto: {
+                ...prevState.professionalsDto,
+                skills : newSkills
+            }
+        }
     })
+   }
 
     const handleInputChange = (e, nameValue = null, valueValue = null) => {
         const name = nameValue || e?.target.name;
@@ -47,7 +66,7 @@ export const SignupFormProvider = ({children}) => {
         }
     };
 
-    const signupuUser = async () => {
+    const signupUser = async () => {
         const signupURL  = `${variables.localhost}/auth/signup`;
         try {
             const response = await axios.post(signupURL, signupFormData);
@@ -67,7 +86,7 @@ export const SignupFormProvider = ({children}) => {
 
 
     return (
-        <SignupFormContext.Provider value={{ signupFormData, handleInputChange, signupuUser }}>
+        <SignupFormContext.Provider value={{ signupFormData, handleInputChange, handleSkillChange, signupUser }}>
             {children}
         </SignupFormContext.Provider>
     )
