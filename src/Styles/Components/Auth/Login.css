@@ -19,7 +19,7 @@
 .login-form form button {
     margin: 0;
     margin-top: 20px !important;
-    width: 332px !important; 
+    width: 332px ; 
 }
 
 .login-form label {
@@ -30,4 +30,21 @@
     padding: 15px;
     margin: 0;
     width: 300px;
+}
+
+.login-fields-location {
+    flex-direction: row;
+    gap: 20px;
+}
+
+.signup-dropdown-menu {
+    width: max-content !important;
+}
+
+.signup-dropdown-button {
+    width: 166px !important;
+}
+
+.signup-dropdown-content {
+    width: 160px !important;
 }
