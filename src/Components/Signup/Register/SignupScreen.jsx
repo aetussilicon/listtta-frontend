@@ -16,9 +16,9 @@ export default function SignupScreen(props) {
   }
 
   useEffect(() => {
-    if (signupFormData.role === "TATTOO") {
+    if (signupFormData.professionalsDto.type === "TATTOO") {
       setCurrentScreen("tattoo");
-    } else if (signupFormData.role === "PIERCER") {
+    } else if (signupFormData.professionalsDto.type === "PIERCER") {
       setCurrentScreen("piercer");
     } else if (signupFormData.role === "USER") {
       setCurrentScreen("user");
