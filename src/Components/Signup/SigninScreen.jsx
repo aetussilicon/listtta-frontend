@@ -3,9 +3,8 @@ import "../../Styles/Components/Auth/SigninScreen.css";
 import { variables } from "../../Variables";
 import Login from "./Login/Login";
 import UserTypeSelectionScreen from "./Register/UserTypeSelectionScreen";
-import TattooSignup from "./Register/TattooSignup";
 import { SignupFormContext } from "../../Contexts/SignupLoginFormContext";
-import PiercerSignup from "./Register/PiercerSignup";
+import SignupScreen from "./Register/SignupScreen";
 
 export default function SigninScreen(props) {
   const [currentScreen, setCurrentScreen] = useState("main");
@@ -102,19 +101,19 @@ export default function SigninScreen(props) {
         />
       )}
       {currentScreen === "tattoo" && (
-        <TattooSignup
+        <SignupScreen
           trigger={true}
           setTrigger={() => setCurrentScreen("main")}
         />
       )}
       {currentScreen === "piercer" && (
-        <PiercerSignup
+        <SignupScreen
           trigger={true}
           setTrigger={() => setCurrentScreen("main")}
         />
       )}
       {currentScreen === "user" && (
-        <PiercerSignup
+        <SignupScreen
           trigger={true}
           setTrigger={() => setCurrentScreen("main")}
         />

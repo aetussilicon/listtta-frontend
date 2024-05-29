@@ -6,7 +6,7 @@ import { StatesContext } from "../../../Contexts/StatesContext";
 import { CitiesContext } from "../../../Contexts/CitiesContext";
 import { FiltersContext } from "../../../Contexts/FiltersConxtext";
 
-export default function TattooSignup(props) {
+export default function SignupScreen(props) {
   const { signupFormData, handleInputChange, handleSkillChange, signupUser } =
     useContext(SignupFormContext);
 
@@ -55,8 +55,9 @@ export default function TattooSignup(props) {
   };
 
   useEffect(() => {
+    displaySkillsMenu();
     console.log(signupFormData);
-  }, [handleInputChange]);
+  }, [signupFormData.professionalsDto.type, handleInputChange]);
 
   function openDropdownMenuStates() {
     const dropdown = document.getElementById("dropdownStatesId");
@@ -109,20 +110,29 @@ export default function TattooSignup(props) {
     handleInputChange(null, "userGender", gender);
   };
 
+  const displaySkillsMenu = () => {
+    const skillsSection =  document.getElementById("skillsSection");
+    if (signupFormData.professionalsDto.type === "TATTOO") {
+      skillsSection.style.display = "block";
+    } else {
+      skillsSection.style.display = "none";
+    }
+  }
+
   const isSkillsSelected = signupFormData.professionalsDto.skills.length > 0;
 
   return props.trigger ? (
-    <div className="login-container">
-      <div className="login-popup">
+    <div className="signin-container">
+      <div className="signin-popup">
         <button
-          className="login-close-button"
+          className="signin-close-button"
           onClick={() => props.setTrigger(false)}
         >
           <span className="material-symbols-outlined arrow-span">
             arrow_back
           </span>
         </button>
-        <div className="signup-screen-container login-screen-container">
+        <div className="signin-screen-container login-screen-container">
           <div className="login-form">
             <form onSubmit={handleSignupSubmit}>
               <div className="signup-fields">
@@ -274,7 +284,7 @@ export default function TattooSignup(props) {
                 </div>
               </div>
               <div className="signup-fields">
-                <div className="default-dropdown-menu signup-dropdown-menu">
+                <div className="default-dropdown-menu signup-dropdown-menu" id="skillsSection">
                   <button
                     type="button"
                     className={`default-dropdown-button signup-dropdown-button ${
