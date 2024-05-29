@@ -1,37 +1,37 @@
 @media screen and (max-width: 768px) {
-    .login-popup,
+    .signin-popup,
     .signup-screen-container,
     .signup-container
-    .login-screen-container,
-    .login-fields {
+    .signin-screen-container,
+    .signin-fields {
         width: 380px !important;
         height: 430px !important;
         flex-direction: column;
         align-items: center;
     }
 
-    .login-fields {
+    .signin-fields {
         padding: 0 !important;
         justify-content: space-evenly !important;
     }
 
-    .login-top {
+    .signin-top {
         padding: 0 !important;
         margin: 0px !important;
         margin-top: 30px !important;
         width: 300px;
     }
 
-    .login-top p, span {
+    .signin-top p, span {
         margin: 0;
     }
 
-    .login-banner {
+    .signin-banner {
         display: none;
     }
 
-    .login-buttons,
-    .login-top,
+    .signin-buttons,
+    .signin-top,
     .listtta-terms {
         width: 300px;
     }
@@ -41,25 +41,25 @@
         font-size: 12px !important;
     }
 
-    .login-buttons {
+    .signin-buttons {
         margin: 0 !important;
         align-items: center !important;
     }
 
-    .login-buttons button,
-    .other-methods button {
+    .signin-buttons button,
+    .other-signin-methods button {
         position: relative;
         padding: 10px !important;
     }
 
-    .login-buttons button img,
-    .other-methods button img {
+    .signin-buttons button img,
+    .other-signin-methods button img {
         position: absolute;
         left: 10px;
         width: 20px !important;
     }
 
-    .login-breaker p {
+    .signin-breaker p {
         margin: 0;
     }
 
@@ -67,26 +67,26 @@
         margin: 0;
     }
 
-    /*LoginType Screen*/
-    .login-type-popup-block-content img {
+    /*signinType Screen*/
+    .signin-type-popup-block-content img {
         height: 80px !important;
     }
 
-    .login-type-popup-block-content span {
+    .signin-type-popup-block-content span {
         font-size: 20px;
         font-weight: 600;
     }
 
-    .login-type-popup-block-two {
+    .signin-type-popup-block-two {
         margin-top: 20px !important;
     }
 
-    .login-type-popup-block-content .block-two-img {
+    .signin-type-popup-block-content .block-two-img {
         height: 60px !important;
         width: 90px !important;
     }
 
-    .login-type-popup-block {
+    .signin-type-popup-block {
         border: 0 !important;
     }
 
@@ -130,7 +130,7 @@
     }
 }
 
-.login-container {
+.signin-container {
     position: fixed;
     top: 0;
     left: 0;
@@ -142,17 +142,23 @@
     align-items: center;
 }
 
-.login-close-button {
+.signin-close-button {
     border: none;
     background-color: transparent;
     cursor: pointer;
 }
 
-.login-close-button img {
+.signin-close-button img {
     width: 20px;
 }
 
-.login-popup {
+.signin-close-button {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+}
+
+.signin-popup {
     position: relative;
     width: 100%;
     max-width: 850px;
@@ -161,41 +167,35 @@
     border-radius: 20px;
 }
 
-.login-close-button {
-    position: absolute;
-    top: 16px;
-    right: 16px;
-}
-
-.signup-screen-container {
+.signin-screen-container {
     display: flex;
     width: 850px;
     height: 607px;
 }
 
-.signup-screen-container .login-banner img {
+.signin-screen-container .signin-banner img {
     border-radius: 20px 0 0 20px;
     height: 600px;
 }
 
-.login-fields {
+.signin-fields {
     padding: 5%;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
 }
 
-.login-top {
+.signin-top {
     padding-top: 80px;
 }
 
-.login-top p {
+.signin-top p {
     color: var(--black-text);
     font-weight: 600;
     font-size: 20px;
 }
 
-.login-top span {
+.signin-top span {
     font-weight: normal;
     color: #3e4042;
     text-align: start;
@@ -203,7 +203,7 @@
 }
 
 
-.login-buttons {
+.signin-buttons {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -211,45 +211,58 @@
     margin-bottom: 80px;
 }
 
-.login-buttons {
+.signin-buttons {
     gap: 10px;
 }
 
-.login-buttons button {
+.signin-buttons button {
+    position: relative;
     margin: 0;
     width: 300px;
     display: flex;
     align-items: center;
-    padding: 5px;
+    padding: 10px;
     justify-content: center;
     border: 1px solid #e5e6e9;
     background-color: transparent;
     font-weight: 800;
     border-radius: 10px;
+    font-size: 14px;
     cursor: pointer;
 }
 
-.login-buttons span {
+.account-img-button {
+    position: absolute;
+    left: 10px;
+    top: 7px;
+
+}
+
+.other-signin-methods-buttons {
+    top: 3px !important;
+}
+
+.signin-buttons span {
     margin-right: 60px;
     color: #2e3032 !important;
 }
 
-.login-buttons button img {
-    width: 28px;
+.signin-buttons button img {
+    width: 22px;
 }
 
-.login-breaker p {
+.signin-breaker p {
     font-size: 14px;
     font-weight: 600;
     color: var(--grey-text);
 }
 
-.other-methods {
+.other-signin-methods {
     display: flex;
     gap: 10px;
 }
 
-.other-methods button {
+.other-signin-methods button {
     width: 150px;
     padding: 7px 20px !important;
 }
@@ -264,11 +277,11 @@
     color: #404040;
 }
 
-#login-type-hidden {
+#signin-type-hidden {
     display: none;
 }
 
-.login-type-popup-container {
+.signin-type-popup-container {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -276,16 +289,16 @@
     text-align: center;
 }
 
-.login-type-popup h1 {
+.signin-type-popup h1 {
     font-size: 20px;
 }
 
-.login-type-popup-block-one {
+.signin-type-popup-block-one {
     display: flex;
     gap: 20px;
 }
 
-.login-type-popup-block {
+.signin-type-popup-block {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -296,7 +309,7 @@
     cursor: pointer;
 }
 
-.login-type-popup-block-content {
+.signin-type-popup-block-content {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -305,19 +318,19 @@
 }
 
 
-.login-type-popup-block span {
+.signin-type-popup-block span {
     margin-top: 10px;
 }
 
-.login-type-popup-block a {
+.signin-type-popup-block a {
     text-decoration: none;
 }
 
-.login-type-popup-block img {
+.signin-type-popup-block img {
     height: 120px;
 }
 
-.login-type-popup-block-two {
+.signin-type-popup-block-two {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -328,7 +341,7 @@
     width: 200px;
 }
 
-.login-type-popup-block .block-two-img {
+.signin-type-popup-block .block-two-img {
     height: 90px;
     width: 110px;
 }
@@ -357,7 +370,7 @@
     flex-direction: column;
 }
 
-.login-form-input {
+.signin-form-input {
     margin: 0;
 }
 
@@ -402,8 +415,8 @@
     cursor: pointer;
 }
 
-.login-signup-hidden,
-.login-type-hidden,
+.signin-signup-hidden,
+.signin-type-hidden,
 .user-signup {
     display: none;
 }
@@ -454,4 +467,12 @@
 
 .checkbox-lgpd-input input {
     cursor: pointer;
+}
+
+.signup-button-bottom .btn {
+    background-color: #3e4042;
+}
+
+.signup-button-bottom .btn:disabled {
+    background-color: #ff093b; 
 }
