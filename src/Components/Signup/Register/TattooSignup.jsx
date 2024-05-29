@@ -1,4 +1,4 @@
-import "../../../Styles/Components/Auth/SignupScreen.css";
+import "../../../Styles/Components/Auth/SigninScreen.css";
 import "../../../Styles/Components/Auth/Login.css";
 import { useContext, useEffect, useState } from "react";
 import { SignupFormContext } from "../../../Contexts/SignupLoginFormContext";
@@ -16,6 +16,13 @@ export default function TattooSignup(props) {
 
   const [selectedState, setSelectedState] = useState("Seu estado");
   const [selectedCity, setSelectedCity] = useState("Sua cidade");
+
+  const [isTermsCheckboxCheckboxChecked, setIsTermsCheckboxChecked] =
+    useState(false);
+
+  const handleTermsCheckbox = () => {
+    setIsTermsCheckboxChecked(!isTermsCheckboxCheckboxChecked);
+  };
 
   const handleSelectedState = (option) => {
     setSelectedState(option);
@@ -102,6 +109,8 @@ export default function TattooSignup(props) {
     handleInputChange(null, "userGender", gender);
   };
 
+  const isSkillsSelected = signupFormData.professionalsDto.skills.length > 0;
+
   return props.trigger ? (
     <div className="login-container">
       <div className="login-popup">
@@ -116,7 +125,7 @@ export default function TattooSignup(props) {
         <div className="signup-screen-container login-screen-container">
           <div className="login-form">
             <form onSubmit={handleSignupSubmit}>
-              <div className="login-fields">
+              <div className="signup-fields">
                 <label htmlFor="email">Email</label>
                 <input
                   type="email"
@@ -127,7 +136,7 @@ export default function TattooSignup(props) {
                   onChange={handleInputChange}
                 />
               </div>
-              <div className="login-fields">
+              <div className="signup-fields">
                 <label htmlFor="password">Senha</label>
                 <input
                   type="password"
@@ -138,11 +147,11 @@ export default function TattooSignup(props) {
                   onChange={handleInputChange}
                 />
               </div>
-              <div className="login-fields login-fields-location">
-                <div className="default-dropdown-menu filters-dropdown-menu signup-dropdown-menu">
+              <div className="signup-fields login-fields-location">
+                <div className="default-dropdown-menu signup-location-dropdown-menu mobile-dropdown-location">
                   <button
                     type="button"
-                    className="default-dropdown-button signup-dropdown-button"
+                    className="default-dropdown-button signup-location-dropdown-button"
                     onClick={openDropdownMenuStates}
                   >
                     {selectedState}
@@ -151,7 +160,7 @@ export default function TattooSignup(props) {
                     </span>
                   </button>
                   <div
-                    className="default-dropdown-content location-dropdown-content signup-dropdown-content"
+                    className="default-dropdown-content signup-location-dropdown-content"
                     id="dropdownStatesId"
                   >
                     {statesAPI.length > 0 ? (
@@ -185,9 +194,9 @@ export default function TattooSignup(props) {
                     )}
                   </div>
                 </div>
-                <div className="default-dropdown-menu filters-dropdown-menu signup-dropdown-menu">
+                <div className="default-dropdown-menu signup-location-dropdown-menu">
                   <button
-                    className="default-dropdown-button signup-dropdown-button"
+                    className="default-dropdown-button signup-location-dropdown-button"
                     onClick={openDropdownMenuCity}
                   >
                     {selectedCity}
@@ -196,7 +205,7 @@ export default function TattooSignup(props) {
                     </span>
                   </button>
                   <div
-                    className="default-dropdown-content location-dropdown-content signup-dropdown-content"
+                    className="default-dropdown-content signup-location-dropdown-content"
                     id="dropdownCityId"
                   >
                     {citiesAPI.length > 0 ? (
@@ -230,8 +239,8 @@ export default function TattooSignup(props) {
                   </div>
                 </div>
               </div>
-              <div className="login-fields">
-                <div className="default-dropdown-menu filters-dropdown-menu">
+              <div className="signup-fields">
+                <div className="default-dropdown-menu signup-dropdown-menu">
                   <button
                     type="button"
                     className="default-dropdown-button signup-dropdown-button"
@@ -242,15 +251,21 @@ export default function TattooSignup(props) {
                       expand_more
                     </span>
                   </button>
-                  <div className="default-dropdown-content" id="dropdownGendersId">
-                    {genders.map(gender => (
+                  <div
+                    className="default-dropdown-content signup-dropdown-content gender-dropdown-content"
+                    id="dropdownGendersId"
+                  >
+                    {genders.map((gender) => (
                       <div key={gender}>
                         <ul className="dropdown-ul">
-                          <li className="dropdown-li" onClick={() => handleGenderChange(gender)}>
-                          <span className="dropdown-span default-span">
-                            {gender}
-                            {signupFormData.userGender === gender}
-                          </span>
+                          <li
+                            className="dropdown-li"
+                            onClick={() => handleGenderChange(gender)}
+                          >
+                            <span className="dropdown-span default-span">
+                              {gender}
+                              {signupFormData.userGender === gender}
+                            </span>
                           </li>
                         </ul>
                       </div>
@@ -258,11 +273,13 @@ export default function TattooSignup(props) {
                   </div>
                 </div>
               </div>
-              <div className="login-fields">
-                <div className="default-dropdown-menu filters-dropdown-menu">
+              <div className="signup-fields">
+                <div className="default-dropdown-menu signup-dropdown-menu">
                   <button
                     type="button"
-                    className="default-dropdown-button "
+                    className={`default-dropdown-button signup-dropdown-button ${
+                      isSkillsSelected ? "selected-skills" : ""
+                    }`}
                     onClick={toogleSkillsDropdown}
                   >
                     {signupFormData.professionalsDto.skills.length > 0
@@ -273,7 +290,7 @@ export default function TattooSignup(props) {
                     </span>
                   </button>
                   <div
-                    className="default-dropdown-content"
+                    className="default-dropdown-content signup-dropdown-content"
                     id="dropdownSkillsId"
                   >
                     {specialtiesAPI.length > 0 ? (
@@ -308,7 +325,29 @@ export default function TattooSignup(props) {
                   </div>
                 </div>
               </div>
-              <button type="submit" className="btn">Registrar</button>
+              <div className="signup-fields terms-fields">
+                <input
+                  type="checkbox"
+                  checked={!isTermsCheckboxCheckboxChecked}
+                  onChange={handleTermsCheckbox}
+                />
+                <label>
+                  Ao se cadastrar no LISTTTA, você aceita com os
+                  <a href="/termos-condicoes#useterms" target="_blank">
+                    Termos de uso
+                  </a>{" "}
+                  e{" "}
+                  <a href="/termos-condicoes#privacidade" target="_blank">
+                    Privacidade
+                  </a>{" "}
+                  do site.
+                </label>
+              </div>
+              <div className="signup-button-bottom">
+                <button type="submit" className="btn">
+                  Registrar
+                </button>
+              </div>
             </form>
           </div>
         </div>

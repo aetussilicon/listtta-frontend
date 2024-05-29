@@ -1,3 +1,30 @@
+@media screen and (max-width: 768px) {
+    .user-type-selection-screen-container {
+        width: auto !important;
+        height: 430px !important;
+    }
+
+    .user-type-buttons-container {
+       gap: 10px !important; 
+       height: 100%;
+    } 
+
+    .user-type-button {
+        border: none !important;
+        width: 100px !important;
+        height: 150px !important;
+    }
+
+    .user-type-button img {
+        height: 80px !important;
+    }
+
+    .user-type-buttons-area-bottom .user-type-button img {
+        width: 100px !important;
+        height: 70px !important;
+    }
+}
+
 .user-type-buttons-container {
     width: 100%;
     display: flex;
@@ -5,6 +32,11 @@
     align-items: center;
     justify-content: center;
     gap: 30px;
+}
+
+.user-type-buttons-container .user-who {
+    font-weight: 600;
+    font-size: 20px;
 }
 
 .user-type-buttons-area-top {

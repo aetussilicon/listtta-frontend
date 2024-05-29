@@ -1,50 +1,153 @@
-.login-screen-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
+@media screen and (max-width: 768px) {
+  .login-screen-container {
+    /* padding: 10px !important; */
+    /* height: 100% !important; */
+    /* width: fit-content !important; */
+  }
+
+  .login-form { 
+    margin: 10px; 
+    width: auto !important;
+  }
+
+  .signup-fields {
+    height: fit-content !important; 
+    width: 330px !important;
+    align-items: start 
+  }
+
+  .signup-location-dropdown-menu {
+    width: 150px !important;
+  }
+
+  .signup-screen-input,
+  .signup-dropdown-button,
+  .signup-location-dropdown-button {
+    padding: 10px !important;
+  }
+
+  .login-form form button {
+    margin-top: 0px !important;
+    font-size: 15px;
+  }
+
+  .signup-screen-input {
+    width: 300px !important;
+  }
+
+  .signup-fields-location {
+    gap: 0px !important;
+  }
+
+  .signup-dropdown-button {
+    /* width: 80% !important; */
+  }
+
+  .signup-location-dropdown-menu {
+    width: fit-content !important;
+  }
+
+  .terms-fields label {
+    font-size: 10px;
+  }
 }
 
-.login-form .login-fields {
-    padding: 0;
+.login-screen-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.login-form .signup-fields {
+  padding: 0;
+}
+
+.login-form {
+  width: 352px;
 }
 
 .login-form form {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
 }
 
-.login-form form button {
-    margin: 0;
-    margin-top: 20px !important;
-    width: 332px ; 
-}
+/* .login-form form button {
+  margin: 0;
+  margin-top: 10px; 
+  width: 332px;
+} */
 
 .login-form label {
-    margin-left: 10px;
+  margin-left: 10px;
 }
 
 .signup-screen-input {
-    padding: 15px;
-    margin: 0;
-    width: 300px;
+  padding: 15px;
+  margin: 0;
+  /* width: 300px; */
 }
 
-.login-fields-location {
-    flex-direction: row;
-    gap: 20px;
+.signup-fields-location {
+  flex-direction: row;
+  gap: 20px;
 }
 
+.signup-location-dropdown-menu,
 .signup-dropdown-menu {
-    width: max-content !important;
+  width: 100%;
 }
 
 .signup-dropdown-button {
-    width: 166px !important;
+  width: 100%;
 }
 
 .signup-dropdown-content {
-    width: 160px !important;
+  width: 100% !important;
+}
+
+.gender-dropdown-content {
+  height: fit-content !important;
+}
+
+.gender-drop .signup-dropdown-button.selected-skills {
+  font-size: 15px !important;
+}
+
+.signup-location-dropdown-button {
+  width: 166px !important;
+}
+
+.signup-location-dropdown-content {
+  width: 160px !important;
+}
+
+.gender-dropdown-menu {
+  width: 100%;
+}
+
+.signup-gender-dropdown-button {
+  width: 100% !important;
+}
+
+.signup-button,
+.signup-button-bottom button {
+  width: 100% !important;
+}
+
+.terms-fields {
+  display: flex;
+  flex-direction: row;
+  align-items: start;
+}
+
+.terms-fields input {
+  margin-top: 5px;
+}
+
+.terms-fields a,
+input {
+  cursor: pointer;
 }

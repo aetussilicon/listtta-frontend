@@ -1,5 +1,5 @@
 import { useState } from "react";
-import "../../../Styles/Components/Auth/SignupScreen.css";
+import "../../../Styles/Components/Auth/SigninScreen.css";
 import "../../../Styles/Components/Auth/Login.css";
 // import {useState} from "react";
 import { variables } from "../../../Variables.jsx";
