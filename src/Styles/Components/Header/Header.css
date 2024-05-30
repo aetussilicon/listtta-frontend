@@ -20,10 +20,6 @@
     display: flex !important;
   }
 
-  .material-symbols-outlined {
-    display: block !important;
-  }
-
   .header-container {
     padding: 0;
     padding-top: 30px !important;
@@ -63,6 +59,10 @@
 
   .nav-links {
     display: none;
+  }
+
+  .x-menu {
+    display: block !important;
   }
 }
 
@@ -128,11 +128,11 @@ nav a {
   cursor: pointer;
 }
 
-.material-symbols-outlined {
-  display: none;
-  color: #ffffff;
-}
-
 .hidden-inverse {
     display: none;
+}
+
+.x-menu {
+  display: none;
+  cursor: pointer;
 }

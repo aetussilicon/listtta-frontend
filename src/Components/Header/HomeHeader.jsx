@@ -27,7 +27,7 @@ export default function HomeHeader() {
                     alt="Listtta-logo"
                   />
                 </a>
-                <span onClick={menuClick} className="material-symbols-outlined">
+                <span onClick={menuClick} className="material-symbols-outlined x-menu">
                   menu
                 </span>
               </div>
