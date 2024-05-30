@@ -28,7 +28,7 @@ export default function SigninScreen(props) {
   return props.trigger ? (
     <>
       {currentScreen === "main" && (
-        <div className="signin-container" id="signin-screen">
+        <div className="signin-container">
           <div className="signin-popup">
             <button className="signin-close-button" onClick={closeSignupScreen}>
               <img src={variables.closeMenu}></img>
