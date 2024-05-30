@@ -1,0 +1,108 @@
+@import url("../Dropdowns/SignupDropdown.css");
+
+@media screen and (max-width: 768px) {
+  .signup-input,
+  .signup-register-button {
+    padding: 10px !important;
+    margin: 0 !important;
+  }
+
+  .signup-form {
+    margin-top: 50px;
+    padding: 20px !important;
+  }
+
+  .signup-form form {
+    gap: 8px !important;
+    width: 342px !important;
+  }
+
+  .signup-input {
+    width: 320px !important;
+  }
+
+  .singup-inputs-labels {
+    font-size: 15px !important;
+  }
+
+  .signup-fields-location {
+    justify-content: space-between;
+    width: 342px !important;
+  }
+
+  .terms-fields {
+    width: 300px !important;
+  }
+
+  .terms-fields label {
+    font-size: 12px;
+  }
+}
+
+.signup-screen-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.signup-form form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 400px;
+  gap: 15px;
+}
+
+.signup-fields {
+  width: 100%;
+}
+
+.signup-input {
+  width: 338px;
+  cursor: text;
+  margin-top: 2px;
+}
+
+.singup-inputs-labels {
+  font-size: 20px;
+  margin-left: 10px;
+}
+
+.signup-fields-location {
+  display: flex;
+  width: 400px;
+  justify-content: space-between;
+}
+
+.signup-register-button {
+  padding: 0 !important;
+  margin-bottom: 15px !important;
+}
+
+.signup-register-button .btn {
+  margin: 0;
+}
+
+.signup-register-button .btn {
+  background-color: #3e4042;
+}
+
+.signup-register-button .btn:disabled {
+  background-color: #ff093b;
+}
+
+.terms-fields {
+  display: flex;
+  flex-direction: row;
+  align-items: start;
+}
+
+.terms-fields input {
+  margin-top: 5px;
+}
+
+.terms-fields a,
+input {
+  cursor: pointer;
+}

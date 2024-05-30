@@ -1,5 +1,4 @@
-import "../../../Styles/Components/Auth/SigninScreen.css";
-import "../../../Styles/Components/Auth/Login.css";
+import "../../../Styles/Components/Auth/SignupScreen.css";
 import { useContext, useEffect, useState } from "react";
 import { SignupFormContext } from "../../../Contexts/SignupLoginFormContext";
 import { StatesContext } from "../../../Contexts/StatesContext";
@@ -111,19 +110,19 @@ export default function SignupScreen(props) {
   };
 
   const displaySkillsMenu = () => {
-    const skillsSection =  document.getElementById("skillsSection");
+    const skillsSection = document.getElementById("skillsSection");
     if (signupFormData.professionalsDto.type === "TATTOO") {
       skillsSection.style.display = "block";
     } else {
       skillsSection.style.display = "none";
     }
-  }
+  };
 
   const isSkillsSelected = signupFormData.professionalsDto.skills.length > 0;
 
   return props.trigger ? (
     <div className="signin-container">
-      <div className="signin-popup">
+      <div className="signin-popup signup-">
         <button
           className="signin-close-button"
           onClick={() => props.setTrigger(false)}
@@ -132,14 +131,16 @@ export default function SignupScreen(props) {
             arrow_back
           </span>
         </button>
-        <div className="signin-screen-container login-screen-container">
-          <div className="login-form">
+        <div className="signin-screen-container signup-screen-container">
+          <div className="signup-form">
             <form onSubmit={handleSignupSubmit}>
               <div className="signup-fields">
-                <label htmlFor="email">Email</label>
+                <label htmlFor="email" className="singup-inputs-labels">
+                  Email
+                </label>
                 <input
                   type="email"
-                  className="default-input signup-screen-input"
+                  className="default-input signup-input"
                   placeholder="john@gmail.com"
                   value={signupFormData.email}
                   name="email"
@@ -147,21 +148,23 @@ export default function SignupScreen(props) {
                 />
               </div>
               <div className="signup-fields">
-                <label htmlFor="password">Senha</label>
+                <label htmlFor="password" className="singup-inputs-labels">
+                  Senha
+                </label>
                 <input
                   type="password"
-                  className="default-input signup-screen-input"
+                  className="default-input signup-input"
                   placeholder="**********"
                   value={signupFormData.password}
                   name="password"
                   onChange={handleInputChange}
                 />
               </div>
-              <div className="signup-fields login-fields-location">
-                <div className="default-dropdown-menu signup-location-dropdown-menu mobile-dropdown-location">
+              <div className="signup-fields signup-fields-location">
+                <div className="default-dropdown-menu signup-location-dropdown-menu ">
                   <button
                     type="button"
-                    className="default-dropdown-button signup-location-dropdown-button"
+                    className="default-dropdown-button signup-dropdown-button signup-location-dropdown-button"
                     onClick={openDropdownMenuStates}
                   >
                     {selectedState}
@@ -206,7 +209,7 @@ export default function SignupScreen(props) {
                 </div>
                 <div className="default-dropdown-menu signup-location-dropdown-menu">
                   <button
-                    className="default-dropdown-button signup-location-dropdown-button"
+                    className="default-dropdown-button signup-dropdown-button signup-location-dropdown-button"
                     onClick={openDropdownMenuCity}
                   >
                     {selectedCity}
@@ -250,10 +253,10 @@ export default function SignupScreen(props) {
                 </div>
               </div>
               <div className="signup-fields">
-                <div className="default-dropdown-menu signup-dropdown-menu">
+                <div className="default-dropdown-menu signup-dropdown-menu signup-large-dropdown-menu">
                   <button
                     type="button"
-                    className="default-dropdown-button signup-dropdown-button"
+                    className="default-dropdown-button signup-dropdown-button signup-large-dropdown-button"
                     onClick={openDropdownMenuGenders}
                   >
                     {signupFormData.userGender || "Gênero"}
@@ -262,7 +265,7 @@ export default function SignupScreen(props) {
                     </span>
                   </button>
                   <div
-                    className="default-dropdown-content signup-dropdown-content gender-dropdown-content"
+                    className="default-dropdown-content signup-dropdown-content signup-large-dropdown-content signup-genders-dropdown-content"
                     id="dropdownGendersId"
                   >
                     {genders.map((gender) => (
@@ -284,10 +287,13 @@ export default function SignupScreen(props) {
                 </div>
               </div>
               <div className="signup-fields">
-                <div className="default-dropdown-menu signup-dropdown-menu" id="skillsSection">
+                <div
+                  className="default-dropdown-menu signup-dropdown-menu signup-large-dropdown-menu"
+                  id="skillsSection"
+                >
                   <button
                     type="button"
-                    className={`default-dropdown-button signup-dropdown-button ${
+                    className={`default-dropdown-button signup-dropdown-button signup-large-dropdown-button ${
                       isSkillsSelected ? "selected-skills" : ""
                     }`}
                     onClick={toogleSkillsDropdown}
@@ -300,7 +306,7 @@ export default function SignupScreen(props) {
                     </span>
                   </button>
                   <div
-                    className="default-dropdown-content signup-dropdown-content"
+                    className="default-dropdown-content signup-dropdown-content signup-large-dropdown-content"
                     id="dropdownSkillsId"
                   >
                     {specialtiesAPI.length > 0 ? (
@@ -326,7 +332,7 @@ export default function SignupScreen(props) {
                         <ul className="dropdown-ul">
                           <li className="dropdown-li location-filters-dropdown-li">
                             <span className="default-span">
-                              No skills available
+                             Sem Especialidades 
                             </span>
                           </li>
                         </ul>
@@ -342,7 +348,7 @@ export default function SignupScreen(props) {
                   onChange={handleTermsCheckbox}
                 />
                 <label>
-                  Ao se cadastrar no LISTTTA, você aceita com os
+                  Ao se cadastrar no LISTTTA, você aceita com os{" "}
                   <a href="/termos-condicoes#useterms" target="_blank">
                     Termos de uso
                   </a>{" "}
@@ -353,8 +359,8 @@ export default function SignupScreen(props) {
                   do site.
                 </label>
               </div>
-              <div className="signup-button-bottom">
-                <button type="submit" className="btn">
+              <div className="signup-register-button">
+                <button type="submit" className="btn" disabled={!isTermsCheckboxCheckboxChecked}>
                   Registrar
                 </button>
               </div>

@@ -1,0 +1,74 @@
+@import url("../Dropdowns/SearchDropdown.css");
+
+@media screen and (max-width: 768px) {
+  .signup-dropdown-button,
+  .signup-location-dropdown-button {
+    padding: 10px !important;
+    margin: 0 !important;
+  }
+
+  .signup-dropdown-button {
+    font-size: 13px !important;
+  }
+
+  .signup-dropdown-button span {
+    top: 6px !important;
+  }
+
+  .signup-location-dropdown-menu,
+  .signup-location-dropdown-button,
+  .signup-location-dropdown-content {
+    width: 150px !important;
+  }
+
+  .signup-location-dropdown-content,
+  .signup-large-dropdown-content {
+    top: 40px !important;
+    left: 0px !important;
+  }
+
+  .signup-location-dropdown-content .dropdown-span {
+    font-size: 13px !important;
+  }
+
+  .signup-location-dropdown-content .dropdown-ul .dropdown-li,
+  .signup-large-dropdown-content .dropdown-ul .dropdown-li {
+    margin-bottom: 3px;
+  }
+
+  .signup-genders-dropdown-content .dropdown-ul .dropdown-li {
+    font-size: 12px !important;
+  }
+}
+
+.signup-location-dropdown-menu,
+.signup-location-dropdown-button {
+  width: 180px;
+}
+
+.signup-location-dropdown-content {
+  width: 200px;
+  top: 60px;
+  left: -10px;
+}
+
+.signup-large-dropdown-menu {
+  width: 100%;
+}
+
+.signup-large-dropdown-button {
+  width: 100%;
+}
+
+.signup-large-dropdown-content {
+  width: 100%;
+}
+
+.signup-genders-dropdown-content {
+  height: auto;
+}
+.signup-large-dropdown-content .dropdown-ul .dropdown-li,
+.signup-location-dropdown-content .dropdown-ul .dropdown-li {
+  text-align: center !important;
+  font-size: 15px;
+}
