@@ -1,79 +1,74 @@
-import { useState } from "react";
-import "../../../Styles/Components/Auth/SigninScreen.css";
+import { useContext, useEffect, useState } from "react";
+// import "../../../Styles/Components/Auth/SigninScreen.css";
 import "../../../Styles/Components/Auth/Login.css";
-// import {useState} from "react";
 import { variables } from "../../../Variables.jsx";
+import { AuthContext } from "../../../Contexts/AuthContext.jsx";
 import axios from "axios";
 
 export default function Login(props) {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const { loginForm, login, handleInputChange } = useContext(AuthContext);
+  const [isRememberMeChecked, setIsRememberMeChecked] = useState(false);
 
-    const loginPayload = {
-        email,
-        password
-    }
+  const handleRememberMeCheckbox = () => {
+    setIsRememberMeChecked(!isRememberMeChecked);
+  };
 
-  const loginUser = async (e) => {
+  const handleLoginSubmit = (e) => {
     e.preventDefault();
-    const loginUrl = `${variables.localhost}/auth/login`;
-
-    try {
-        const response = await axios.post(loginUrl, loginPayload);
-        const data = await response.data
-        console.log(data);
-
-        if(response.status === 200){
-            window.location.href = "/search";
-            alert("Login realizado com sucesso");
-        } else {
-            alert("Erro no login")
-            console.log("Erro no login")
-        }
-    } catch (error) {
-        console.error(error);
-    }
-  }
+    login(isRememberMeChecked);
+  };
 
   return props.trigger ? (
-    <div className="login-container">
-      <div className="login-popup" id="login-screen">
+    <div className="login-container signin-container">
+      <div className="signin-popup">
         <button
-          className="login-close-button"
+          className="signin-close-button"
           onClick={() => props.setTrigger(false)}
         >
-          <span className="material-symbols-outlined arrow-span">arrow_back</span>
+          <span className="material-symbols-outlined arrow-span">
+            arrow_back
+          </span>
         </button>
-        <div className=" signup-screen-container login-screen-container">
-          <div className="login-form">
-            <form onSubmit={(e) => loginUser(e)}>
-              <div className="login-fields">
-                <label htmlFor="email">Email</label>
+        <div className="signin-screen-container signup-screen-container">
+          <div className="signup-form">
+            <form onSubmit={handleLoginSubmit}>
+              <div className="signup-fields">
+                <label htmlFor="email" className="signup-input-labels">
+                  Email
+                </label>
                 <input
                   type="email"
-                  className="default-input signup-screen-input"
+                  className="default-input signup-input"
                   placeholder="john@gmail.com"
-                  value={email}
+                  value={loginForm.email}
                   name="email"
-                  onChange={(e) => {
-                    setEmail(e.target.value);
-                  }}
+                  onChange={handleInputChange}
                 />
               </div>
-              <div className="login-fields">
-                <label htmlFor="password">Senha</label>
+              <div className="signup-fields">
+                <label htmlFor="password" className="signup-input-labels">
+                  Senha
+                </label>
                 <input
                   type="password"
-                  className="default-input signup-screen-input"
+                  className="default-input signup-input"
                   placeholder="**********"
-                  value={password}
+                  value={loginForm.password}
                   name="password"
-                  onChange={(e) => {
-                    setPassword(e.target.value);
-                  }}
+                  onChange={handleInputChange}
                 />
               </div>
-              <button type="submit" className="btn">Entrar</button>
+              <div className="signup-fields">
+                <input
+                  name="remember"
+                  type="checkbox"
+                  onChange={handleRememberMeCheckbox}
+                />
+                <label htmlFor="remember">Lembrar de mim</label>
+              </div>
+              <button type="submit" className="btn">
+                Entrar
+              </button>
             </form>
           </div>
         </div>
