@@ -1,6 +1,9 @@
+@import "SigninScreen.css";
+@import "SignupScreen.css";
+
 @media screen and (max-width: 768px) {
-  .login-form { 
-    margin: 10px; 
+  .login-form {
+    margin: 10px;
     width: auto !important;
   }
 }
@@ -30,4 +33,3 @@
 .login-form label {
   margin-left: 10px;
 }
-
