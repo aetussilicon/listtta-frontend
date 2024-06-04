@@ -22,9 +22,7 @@ export const CitiesProvider = ({children}) => {
                     ...city,
                     nome: capitalize(city.nome)
                 }));
-
-                data = data.sort((a, b) => a.nome.localeCompare(b.nome));
-                console.log(data);
+                data = data.sort((a, b) => a.nome.localeCompare(b.nome)); 
                 setCitiesAPI(data);
             }
         } catch(error) {

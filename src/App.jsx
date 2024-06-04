@@ -6,16 +6,25 @@ import Profile from "./Pages/Profile.jsx";
 import ProfessionalsListWIthContext from "./ContextPages/ProfessionalsListWIthContext.jsx";
 import HomeWithContext from "./ContextPages/HomeWithContext.jsx";
 import ListttaTermsContext from "./ContextPages/ListttaTermsContext.jsx";
+import { SignupFormProvider } from "./Contexts/SignupLoginFormContext.jsx";
+import { AuthProvider } from "./Contexts/AuthContext.jsx";
+import { FiltersProvider } from "./Contexts/FiltersConxtext.jsx";
 
 function App() {
   return (
-    <Routes>
-      <Route Component={HomeWithContext} exact path="/" />
-      <Route Component={Profile} exact path="/profile" />
-      <Route Component={ListttaTermsContext} path="termos-condicoes" />
-      <Route Component={LoginPrototype} path="/login" />
-      <Route Component={ProfessionalsListWIthContext} path="/search" />
-    </Routes>
+    <SignupFormProvider>
+      <AuthProvider>
+        <FiltersProvider>
+          <Routes>
+            <Route Component={HomeWithContext} exact path="/" />
+            <Route Component={Profile} exact path="/profile" />
+            <Route Component={ListttaTermsContext} path="termos-condicoes" />
+            <Route Component={LoginPrototype} path="/login" />
+            <Route Component={ProfessionalsListWIthContext} path="/search" />
+          </Routes>
+        </FiltersProvider>
+      </AuthProvider>
+    </SignupFormProvider>
   );
 }
 
