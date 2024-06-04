@@ -1,8 +1,10 @@
 import { useState } from "react";
 import "../../Styles/Components/Header/Header.css";
 import SigninScreen from "../Signup/SigninScreen.jsx";
+import Login from "../Signup/Login/Login.jsx";
 
 export default function HomeHeader() {
+  const [signinScreen, setSigninScreen] = useState(false);
   const [loginScreen, setLoginScreen] = useState(false);
 
   function menuClick() {
@@ -42,26 +44,32 @@ export default function HomeHeader() {
                   <li>
                     <a href="/contact">Contato</a>
                   </li>
+                  <li>
+                    <a href="https://blog.listtta.com.br">Blog</a>
+                  </li>
                 </ul>
                 <div
                   id="menu-to-display"
                   className="nav-register menu-buttons hidden-inverse"
                 >
-                  <button className="button">login</button>
-                  <a onClick={() => setLoginScreen(true)}>Cadastre-se</a>
+                  <button className="button" onClick={() => setLoginScreen(true)}>login</button>
+                  <a onClick={() => setSigninScreen(true)}>Cadastre-se</a>
                 </div>
               </div>
               <div className="nav-register hidden">
-                <button>
+                <button onClick={() => setLoginScreen(true)}>
                   <a>Login</a>
                 </button>
-                <a onClick={() => setLoginScreen(true)}>Cadastre-se</a>
+                <a onClick={() => setSigninScreen(true)}>Cadastre-se</a>
               </div>
             </div>
           </div>
         </nav>
+        {signinScreen && (
+          <SigninScreen trigger={signinScreen} setTrigger={setSigninScreen} />
+        )}
         {loginScreen && (
-          <SigninScreen trigger={loginScreen} setTrigger={setLoginScreen} />
+          <Login trigger={loginScreen} setTrigger={setLoginScreen} />
         )}
       </header>
     </>

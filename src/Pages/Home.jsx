@@ -74,14 +74,7 @@ export default function Home() {
           </div>
         </div>
       </div>
-      <div className="second-card container responsive-container">
-        <div className="solo-text">
-          <h1>
-            Você tatuador não paga nada para fazer parte da LISTTTA. Você
-            cliente não paga nada para buscar seu artista.
-          </h1>
-        </div>
-      </div>
+
       <div className="first-banner-block">
         <div className="first-block-content container">
           <div className="slogan">
@@ -99,6 +92,14 @@ export default function Home() {
               </button>
             </div>
           </div>
+        </div>
+      </div>
+      <div className="second-card container responsive-container">
+        <div className="solo-text">
+          <h1>
+            Você tatuador não paga nada para fazer parte da LISTTTA. Você
+            cliente não paga nada para buscar seu artista.
+          </h1>
         </div>
       </div>
       <SigninScreen

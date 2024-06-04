@@ -227,7 +227,7 @@
   background-image: var(--home-banner);
   background-size: cover;
   padding-bottom: 30px;
-  margin-bottom: 60px;
+  /* margin-bottom: 60px; */
 }
 
 .first-block-content {
