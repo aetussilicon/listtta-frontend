@@ -47,7 +47,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   const login = async (remeberMe) => {
-    const loginUrl = `${variables.localhost}/auth/login`;
+    const loginUrl = `${variables.hostingerURl}/auth/login`;
     try {
       const response = await axios.post(loginUrl, loginForm);
       const token = await response.data.token;
