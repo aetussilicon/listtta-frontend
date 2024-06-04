@@ -66,7 +66,7 @@ export const SignupFormProvider = ({ children }) => {
   };
 
   const signupUser = async () => {
-    const signupURL = `${variables.localhost}/auth/signup`;
+    const signupURL = `${variables.hostingerURl}/auth/signup`;
     try {
       const response = await axios.post(signupURL, signupFormData);
       const data = await response.data;

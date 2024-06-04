@@ -15,8 +15,7 @@ export const FiltersProvider = ({children}) => {
     const getSpecialties = async () => {
         try {
             const response = await axios.get(specialtiesUrl);
-            const data = await response.data;
-            console.log(data);
+            const data = await response.data; 
             setSpecialtiesAPI(data);
         } catch (error) {
             console.error(error);

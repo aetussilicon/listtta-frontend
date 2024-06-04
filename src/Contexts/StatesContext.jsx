@@ -16,8 +16,7 @@ export const StatesProvider = ({ children }) => {
         try {
             const response = await axios.get(statesUrl);
             let data = await response.data;
-            data = data.sort((a, b) => a.nome.localeCompare(b.nome));
-            console.log(data)
+            data = data.sort((a, b) => a.nome.localeCompare(b.nome)); 
             setStatesAPI(data)
         } catch(error) {
             console.error(error);

@@ -110,12 +110,12 @@ export default function MainSearchFilter() {
     setFilteredData(filteredProfessionals);
   };
 
-  useEffect(() => {
-    console.log("Estado " + state);
-    console.log("Cidade " + city);
-    console.log("Tipo " + type);
-    console.log("Gênero " + userGender);
-  });
+  // useEffect(() => {
+  //   console.log("Estado " + state);
+  //   console.log("Cidade " + city);
+  //   console.log("Tipo " + type);
+  //   console.log("Gênero " + userGender);
+  // });
 
   const stateDropdownClick = (stateAcronym, stateName) => {
     setStateName(stateAcronym);
@@ -139,11 +139,9 @@ export default function MainSearchFilter() {
     const { value } = event.target;
 
     if (event.target.checked) {
-      setSelectedSkills([...selectedSkills, value]);
-      console.log(selectedSkills);
+      setSelectedSkills([...selectedSkills, value]); 
     } else {
-      setSelectedSkills(selectedSkills.filter((id) => id !== value));
-      console.log(selectedSkills);
+      setSelectedSkills(selectedSkills.filter((id) => id !== value)); 
     }
   };
 

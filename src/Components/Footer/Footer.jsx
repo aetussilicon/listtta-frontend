@@ -61,11 +61,11 @@ export default function Footer() {
                         <span className="material-symbols-outlined circle-text footer-p">circle</span>
                     </div>
                     <div>
-                        <span className="footer-p">Política de privacidade</span>
+                        <span className="footer-p"><a href="/termos-condicoes">Política de privacidade</a></span>
                         <span className="material-symbols-outlined circle-text footer-p">circle</span>
                     </div>
                     <div>
-                        <span className="footer-p">Política de cookies</span>
+                        <span className="footer-p"><a href="/termos-condicoes">Política de cookies</a></span>
                         <span className="material-symbols-outlined circle-text footer-p">circle</span>
                         <span className="footer-p">LGPD</span>
                     </div>
