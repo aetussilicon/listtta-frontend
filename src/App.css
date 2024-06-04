@@ -12,16 +12,20 @@
     --home-search: #0E1323;
     --home-blog-section-text: #313131;
     --filters-container: #f8f8fa;
+    --black-text: #000000;
 
     --faq-page-banner: #1b2038;
 
     font-family: 'Poppins', sans-serif;
     background-color: #ffffff;
 
-    --home-banner: url('Assets/imgs/banners/main-banner.png');
-    --home-second-banner: url('Assets/imgs/banners/descont-banner.png');
-    --home-second-banner-responsive: url('Assets/imgs/banners/descont-banner-responsive.png');
-    --search-banner: url('Assets/imgs/banners/search-banner.png');
+    --home-banner: url('/Assets/imgs/banners/main-banner.png');
+    --home-second-banner: url('/Assets/imgs/banners/descont-banner.png');
+    --home-second-banner-responsive: url('/Assets/imgs/banners/descont-banner-responsive.png');
+    --search-banner: url('/Assets/imgs/banners/search-banner.png');
+
+    /* buttons imgs */
+    
 }
 
 body {
@@ -44,4 +48,43 @@ body {
     background-repeat: no-repeat;
     font-size: 15px;
     outline: none;
+}
+
+.default-span {
+    color: var(--black-text);
+}
+
+.white-btn {
+    border-radius: 50px;
+    padding: 15px;
+    font-size: 18px;
+    font-weight: 600;
+    cursor: pointer;
+    width: 270px;
+    margin: 0 0 10px 0;
+    background-color: #ffffff;
+    border: 1px solid #343434;
+    color: #000000;
+}
+
+.checkbox-round {
+    width: 15px;
+    height: 15px;
+    background-color: white;
+    border-radius: 50%;
+    vertical-align: middle;
+    border: 2px solid #ddd;
+    appearance: none;
+    -webkit-appearance: none;
+    outline: none;
+    cursor: pointer;
+}
+
+.checkbox-round:checked {
+    background-color: gray;
+}
+
+.arrow-span {
+    color: black !important;
+    font-size: 30px;
 }

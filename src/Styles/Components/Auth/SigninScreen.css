@@ -1,0 +1,347 @@
+@media screen and (max-width: 768px) {
+    .signin-popup,
+    .signup-screen-container,
+    .signup-container
+    .signin-screen-container,
+    .signin-fields {
+        width: 380px !important;
+        height: 430px !important;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .signin-fields {
+        padding: 0 !important;
+        justify-content: space-evenly !important;
+    }
+
+    .signin-top {
+        padding: 0 !important;
+        margin: 0px !important;
+        margin-top: 30px !important;
+        width: 300px;
+    }
+
+    .signin-top p, span {
+        margin: 0;
+    }
+
+    .signin-banner {
+        display: none;
+    }
+
+    .signin-buttons,
+    .signin-top,
+    .listtta-terms {
+        width: 300px;
+    }
+
+    .listtta-terms p {
+        text-align: center !important;
+        font-size: 12px !important;
+    }
+
+    .signin-buttons {
+        margin: 0 !important;
+        align-items: center !important;
+    }
+
+    .signin-buttons button,
+    .other-signin-methods button {
+        position: relative;
+        padding: 10px !important;
+    }
+
+    .signin-buttons button img,
+    .other-signin-methods button img {
+        position: absolute;
+        left: 10px;
+        width: 20px !important;
+    }
+
+    .signin-breaker p {
+        margin: 0;
+    }
+
+    .listtta-terms p {
+        margin: 0;
+    }
+
+    /*signinType Screen*/
+    .signin-type-popup-block-content img {
+        height: 80px !important;
+    }
+
+    .signin-type-popup-block-content span {
+        font-size: 20px;
+        font-weight: 600;
+    }
+
+    .signin-type-popup-block-two {
+        margin-top: 20px !important;
+    }
+
+    .signin-type-popup-block-content .block-two-img {
+        height: 60px !important;
+        width: 90px !important;
+    }
+
+    .signin-type-popup-block {
+        border: 0 !important;
+    }
+
+    /*Signup Fields*/
+    .signup-container {
+        padding: 0 !important;
+    }
+}
+
+.signin-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.2);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.signin-close-button {
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+}
+
+.signin-close-button img {
+    width: 20px;
+}
+
+.signin-close-button {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+}
+
+.signin-popup {
+    position: relative;
+    width: 100%;
+    max-width: 850px;
+    max-height: 600px;
+    background-color: #ffffff;
+    border-radius: 20px;
+}
+
+.signin-screen-container {
+    display: flex;
+    width: 850px;
+    height: 607px;
+}
+
+.signin-screen-container .signin-banner img {
+    border-radius: 20px 0 0 20px;
+    height: 600px;
+}
+
+.signin-fields {
+    padding: 5%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.signin-top {
+    padding-top: 80px;
+}
+
+.signin-top p {
+    color: var(--black-text);
+    font-weight: 600;
+    font-size: 20px;
+}
+
+.signin-top span {
+    font-weight: normal;
+    color: #3e4042;
+    text-align: start;
+    font-size: 11px;
+}
+
+
+.signin-buttons {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 80px;
+}
+
+.signin-buttons {
+    gap: 10px;
+}
+
+.signin-buttons button {
+    position: relative;
+    margin: 0;
+    width: 300px;
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    justify-content: center;
+    border: 1px solid #e5e6e9;
+    background-color: transparent;
+    font-weight: 800;
+    border-radius: 10px;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.account-img-button {
+    position: absolute;
+    left: 10px;
+    top: 7px;
+
+}
+
+.other-signin-methods-buttons {
+    top: 3px !important;
+}
+
+.signin-buttons span {
+    margin-right: 60px;
+    color: #2e3032 !important;
+}
+
+.signin-buttons button img {
+    width: 22px;
+}
+
+.signin-breaker p {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--grey-text);
+}
+
+.other-signin-methods {
+    display: flex;
+    gap: 10px;
+}
+
+.other-signin-methods button {
+    width: 150px;
+    padding: 7px 20px !important;
+}
+
+.listtta-terms p {
+    text-decoration: none;
+    font-size: 11px;
+    text-align: justify;
+}
+
+.listtta-terms p, a {
+    color: #404040;
+}
+
+#signin-type-hidden {
+    display: none;
+}
+
+.signin-type-popup-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.signin-type-popup h1 {
+    font-size: 20px;
+}
+
+.signin-type-popup-block-one {
+    display: flex;
+    gap: 20px;
+}
+
+.signin-type-popup-block {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 2px solid #1C2545;
+    border-radius: 10px;
+    padding: 10px;
+    background-color: transparent;
+    cursor: pointer;
+}
+
+.signin-type-popup-block-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 80px;
+}
+
+
+.signin-type-popup-block span {
+    margin-top: 10px;
+}
+
+.signin-type-popup-block a {
+    text-decoration: none;
+}
+
+.signin-type-popup-block img {
+    height: 120px;
+}
+
+.signin-type-popup-block-two {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 30px;
+}
+
+.block-two {
+    width: 200px;
+}
+
+.signin-type-popup-block .block-two-img {
+    height: 90px;
+    width: 110px;
+}
+
+.user-signup-div {
+    display: none;
+}
+
+.signup-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    margin: 0 !important;
+}
+
+#user-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.signin-input {
+    display: flex;
+    flex-direction: column;
+}
+
+.signin-form-input {
+    margin: 0;
+}
+
+.signin-signup-hidden,
+.signin-type-hidden,
+.user-signin {
+    display: none;
+}

@@ -1,0 +1,130 @@
+@media screen and (max-width: 1024px) {
+    .profile-container {
+        flex-direction: column;
+    }
+
+    .profile-right-block-info {
+        width: 400px !important;
+    }
+
+    .profile-info-block img {
+        height: 280px;
+    }
+
+    .profile-left-block-info {
+        width: 360px !important;
+    }
+
+    .center-text {
+        justify-content: center;
+    }
+
+    .profile-right-block-buttons {
+        margin-top: 10px;
+        flex-direction: column;
+        gap: 10px !important;
+    }
+
+    .profile-button {
+        margin: 0;
+        width: 200px !important;
+    }
+
+    .button-inverse-hidden {
+        display: block !important;
+    }
+
+}
+
+.profile-container {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+}
+
+.profile-right-block {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.profile-right-block-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 460px;
+    border-radius: 15px;
+    padding: 20px 0 20px 0;
+    background-color: #F9F9F9;
+    gap: 5px;
+}
+
+.profile-info-block {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.profile-info-span {
+    font-size: 24px;
+    font-weight: 600;
+}
+
+.profile-info-span-title {
+    font-size: 30px;
+}
+
+.profile-info-block .profile-info-span-content {
+    font-size: 20px;
+}
+
+.profile-edit-button {
+    border: 0;
+    background: none;
+    cursor: pointer;
+    padding: 0;
+}
+
+.profile-edit-button img {
+    height: 35px;
+}
+
+.profile-button {
+    width: 200px;
+}
+
+.profile-right-block-buttons {
+    display: flex;
+    gap: 30px;
+}
+
+.green-btn {
+    background-color: #00B4A1;
+}
+
+.profile-left-block {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.profile-left-block-info {
+    display: flex;
+    flex-direction: column;
+    width: 600px;
+    padding: 20px 20px 20px 20px;
+    border-radius: 15px;
+    background-color: #F9F9F9;
+    gap: 5px;
+    height: 416px;
+}
+
+.delete-profile-button {
+    background-color: transparent;
+    color: var(--default-button);
+    border: 2px solid var(--default-button) ;
+}
+
+.button-inverse-hidden {
+    display: none;
+}

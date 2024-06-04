@@ -1,0 +1,123 @@
+@media screen and (max-width: 480px) {
+    .professional-card-container {
+        justify-content: center !important;
+        display: flex !important;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .professional-info button {
+        width: 260px !important;
+    }
+}
+
+@media screen and (min-width: 480px) and (max-width: 768px) {
+    .professional-card-container {
+        grid-template-columns: auto auto !important;
+        gap: 30px !important;
+        row-gap: 50px !important;
+    }
+
+    .professional-info button {
+        width: 260px !important;
+    }
+}
+
+@media screen and (min-width: 768px) and (max-width: 1024px) {
+    .professional-card-container {
+        grid-template-columns: auto auto auto !important;
+        gap: 15px !important;
+        row-gap: 50px !important;
+    }
+
+    .professional-info button {
+        width: 260px !important;
+    }
+}
+
+@media screen and (min-width: 1024px) and (max-width: 1200px) {
+    .professional-card-container {
+        grid-template-columns: auto auto auto !important;
+        gap: 30px !important;
+    }
+
+    .professional-info button {
+        width: 260px !important;
+    }
+}
+
+.professional-card-container {
+    display: grid;
+    grid-template-columns: auto auto auto auto;
+    gap: 50px;
+}
+
+.professionals-card {
+    height: 300px;
+    width: 300px;
+    background-color: #f4f4f4;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 15px;
+    cursor: pointer;
+}
+
+.professional-picture {
+    height: 150px;
+    width: 150px;
+    background-image: url('Assets/imgs/cards/users-card-placeholder.png');
+    background-size: cover;
+    background-position: center;
+    border-radius: 10px;
+    border: 4px solid #c3c3c3;
+    position: absolute;
+    /* z-index: 9; */
+    margin-top: -20px;
+}
+
+.professional-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 150px;
+    text-align: center;
+    gap: 10px;
+}
+
+.professional-info h3 {
+    margin: 0;
+}
+
+.professional-info button {
+    margin: 0;
+    width: auto;
+    display: flex;
+    justify-content: center;
+    width: 260px;
+    gap: 10px;
+    align-items: center;
+    font-weight: 800;
+}
+
+.professional-locale {
+    display: flex;
+    align-items: center;
+}
+
+.professional-locale p {
+    margin: 0;
+} 
+
+.load-more {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: auto;
+    margin-top: 30px;
+}
+.load-more button {
+    margin: 0;
+    width: fit-content;
+}
