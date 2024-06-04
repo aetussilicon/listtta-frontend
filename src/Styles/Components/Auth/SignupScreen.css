@@ -85,11 +85,11 @@
 }
 
 .signup-register-button .btn {
-  background-color: #3e4042;
+  background-color: #ff093b;
 }
 
 .signup-register-button .btn:disabled {
-  background-color: #ff093b;
+  background-color: #3e4042;
 }
 
 .terms-fields {

@@ -1,9 +1,6 @@
-import { useContext, useEffect, useState } from "react";
-// import "../../../Styles/Components/Auth/SigninScreen.css";
+import { useContext, useState } from "react";
 import "../../../Styles/Components/Auth/Login.css";
-import { variables } from "../../../Variables.jsx";
 import { AuthContext } from "../../../Contexts/AuthContext.jsx";
-import axios from "axios";
 
 export default function Login(props) {
   const { loginForm, login, handleInputChange } = useContext(AuthContext);

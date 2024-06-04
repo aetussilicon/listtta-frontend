@@ -344,7 +344,7 @@ export default function SignupScreen(props) {
               <div className="signup-fields terms-fields">
                 <input
                   type="checkbox"
-                  checked={!isTermsCheckboxCheckboxChecked}
+                  checked={isTermsCheckboxCheckboxChecked}
                   onChange={handleTermsCheckbox}
                 />
                 <label>
