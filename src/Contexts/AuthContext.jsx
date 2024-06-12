@@ -20,7 +20,7 @@ export const AuthProvider = ({ children }) => {
     password: "",
   });
 
-  const handleInputChange = (e, nameValue = null, valueValue = null) => {
+  const handleLoginInputChange = (e, nameValue = null, valueValue = null) => {
     const name = nameValue || e?.target.name;
     const value = valueValue || e?.target.value;
 
@@ -48,20 +48,21 @@ export const AuthProvider = ({ children }) => {
 
   const login = async (remeberMe) => {
     const loginUrl = `${variables.hostingerURl}/auth/login`;
+
     try {
       const response = await axios.post(loginUrl, loginForm);
       const token = await response.data.token;
       setAuthToken(token);
 
       if (remeberMe) {
-        Cookies.set("authToken", token, { expires: 7 });
+        Cookies.set("authToken", token, { expires: 7 }); 
+
       } else {
         Cookies.set("authToken", token);
-      }
+      } 
 
-      if (response.status == 200) {
-        window.location.href = "/search";
-      }
+      return response;
+
     } catch (error) {
       alert("Erro no login! Verifique seu email ou senha e tente novamente.");
     }
@@ -76,10 +77,11 @@ export const AuthProvider = ({ children }) => {
     <AuthContext.Provider
       value={{
         loginForm,
+        setLoginForm,
         authToken,
         login,
         logout,
-        handleInputChange,
+        handleLoginInputChange,
       }}
     >
       {children}

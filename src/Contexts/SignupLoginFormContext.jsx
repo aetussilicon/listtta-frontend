@@ -1,6 +1,7 @@
 import axios from "axios";
 import { createContext, useState } from "react";
 import { variables } from "../Variables";
+import Cookies from "js-cookie";
 
 export const SignupFormContext = createContext();
 
@@ -70,9 +71,10 @@ export const SignupFormProvider = ({ children }) => {
     try {
       const response = await axios.post(signupURL, signupFormData);
       const data = await response.data;
-
+  
       if (response.status === 201) {
-        alert("Cadastrado com sucesso!");
+        alert("Cadastrado com sucesso!"); 
+        Cookies.set("PUID", data.User);       
         console.log(data);
       } else {
         throw new Error("Não foi possível cadastrar!");

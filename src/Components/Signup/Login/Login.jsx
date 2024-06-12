@@ -3,7 +3,7 @@ import "../../../Styles/Components/Auth/Login.css";
 import { AuthContext } from "../../../Contexts/AuthContext.jsx";
 
 export default function Login(props) {
-  const { loginForm, login, handleInputChange } = useContext(AuthContext);
+  const { loginForm, login, handleLoginInputChange } = useContext(AuthContext);
   const [isRememberMeChecked, setIsRememberMeChecked] = useState(false);
 
   const handleRememberMeCheckbox = () => {
@@ -39,7 +39,7 @@ export default function Login(props) {
                   placeholder="john@gmail.com"
                   value={loginForm.email}
                   name="email"
-                  onChange={handleInputChange}
+                  onChange={handleLoginInputChange}
                 />
               </div>
               <div className="signup-fields">
@@ -52,7 +52,7 @@ export default function Login(props) {
                   placeholder="**********"
                   value={loginForm.password}
                   name="password"
-                  onChange={handleInputChange}
+                  onChange={handleLoginInputChange}
                 />
               </div>
               <div className="signup-fields">
