@@ -242,20 +242,197 @@ export default function Profile() {
       <Header />
       <div className='container profile-container'>
         <div className='base-info'>
-          <div className='base-info-top-bar'>
+          <div className='profile-input'>
+            {isEditing.fullName ? (
+              <>
+                <input
+                  type='text'
+                  name='fullName'
+                  className='profile-input-edit'
+                  value={updateForm.fullName}
+                  onChange={changeUpdateFormInputs}
+                  placeholder='Nome de exibição'
+                />
+                <span
+                  className='material-symbols-outlined edit-button'
+                  onClick={() => saveEditedText("fullName")}
+                >
+                  download_done
+                </span>
+              </>
+            ) : (
+              <>
+                <p className='profile-input-fullName'>
+                  {userData
+                    ? getAtributte(userData.Data.fullName, "Nome de exibição")
+                    : "Carregando..."}
+                </p>
+                <span
+                  className='material-symbols-outlined edit-button'
+                  onClick={() => editInputText("fullName")}
+                >
+                  border_color
+                </span>
+              </>
+            )}
+          </div>
+          <div className='profile-input profile-image-input'>
+            <div
+              className='profile-image-placeholder'
+              onClick={handleDivClick}
+              style={{
+                backgroundImage: `url(${
+                  userData.Data.profilePictureMimeType &&
+                  userData.Data.profilePicture64
+                    ? `data:${userData.Data.profilePictureMimeType};base64,${userData.Data.profilePicture64}`
+                    : "/Assets/imgs/cards/choose-picture.png"
+                })`,
+              }}
+            >
+              <input
+                type='file'
+                ref={fileInputRef}
+                style={{ display: "none" }}
+                onChange={handleFileChange}
+              />
+            </div>
+          </div>
+          <div className='location-info'>
+            <div className='profile-input location-input'>
+              {isEditing.address.city && isEditing.address.state ? (
+                <>
+                  <select
+                    name='address.city'
+                    value={updateForm.address.city}
+                    onChange={changeUpdateFormInputs}
+                    className='location-menu'
+                  >
+                    <option value=''>Cidade</option>
+                    {citiesAPI.map((city) => (
+                      <option
+                        key={city.codigo_ibge}
+                        value={city.nome}
+                        className='location-option'
+                      >
+                        {city.nome}
+                      </option>
+                    ))}
+                  </select>
+                  <select
+                    name='address.state'
+                    value={updateForm.address.state}
+                    onChange={changeUpdateFormInputs}
+                    className='location-menu'
+                  >
+                    <option value=''>Estado</option>
+                    {statesAPI.map((state) => (
+                      <option key={state.sigla} value={state.sigla}>
+                        {state.nome}
+                      </option>
+                    ))}
+                  </select>
+                  <span
+                    className='material-symbols-outlined edit-button'
+                    onClick={() => {
+                      saveEditedText("address.city");
+                      saveEditedText("address.state");
+                    }}
+                  >
+                    download_done
+                  </span>
+                </>
+              ) : (
+                <>
+                  <p className='profile-input-bottom'>
+                    <strong>Local: </strong>
+                    {userData
+                      ? getAtributte(userData.Data.address.city, "Cidade")
+                      : "Carregando..."}{" "}
+                    /{" "}
+                    {userData
+                      ? getAtributte(userData.Data.address.state, "Estado")
+                      : "Carregando..."}
+                  </p>
+                  <span
+                    className='material-symbols-outlined edit-button'
+                    onClick={() => {
+                      editInputText("address.city");
+                      editInputText("address.state");
+                    }}
+                  >
+                    border_color
+                  </span>
+                </>
+              )}
+            </div>
+          </div>
+          <div className='profile-input'>
+            {isEditing.professionalsDetails.instagramUrl ? (
+              <>
+                <input
+                  type='text'
+                  name='professionalsDetails.instagramUrl'
+                  value={updateForm.professionalsDetails.instagramUrl}
+                  className='profile-input-edit'
+                  onChange={changeUpdateFormInputs}
+                  placeholder='@Seu_Instagram'
+                />
+                <span
+                  className='material-symbols-outlined edit-button'
+                  onClick={() =>
+                    saveEditedText("professionalsDetails.instagramUrl")
+                  }
+                >
+                  download_done
+                </span>
+              </>
+            ) : (
+              <>
+                <p className='profile-input-bottom'>
+                  <strong>Instagram: </strong>{" "}
+                  <a
+                    href={`https://instagram.com/${userData.Data.professionalsDetails.instagramUrl}`}
+                    target='_blank'
+                  >
+                    @
+                    {userData
+                      ? getAtributte(
+                          userData.Data.professionalsDetails.instagramUrl,
+                          "nameuser"
+                        )
+                      : "Carregando..."}
+                  </a>
+                </p>
+                <span
+                  className='material-symbols-outlined edit-button'
+                  onClick={() =>
+                    editInputText("professionalsDetails.instagramUrl")
+                  }
+                >
+                  border_color
+                </span>
+              </>
+            )}
+          </div>
+        </div>
+        <div className='complement-info'>
+          <div className='contact-info'>
+            <div className='profile-block-title'>
+              <h1>Contato</h1>
+            </div>
             <div className='profile-input'>
-              {isEditing.fullName ? (
+              {isEditing.phoneNumber ? (
                 <>
                   <input
                     type='text'
-                    name='fullName'
-                    value={updateForm.fullName}
+                    name='phoneNumber'
+                    value={updateForm.phoneNumber}
                     onChange={changeUpdateFormInputs}
-                    placeholder='Nome de exibição'
+                    placeholder='(00) 0000-0000'
                   />
                   <span
                     className='material-symbols-outlined edit-button'
-                    onClick={() => saveEditedText("fullName")}
+                    onClick={() => saveEditedText("phoneNumber")}
                   >
                     download_done
                   </span>
@@ -264,119 +441,34 @@ export default function Profile() {
                 <>
                   <p>
                     {userData
-                      ? getAtributte(userData.Data.fullName, "Nome de exibição")
+                      ? getAtributte(
+                          userData.Data.phoneNumber,
+                          "(00) 0000-0000"
+                        )
                       : "Carregando..."}
                   </p>
                   <span
                     className='material-symbols-outlined edit-button'
-                    onClick={() => editInputText("fullName")}
+                    onClick={() => editInputText("phoneNumber")}
                   >
                     border_color
                   </span>
                 </>
               )}
             </div>
-            <div className='profile-input profile-image-input'>
-              <div
-                className='profile-image-placeholder'
-                onClick={handleDivClick}
-                style={{
-                  backgroundImage: `url(${
-                    userData.Data.profilePictureMimeType &&
-                    userData.Data.profilePicture64
-                      ? `data:${userData.Data.profilePictureMimeType};base64,${userData.Data.profilePicture64}`
-                      : "/Assets/imgs/cards/choose-picture.png"
-                  })`,
-                }}
-              >
-                <input
-                  type='file'
-                  ref={fileInputRef}
-                  style={{ display: "none" }}
-                  onChange={handleFileChange}
-                />
-              </div>
-            </div>
-          </div>
-          <div className='base-info-bottom'>
-            <div className='location-info'>
-              <div className='profile-input'>
-                {isEditing.address.city && isEditing.address.state ? (
-                  <>
-                    <select
-                      name='address.city'
-                      value={updateForm.address.city}
-                      onChange={changeUpdateFormInputs}
-                    >
-                      <option value=''>Cidade</option>
-                      {citiesAPI.map((city) => (
-                        <option key={city.codigo_ibge} value={city.nome}>
-                          {city.nome}
-                        </option>
-                      ))}
-                    </select>
-                    <select
-                      name='address.state'
-                      value={updateForm.address.state}
-                      onChange={changeUpdateFormInputs}
-                    >
-                      <option value=''>Estado</option>
-                      {statesAPI.map((state) => (
-                        <option key={state.sigla} value={state.sigla}>
-                          {state.nome}
-                        </option>
-                      ))}
-                    </select>
-                    <span
-                      className='material-symbols-outlined edit-button'
-                      onClick={() => {
-                        saveEditedText("address.city");
-                        saveEditedText("address.state");
-                      }}
-                    >
-                      download_done
-                    </span>
-                  </>
-                ) : (
-                  <>
-                    <p>
-                      <strong>Local: </strong>
-                      {userData
-                        ? getAtributte(userData.Data.address.city, "Cidade")
-                        : "Carregando..."}{" "}
-                      /{" "}
-                      {userData
-                        ? getAtributte(userData.Data.address.state, "Estado")
-                        : "Carregando..."}
-                    </p>
-                    <span
-                      className='material-symbols-outlined edit-button'
-                      onClick={() => {
-                        editInputText("address.city");
-                        editInputText("address.state");
-                      }}
-                    >
-                      border_color
-                    </span>
-                  </>
-                )}
-              </div>
-            </div>
             <div className='profile-input'>
-              {isEditing.professionalsDetails.instagramUrl ? (
+              {isEditing.whatsappContact ? (
                 <>
                   <input
                     type='text'
-                    name='professionalsDetails.instagramUrl'
-                    value={updateForm.professionalsDetails.instagramUrl}
+                    name='whatsappContact'
+                    value={updateForm.whatsappContact}
                     onChange={changeUpdateFormInputs}
-                    placeholder='@Seu_Instagram'
+                    placeholder='(00) 0000-0000'
                   />
                   <span
                     className='material-symbols-outlined edit-button'
-                    onClick={() =>
-                      saveEditedText("professionalsDetails.instagramUrl")
-                    }
+                    onClick={() => saveEditedText("whatsappContact")}
                   >
                     download_done
                   </span>
@@ -384,23 +476,49 @@ export default function Profile() {
               ) : (
                 <>
                   <p>
-                    <a
-                      href={`https://instagram.com/${userData.Data.professionalsDetails.instagramUrl}`}
-                    >
-                      @
-                      {userData
-                        ? getAtributte(
-                            userData.Data.professionalsDetails.instagramUrl,
-                            "Seu_Instagram"
-                          )
-                        : "Carregando..."}
-                    </a>
+                    {userData
+                      ? getAtributte(
+                          userData.Data.whatsappContact,
+                          "(00) 0000-0000"
+                        )
+                      : "Carregando..."}
                   </p>
                   <span
                     className='material-symbols-outlined edit-button'
-                    onClick={() =>
-                      editInputText("professionalsDetails.instagramUrl")
-                    }
+                    onClick={() => editInputText("whatsappContact")}
+                  >
+                    border_color
+                  </span>
+                </>
+              )}
+            </div>
+            <div className='profile-input'>
+              {isEditing.email ? (
+                <>
+                  <input
+                    type='email'
+                    name='email'
+                    value={updateForm.email}
+                    onChange={changeUpdateFormInputs}
+                    placeholder='nome@gmail.com'
+                  />
+                  <span
+                    className='material-symbols-outlined edit-button'
+                    onClick={() => saveEditedText("email")}
+                  >
+                    download_done
+                  </span>
+                </>
+              ) : (
+                <>
+                  <p>
+                    {userData
+                      ? getAtributte(userData.Data.email, "nome@gmail.com")
+                      : "Carregando..."}
+                  </p>
+                  <span
+                    className='material-symbols-outlined edit-button'
+                    onClick={() => editInputText("email")}
                   >
                     border_color
                   </span>
