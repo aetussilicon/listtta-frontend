@@ -1,3 +1,5 @@
+import "../../Styles/Pages/Profile.css";
+
 const EditableFields = ({
   label,
   value,
@@ -7,6 +9,7 @@ const EditableFields = ({
   setIsEditing,
   updateForm,
   setUpdateForm,
+  userData,
   placeholder,
 }) => {
   const handleChange = (e) => {
@@ -54,6 +57,11 @@ const EditableFields = ({
 
   const placeholderValue = placeholder || label;
 
+  // Utilitário para acessar propriedades aninhadas
+  const getNestedValue = (obj, path, defaultValue) => {
+    return path.split(".").reduce((o, p) => (o ? o[p] : defaultValue), obj);
+  };
+
   return (
     <div className='profile-input'>
       {isEditing[fieldName] ? (
@@ -76,10 +84,10 @@ const EditableFields = ({
       ) : (
         <>
           <p className={`profile-input-${fieldName}`}>
-            <strong>{fieldTitle}</strong>{" "}
-            {value || (value == undefined && value == null)
-              ? value
-              : placeholderValue}
+            <strong>{fieldTitle} </strong>{" "}
+            {value ||
+              getNestedValue(userData.Data, fieldName, placeholderValue) ||
+              placeholderValue}
           </p>
           <span
             className='material-symbols-outlined edit-button'

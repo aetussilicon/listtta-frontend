@@ -9,6 +9,7 @@ const EditableInstagramUrl = ({
   updateForm,
   setUpdateForm,
   placeholder,
+  userData,
 }) => {
   const [localValue, setLocalValue] = useState(value || "");
 
@@ -46,6 +47,8 @@ const EditableInstagramUrl = ({
   };
 
   const placeholderValue = placeholder || `@${fieldTitle}`;
+  const instgramUsername =
+    updateForm.professionalsDetails[fieldName] || userData.Data.instagramUrl;
 
   return (
     <div className='profile-input'>
@@ -70,11 +73,11 @@ const EditableInstagramUrl = ({
           <p className='profile-input-bottom'>
             <strong>{fieldTitle}:</strong>{" "}
             <a
-              href={`https://instagram.com/${updateForm.professionalsDetails[fieldName]}`}
+              href={`https://instagram.com/${instgramUsername}`}
               target='_blank'
               rel='noopener noreferrer'
             >
-              @{updateForm.professionalsDetails[fieldName] || "user"}
+              @{instgramUsername || "user"}
             </a>
           </p>
           <span
