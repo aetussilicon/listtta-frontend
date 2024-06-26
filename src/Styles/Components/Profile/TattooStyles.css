@@ -1,0 +1,22 @@
+.styles-grid {
+  display: grid;
+  grid-template-columns: auto auto auto auto auto auto;
+  row-gap: 5px;
+}
+
+.styles-grid label {
+  width: 130px;
+}
+
+.showAll-button {
+  display: flex;
+  justify-content: center;
+  margin: 10px 0;
+}
+
+.showAll-button button {
+  margin: 0;
+  width: fit-content;
+  font-size: 15px;
+  border-radius: 10px;
+}
