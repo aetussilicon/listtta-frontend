@@ -9,11 +9,40 @@ import { useParams } from "react-router-dom";
 import TattooStyles from "../Components/Profile/TattoStyles.jsx";
 import EditableFields from "../Components/Profile/EditableFIelds.jsx";
 import EditableInstagramUrl from "../Components/Profile/EditableInstagram.jsx";
-import EditableAddress from "../Components/Profile/EditableLocationFields.jsx";
+
+function createNonEmptyForm(originalForm) {
+  const nonEmptyForm = {};
+
+  // Função recursiva para verificar os campos não vazios
+  const checkFields = (obj, targetObj) => {
+    Object.keys(obj).forEach((key) => {
+      const value = obj[key];
+
+      // Verifica se o valor não é vazio (considerando string vazia, null e undefined)
+      if (value !== "" && value !== null && value !== undefined) {
+        // Se não for vazio, verifica se é um objeto
+        if (typeof value === "object" && !Array.isArray(value)) {
+          // Se for um objeto, chama a função recursivamente
+          targetObj[key] = {};
+          checkFields(value, targetObj[key]);
+        } else {
+          // Caso contrário, adiciona ao novo objeto nonEmptyForm
+          targetObj[key] = value;
+        }
+      }
+    });
+  };
+
+  // Chama a função recursiva para preencher nonEmptyForm
+  checkFields(originalForm, nonEmptyForm);
+
+  return nonEmptyForm;
+}
 
 export default function Profile() {
   const [userData, setUserData] = useState(null);
   const { puid } = useParams();
+  const [formSubmitted, setFormSubmitted] = useState(false);
 
   const [isEditing, setIsEditing] = useState({
     fullName: false,
@@ -26,6 +55,11 @@ export default function Profile() {
     address: {
       state: false,
       city: false,
+      cityZone: false,
+      district: false,
+      street: false,
+      complement: false,
+      zipCode: false,
     },
     professionalsDetails: {
       type: false,
@@ -36,7 +70,6 @@ export default function Profile() {
 
   const [updateForm, setUpdateForm] = useState({
     fullName: "",
-    profilePicture: "",
     userGener: "",
     taxNumber: "",
     email: "",
@@ -45,6 +78,11 @@ export default function Profile() {
     address: {
       state: "",
       city: "",
+      cityZone: "",
+      district: "",
+      street: "",
+      complement: "",
+      zipCode: "",
     },
     professionalsDetails: {
       type: "",
@@ -52,6 +90,8 @@ export default function Profile() {
       skills: [],
     },
   });
+
+  const [profilePictureForm, setProfilePictureForm] = useState(null);
 
   const fileInputRef = useRef(null);
 
@@ -63,39 +103,25 @@ export default function Profile() {
     const getUserData = async () => {
       try {
         const response = await axios.get(
-          `${variables.localhost}/professionals/list/${puid}`
+          `${variables.localhost}/users/list/${puid}`
         );
+
         const result = await response.data;
         setUserData(result);
 
-        if (result && result.Data) {
-          setUpdateForm({
-            fullName: result.Data.fullName || "",
-            profilePicture: result.Data.profilePicture64 || "",
-            userGender: result.Data.userGender || "",
-            taxNumber: result.Data.taxNumber || "",
-            email: result.Data.email || "",
-            phoneNumber: result.Data.phoneNumber || "",
-            whatsappContact: result.Data.whatsappContact || "",
-            address: {
-              state: result.Data.address.state || "",
-              city: result.Data.address.city || "",
-            },
-            professionalsDetails: {
-              type: result.Data.professionalsDetails.type || "",
-              instagramUrl: result.Data.professionalsDetails.instagramUrl || "",
-              skills: result.Data.professionalsDetails.skills || [],
-            },
-          });
-        }
         console.log(result);
       } catch (error) {
         console.error("Error fetching user data:", error);
       }
     };
 
+    if (formSubmitted) {
+      getUserData();
+      setFormSubmitted(false);
+    }
+
     getUserData();
-  }, [puid]);
+  }, [puid, formSubmitted]);
 
   if (!userData) {
     return <div>Carregando...</div>;
@@ -112,14 +138,67 @@ export default function Profile() {
       reader.onloadend = () => {
         setUserData((prevData) => ({
           ...prevData,
-          profilePicture: reader.result,
+          Data: {
+            ...prevData.Data,
+            profilePicture: reader.result.split(",")[1],
+            profilePictureMimeType: file.type,
+          },
         }));
-        setUpdateForm((prevForm) => ({
-          ...prevForm,
-          profilePicture: reader.result,
-        }));
+        setProfilePictureForm(file);
       };
       reader.readAsDataURL(file);
+    }
+  };
+
+  const updateUserInfo = async (e) => {
+    e.preventDefault();
+    const updateUserURL = `${variables.localhost}/users/update/${puid}`;
+    const updateProfilePictureURL = `${variables.localhost}/users/update/picture/${puid}`;
+
+    const nonEmptyUpdateForm = createNonEmptyForm(updateForm);
+
+    try {
+      const updateResponse = await axios.patch(
+        updateUserURL,
+        nonEmptyUpdateForm
+      );
+      const data = await updateResponse.data;
+
+      if (profilePictureForm) {
+        try {
+          const formData = new FormData();
+          formData.append("profilePicture", profilePictureForm);
+
+          const updatePictureResponse = await axios.patch(
+            updateProfilePictureURL,
+            formData,
+            {
+              headers: {
+                "Content-Type": "multipart/form-data",
+              },
+            }
+          );
+
+          const pictureData = await updatePictureResponse.data;
+          console.log(pictureData);
+
+          // Atualiza a foto de perfil no estado userData
+          setUserData((prevData) => ({
+            ...prevData,
+            Data: {
+              ...prevData.Data,
+              profilePicture: pictureData.profilePicture,
+              profilePictureMimeType: pictureData.profilePictureMimeType,
+            },
+          }));
+        } catch (error) {
+          console.error("Error updating profile picture:", error);
+        }
+      }
+      console.log(data);
+      setFormSubmitted(true);
+    } catch (error) {
+      console.error("Error updating user info:", error);
     }
   };
 
@@ -127,97 +206,18 @@ export default function Profile() {
     <>
       <Header />
       <div className='container profile-container'>
-        <div className='base-info'>
-          <EditableFields
-            label='fullName'
-            value={updateForm.fullName}
-            fieldName='fullname'
-            isEditing={isEditing}
-            setIsEditing={setIsEditing}
-            updateForm={updateForm}
-            setUpdateForm={setUpdateForm}
-            placeholder='Seu Nome'
-          />
-
-          <div className='profile-input profile-image-input'>
-            <div
-              className='profile-image-placeholder'
-              onClick={handleDivClick}
-              style={{
-                backgroundImage: `url(${
-                  userData.Data.profilePictureMimeType &&
-                  userData.Data.profilePicture64
-                    ? `data:${userData.Data.profilePictureMimeType};base64,${userData.Data.profilePicture64}`
-                    : "/Assets/imgs/cards/choose-picture.png"
-                })`,
-              }}
-            >
-              <input
-                type='file'
-                ref={fileInputRef}
-                style={{ display: "none" }}
-                onChange={handleFileChange}
-              />
-            </div>
-          </div>
-          <EditableAddress
-            city={userData.Data.address.city}
-            state={userData.Data.address.state}
-            fieldNameCity='address.city'
-            fieldNameState='address.state'
-            isEditing={isEditing}
-            setIsEditing={setIsEditing}
-            updateForm={updateForm}
-            setUpdateForm={setUpdateForm}
-          />
-          <EditableInstagramUrl
-            value={userData.Data.professionalsDetails.instagramUrl}
-            fieldName='instagramUrl'
-            fieldTitle='Instagram'
-            isEditing={isEditing}
-            setIsEditing={setIsEditing}
-            updateForm={updateForm}
-            setUpdateForm={setUpdateForm}
-            placeholder='@Seu_Instagram'
-          />
-        </div>
-        <div className='complement-info'>
-          <div className='contact-info'>
-            <div className='profile-block-title'>
-              <h1>Contato</h1>
-            </div>
+        <form onSubmit={updateUserInfo}>
+          <div className='base-info'>
             <EditableFields
-              label='phoneNumber'
-              value={updateForm.phoneNumber}
-              fieldName='phoneNumber'
-              fieldTitle='Celular'
+              label='fullName'
+              value={updateForm.fullName}
+              fieldName='fullName'
               isEditing={isEditing}
               setIsEditing={setIsEditing}
               updateForm={updateForm}
               setUpdateForm={setUpdateForm}
-              placeholder='(00) 0000-0000'
-            />
-            <EditableFields
-              label='whatsappContact'
-              value={updateForm.whatsappContact}
-              fieldName='whatsappContact'
-              fieldTitle='WhatsApp'
-              isEditing={isEditing}
-              setIsEditing={setIsEditing}
-              updateForm={updateForm}
-              setUpdateForm={setUpdateForm}
-              placeholder='(00) 0000-0000'
-            />
-            <EditableFields
-              label='email'
-              value={updateForm.email}
-              fieldName='email'
-              fieldTitle='Email'
-              isEditing={isEditing}
-              setIsEditing={setIsEditing}
-              updateForm={updateForm}
-              setUpdateForm={setUpdateForm}
-              placeholder='nome@gmail.com'
+              placeholder='Nome de Exibição'
+              userData={userData}
             />
             <EditableFields
               label='CPF ou CNPJ'
@@ -229,26 +229,200 @@ export default function Profile() {
               updateForm={updateForm}
               setUpdateForm={setUpdateForm}
               placeholder='000.000.000-00'
+              userData={userData}
+            />
+            <div className='profile-input profile-image-input'>
+              <div
+                className='profile-image-placeholder'
+                onClick={handleDivClick}
+                style={{
+                  backgroundImage: `url(${
+                    userData.Data.profilePictureMimeType &&
+                    userData.Data.profilePicture
+                      ? `data:${userData.Data.profilePictureMimeType};base64,${userData.Data.profilePicture}`
+                      : "/Assets/imgs/cards/choose-picture.png"
+                  })`,
+                  backgroundSize: "cover",
+                  backgroundPosition: "center",
+                }}
+              >
+                <input
+                  type='file'
+                  ref={fileInputRef}
+                  style={{ display: "none" }}
+                  onChange={handleFileChange}
+                />
+              </div>
+            </div>
+            <EditableInstagramUrl
+              value={updateForm.professionalsDetails.instagramUrl}
+              fieldName='instagramUrl'
+              fieldTitle='Instagram'
+              isEditing={isEditing}
+              setIsEditing={setIsEditing}
+              updateForm={updateForm}
+              setUpdateForm={setUpdateForm}
+              placeholder='@Seu_Instagram'
+              userData={userData}
             />
           </div>
-          {userData.Data.professionalsDetails.type == "TATTOO" ? (
-            <TattooStyles
-              skills={updateForm.professionalsDetails.skills}
-              setSkills={(newSkills) => {
-                setUpdateForm((prevState) => ({
-                  ...prevState,
-                  professionalsDetails: {
-                    ...prevState.professionalsDetails,
-                    skills: newSkills,
-                  },
-                }));
-              }}
-              initialSkills={userData.Data.professionalsDetails.skills}
-            />
-          ) : (
-            ""
-          )}
-        </div>
+          <div className='right-profile-block'>
+            <div className='complement-info'>
+              <div className='contact-info'>
+                <div className='profile-block-title'>
+                  <h1>Contato</h1>
+                </div>
+                <EditableFields
+                  label='phoneNumber'
+                  value={updateForm.phoneNumber}
+                  fieldName='phoneNumber'
+                  fieldTitle='Celular'
+                  isEditing={isEditing}
+                  setIsEditing={setIsEditing}
+                  updateForm={updateForm}
+                  setUpdateForm={setUpdateForm}
+                  placeholder='(00) 0000-0000'
+                  userData={userData}
+                />
+                <EditableFields
+                  label='whatsappContact'
+                  value={updateForm.whatsappContact}
+                  fieldName='whatsappContact'
+                  fieldTitle='WhatsApp'
+                  isEditing={isEditing}
+                  setIsEditing={setIsEditing}
+                  updateForm={updateForm}
+                  setUpdateForm={setUpdateForm}
+                  placeholder='(00) 0000-0000'
+                  userData={userData}
+                />
+                <EditableFields
+                  label='email'
+                  value={updateForm.email}
+                  fieldName='email'
+                  fieldTitle='Email'
+                  isEditing={isEditing}
+                  setIsEditing={setIsEditing}
+                  updateForm={updateForm}
+                  setUpdateForm={setUpdateForm}
+                  placeholder='nome@gmail.com'
+                  userData={userData}
+                />
+              </div>
+              <div className='spliter'></div>
+              <div className='address-info'>
+                <div className='profile-block-title'>
+                  <h1>Endereço de Atendimento</h1>
+                </div>
+                <EditableFields
+                  label='cidade'
+                  value={updateForm.address.city}
+                  fieldName='address.city'
+                  fieldTitle='Cidade'
+                  isEditing={isEditing}
+                  setIsEditing={setIsEditing}
+                  updateForm={updateForm}
+                  setUpdateForm={setUpdateForm}
+                  placeholder='Adicionar cidade'
+                  userData={userData}
+                />
+                <EditableFields
+                  label='estado'
+                  value={updateForm.address.state}
+                  fieldName='address.state'
+                  fieldTitle='Estado:'
+                  isEditing={isEditing}
+                  setIsEditing={setIsEditing}
+                  updateForm={updateForm}
+                  setUpdateForm={setUpdateForm}
+                  placeholder='Adicionar Estado'
+                  userData={userData}
+                />
+                <EditableFields
+                  label='bairro'
+                  value={updateForm.address.district}
+                  fieldName='address.district'
+                  fieldTitle='Bairro:'
+                  isEditing={isEditing}
+                  setIsEditing={setIsEditing}
+                  updateForm={updateForm}
+                  setUpdateForm={setUpdateForm}
+                  placeholder='Adicionar Bairro'
+                  userData={userData}
+                />
+                <EditableFields
+                  label='rua'
+                  value={updateForm.address.street}
+                  fieldName='address.street'
+                  fieldTitle='Rua:'
+                  isEditing={isEditing}
+                  setIsEditing={setIsEditing}
+                  updateForm={updateForm}
+                  setUpdateForm={setUpdateForm}
+                  placeholder='Adicionar Rua'
+                  userData={userData}
+                />
+              </div>
+              <EditableFields
+                label='complemento'
+                value={updateForm.address.complement}
+                fieldName='address.complement'
+                fieldTitle='Complemento:'
+                isEditing={isEditing}
+                setIsEditing={setIsEditing}
+                updateForm={updateForm}
+                setUpdateForm={setUpdateForm}
+                placeholder='Adicionar Complemento'
+                userData={userData}
+              />
+              <EditableFields
+                label='cep'
+                value={updateForm.address.zipCode}
+                fieldName='address.zipCode'
+                fieldTitle='CEP:'
+                isEditing={isEditing}
+                setIsEditing={setIsEditing}
+                updateForm={updateForm}
+                setUpdateForm={setUpdateForm}
+                placeholder='Adicionar CEP'
+                userData={userData}
+              />
+              {userData.Data.type == "TATTOO" ? (
+                <>
+                  <div className='spliter'></div>{" "}
+                  <div className='tattoo-styles'>
+                    <div className='profile-block-title'>
+                      <h1>Especialidades</h1>
+                    </div>
+                  </div>
+                  <TattooStyles
+                    skills={updateForm.professionalsDetails.skills}
+                    setSkills={(newSkills) => {
+                      setUpdateForm((prevState) => ({
+                        ...prevState,
+                        professionalsDetails: {
+                          ...prevState.professionalsDetails,
+                          skills: newSkills,
+                        },
+                      }));
+                    }}
+                    initialSkills={userData.Data.skills}
+                  />
+                </>
+              ) : (
+                ""
+              )}
+            </div>
+            <div className='right-profile-block-buttons'>
+              <button className='btn profile-buttons' type='submit'>
+                Salvar
+              </button>
+              <button className='btn profile-buttons delete-button'>
+                Excluir Perfil
+              </button>
+            </div>
+          </div>
+        </form>
       </div>
       <Footer />
     </>
