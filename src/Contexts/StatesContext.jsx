@@ -3,29 +3,28 @@ import axios from "axios";
 
 export const StatesContext = createContext();
 
-// eslint-disable-next-line react/prop-types
 export const StatesProvider = ({ children }) => {
-    const [statesAPI, setStatesAPI] = useState([]);
-    const statesUrl = 'https://brasilapi.com.br/api/ibge/uf/v1';
+	const [statesAPI, setStatesAPI] = useState([]);
+	const statesUrl = "https://brasilapi.com.br/api/ibge/uf/v1";
 
-    useEffect(() => {
-        getStates();
-    }, []);
+	useEffect(() => {
+		getStates();
+	}, []);
 
-    const getStates = async () => {
-        try {
-            const response = await axios.get(statesUrl);
-            let data = await response.data;
-            data = data.sort((a, b) => a.nome.localeCompare(b.nome)); 
-            setStatesAPI(data)
-        } catch(error) {
-            console.error(error);
-        }
-    }
+	const getStates = async () => {
+		try {
+			const response = await axios.get(statesUrl);
+			let data = await response.data;
+			data = data.sort((a, b) => a.nome.localeCompare(b.nome));
+			setStatesAPI(data);
+		} catch (error) {
+			console.error(error);
+		}
+	};
 
-    return(
-        <StatesContext.Provider value={{statesAPI}}>
-            {children}
-        </StatesContext.Provider>
-    );
-}
+	return (
+		<StatesContext.Provider value={{ statesAPI }}>
+			{children}
+		</StatesContext.Provider>
+	);
+};
