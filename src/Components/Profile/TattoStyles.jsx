@@ -3,25 +3,22 @@ import {
   FiltersContext,
   FiltersProvider,
 } from "../../Contexts/FiltersConxtext";
+import "../../Styles/Components/Profile/TattooStyles.css";
 
 const TattooStyles = ({ skills, setSkills, initialSkills }) => {
   const { specialtiesAPI } = useContext(FiltersContext);
-  const [showAll, setShowAll] = useState(false);
-  const [showedSkills, setShowedSkills] = useState(specialtiesAPI.slice(0, 12));
+  const [showedSkills, setShowedSkills] = useState([]);
 
   useEffect(() => {
-    setSkills(initialSkills.map((skill) => skill.filterId));
+    console.log(initialSkills);
+    console.log("skills", skills);
+    setSkills(initialSkills);
+
+    const sortedSpecialties = specialtiesAPI.sort(
+      (a, b) => a.displayName.length - b.displayName.length
+    );
+    setShowedSkills(sortedSpecialties);
   }, []);
-
-  const toggleShowAll = () => {
-    if (showAll) {
-      setShowedSkills(specialtiesAPI.slice(0, 12));
-    } else {
-      setShowedSkills(specialtiesAPI);
-    }
-
-    setShowAll(!showAll);
-  };
 
   const handleCheckboxChange = (event) => {
     const { value, checked } = event.target;
@@ -38,23 +35,24 @@ const TattooStyles = ({ skills, setSkills, initialSkills }) => {
   return (
     <FiltersProvider>
       <div className='profile-tattoo-styles'>
-        {showedSkills.map((skill) => (
-          <label key={skill.filterId}>
-            <input
-              type='checkbox'
-              value={skill.filterId}
-              checked={skills.includes(skill.filterId)}
-              onChange={handleCheckboxChange}
-              disabled={!skills.includes(skill.filterId) && skills.length >= 5}
-            />
-            {skill.displayName}
-          </label>
-        ))}
-        {specialtiesAPI.length > 12 && (
-          <button onClick={toggleShowAll}>
-            {showAll ? "Mostrar menos" : "Mostrar tudo"}
-          </button>
-        )}
+        <div className='styles-grid'>
+          {showedSkills.map((skill) => (
+            <>
+              <label key={skill.filterId}>
+                <input
+                  type='checkbox'
+                  value={skill.filterId}
+                  checked={skills.includes(skill.filterId)}
+                  onChange={handleCheckboxChange}
+                  disabled={
+                    !skills.includes(skill.filterId) && skills.length >= 5
+                  }
+                />
+                {skill.displayName}
+              </label>
+            </>
+          ))}
+        </div>
       </div>
     </FiltersProvider>
   );
