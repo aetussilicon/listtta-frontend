@@ -9,6 +9,7 @@ import { useParams } from "react-router-dom";
 import TattooStyles from "../Components/Profile/TattoStyles.jsx";
 import EditableFields from "../Components/Profile/EditableFIelds.jsx";
 import EditableInstagramUrl from "../Components/Profile/EditableInstagram.jsx";
+import EditableAddress from "../Components/Profile/EditableLocationFields.jsx";
 
 function createNonEmptyForm(originalForm) {
   const nonEmptyForm = {};
@@ -18,8 +19,13 @@ function createNonEmptyForm(originalForm) {
     Object.keys(obj).forEach((key) => {
       const value = obj[key];
 
-      // Verifica se o valor não é vazio (considerando string vazia, null e undefined)
-      if (value !== "" && value !== null && value !== undefined) {
+      // Verifica se o valor não é vazio (considerando string vazia, null, undefined e arrays vazios)
+      if (
+        value !== "" &&
+        value !== null &&
+        value !== undefined &&
+        (!Array.isArray(value) || value.length > 0)
+      ) {
         // Se não for vazio, verifica se é um objeto
         if (typeof value === "object" && !Array.isArray(value)) {
           // Se for um objeto, chama a função recursivamente
@@ -38,6 +44,8 @@ function createNonEmptyForm(originalForm) {
 
   return nonEmptyForm;
 }
+
+const allowedCities = ["São Paulo", "Rio de Janeiro", "SP", "RJ"];
 
 export default function Profile() {
   const [userData, setUserData] = useState(null);
@@ -122,6 +130,20 @@ export default function Profile() {
 
     getUserData();
   }, [puid, formSubmitted]);
+
+  useEffect(() => {
+    if (userData && userData.Data && userData.Data.address) {
+      if (!allowedCities.includes(userData.Data.address.city)) {
+        setUpdateForm((prevState) => ({
+          ...prevState,
+          address: {
+            ...prevState.address,
+            cityZone: null,
+          },
+        }));
+      }
+    }
+  }, [userData, setUpdateForm]);
 
   if (!userData) {
     return <div>Carregando...</div>;
@@ -220,10 +242,10 @@ export default function Profile() {
               userData={userData}
             />
             <EditableFields
-              label='CPF ou CNPJ'
+              label='cpf'
               value={updateForm.taxNumber}
               fieldName='taxNumber'
-              fieldTitle='CPF/CNPJ'
+              fieldTitle='CPF:'
               isEditing={isEditing}
               setIsEditing={setIsEditing}
               updateForm={updateForm}
@@ -257,7 +279,7 @@ export default function Profile() {
             <EditableInstagramUrl
               value={updateForm.professionalsDetails.instagramUrl}
               fieldName='instagramUrl'
-              fieldTitle='Instagram'
+              fieldTitle='Instagram:'
               isEditing={isEditing}
               setIsEditing={setIsEditing}
               updateForm={updateForm}
@@ -276,7 +298,7 @@ export default function Profile() {
                   label='phoneNumber'
                   value={updateForm.phoneNumber}
                   fieldName='phoneNumber'
-                  fieldTitle='Celular'
+                  fieldTitle='Celular:'
                   isEditing={isEditing}
                   setIsEditing={setIsEditing}
                   updateForm={updateForm}
@@ -288,7 +310,7 @@ export default function Profile() {
                   label='whatsappContact'
                   value={updateForm.whatsappContact}
                   fieldName='whatsappContact'
-                  fieldTitle='WhatsApp'
+                  fieldTitle='WhatsApp:'
                   isEditing={isEditing}
                   setIsEditing={setIsEditing}
                   updateForm={updateForm}
@@ -300,7 +322,7 @@ export default function Profile() {
                   label='email'
                   value={updateForm.email}
                   fieldName='email'
-                  fieldTitle='Email'
+                  fieldTitle='Email:'
                   isEditing={isEditing}
                   setIsEditing={setIsEditing}
                   updateForm={updateForm}
@@ -318,7 +340,7 @@ export default function Profile() {
                   label='cidade'
                   value={updateForm.address.city}
                   fieldName='address.city'
-                  fieldTitle='Cidade'
+                  fieldTitle='Cidade:'
                   isEditing={isEditing}
                   setIsEditing={setIsEditing}
                   updateForm={updateForm}
@@ -338,6 +360,16 @@ export default function Profile() {
                   placeholder='Adicionar Estado'
                   userData={userData}
                 />
+                {allowedCities.includes(userData.Data.address.city) && (
+                  <EditableAddress
+                    fieldNameCityZone='Zona:'
+                    isEditing={isEditing}
+                    setIsEditing={setIsEditing}
+                    updateForm={updateForm}
+                    setUpdateForm={setUpdateForm}
+                    userData={userData}
+                  />
+                )}
                 <EditableFields
                   label='bairro'
                   value={updateForm.address.district}
@@ -362,31 +394,32 @@ export default function Profile() {
                   placeholder='Adicionar Rua'
                   userData={userData}
                 />
+                <EditableFields
+                  label='complemento'
+                  value={updateForm.address.complement}
+                  fieldName='address.complement'
+                  fieldTitle='Complemento:'
+                  isEditing={isEditing}
+                  setIsEditing={setIsEditing}
+                  updateForm={updateForm}
+                  setUpdateForm={setUpdateForm}
+                  placeholder='Adicionar Complemento'
+                  userData={userData}
+                />
+                <EditableFields
+                  label='cep'
+                  value={updateForm.address.zipCode}
+                  fieldName='address.zipCode'
+                  fieldTitle='CEP:'
+                  isEditing={isEditing}
+                  setIsEditing={setIsEditing}
+                  updateForm={updateForm}
+                  setUpdateForm={setUpdateForm}
+                  placeholder='Adicionar CEP'
+                  userData={userData}
+                />
               </div>
-              <EditableFields
-                label='complemento'
-                value={updateForm.address.complement}
-                fieldName='address.complement'
-                fieldTitle='Complemento:'
-                isEditing={isEditing}
-                setIsEditing={setIsEditing}
-                updateForm={updateForm}
-                setUpdateForm={setUpdateForm}
-                placeholder='Adicionar Complemento'
-                userData={userData}
-              />
-              <EditableFields
-                label='cep'
-                value={updateForm.address.zipCode}
-                fieldName='address.zipCode'
-                fieldTitle='CEP:'
-                isEditing={isEditing}
-                setIsEditing={setIsEditing}
-                updateForm={updateForm}
-                setUpdateForm={setUpdateForm}
-                placeholder='Adicionar CEP'
-                userData={userData}
-              />
+
               {userData.Data.type == "TATTOO" ? (
                 <>
                   <div className='spliter'></div>{" "}

@@ -1,46 +1,35 @@
-import { useState, useContext } from "react";
-import { StatesContext } from "../../Contexts/StatesContext";
-import { CitiesContext } from "../../Contexts/CitiesContext";
+import { useState } from "react";
+
+const cityZones = [
+  { label: "Sul", value: "ZONA_SUL" },
+  { label: "Norte", value: "ZONA_NORTE" },
+  { label: "Leste", value: "ZONA_LESTE" },
+  { label: "Oeste", value: "ZONA_OESTE" },
+  { label: "Centro", value: "CENTRO" },
+];
 
 const EditableAddress = ({
-  city,
-  state,
-  fieldNameCity,
-  fieldNameState,
+  fieldNameCityZone,
   isEditing,
   setIsEditing,
   updateForm,
   setUpdateForm,
+  userData,
 }) => {
-  const { statesAPI } = useContext(StatesContext);
-  const { setStateName, citiesAPI } = useContext(CitiesContext);
-
-  const [localCity, setLocalCity] = useState(city || "");
-  const [localState, setLocalState] = useState(state || "");
+  const [localCityZone, setLocalCityZone] = useState(
+    userData.Data.address.cityZone || ""
+  );
 
   const handleChange = (e) => {
-    const { name, value } = e.target;
-
-    if (name === fieldNameCity) {
-      setLocalCity(value);
-      setUpdateForm((prevState) => ({
-        ...prevState,
-        address: {
-          ...prevState.address,
-          city: value,
-        },
-      }));
-    } else if (name === fieldNameState) {
-      setLocalState(value);
-      setUpdateForm((prevState) => ({
-        ...prevState,
-        address: {
-          ...prevState.address,
-          state: value,
-        },
-      }));
-      setStateName(value);
-    }
+    const { value } = e.target;
+    setLocalCityZone(value);
+    setUpdateForm((prevState) => ({
+      ...prevState,
+      address: {
+        ...prevState.address,
+        cityZone: value,
+      },
+    }));
   };
 
   const handleEditClick = () => {
@@ -48,8 +37,7 @@ const EditableAddress = ({
       ...prevState,
       address: {
         ...prevState.address,
-        city: true,
-        state: true,
+        cityZone: true,
       },
     }));
   };
@@ -59,8 +47,7 @@ const EditableAddress = ({
       ...prevState,
       address: {
         ...prevState.address,
-        city: localCity,
-        state: localState,
+        cityZone: localCityZone,
       },
     }));
 
@@ -68,43 +55,34 @@ const EditableAddress = ({
       ...prevState,
       address: {
         ...prevState.address,
-        city: false,
-        state: false,
+        cityZone: false,
       },
     }));
   };
 
+  const getCityZoneLabel = (value) => {
+    const zone = cityZones.find((zone) => zone.value === value);
+    return zone ? zone.label : userData.Data.address.cityZone;
+  };
+
   return (
-    <div className='profile-input location-input'>
-      {isEditing.address.city && isEditing.address.state ? (
+    <div className='profile-input'>
+      {isEditing.address.cityZone ? (
         <>
           <select
-            name={fieldNameCity}
-            value={localCity}
+            name={fieldNameCityZone}
+            value={localCityZone}
             onChange={handleChange}
             className='location-menu'
           >
-            <option value=''>Cidade</option>
-            {citiesAPI.map((city) => (
+            <option value=''>Selecione a Zona</option>
+            {cityZones.map((zone) => (
               <option
-                key={city.codigo_ibge}
-                value={city.nome}
+                key={zone.value}
+                value={zone.value}
                 className='location-option'
               >
-                {city.nome}
-              </option>
-            ))}
-          </select>
-          <select
-            name={fieldNameState}
-            value={localState}
-            onChange={handleChange}
-            className='location-menu'
-          >
-            <option value=''>Estado</option>
-            {statesAPI.map((state) => (
-              <option key={state.sigla} value={state.sigla}>
-                {state.nome}
+                {zone.label}
               </option>
             ))}
           </select>
@@ -117,10 +95,9 @@ const EditableAddress = ({
         </>
       ) : (
         <>
-          <p className='profile-input-bottom'>
-            <strong>Local: </strong>
-            {updateForm.address.city || "Carregando..."} /{" "}
-            {updateForm.address.state || "Carregando..."}
+          <p className='profile-input-address.cityZone'>
+            <strong>{fieldNameCityZone} </strong>
+            {getCityZoneLabel(updateForm.address.cityZone)}
           </p>
           <span
             className='material-symbols-outlined edit-button'
