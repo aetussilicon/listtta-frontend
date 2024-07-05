@@ -47,7 +47,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   const login = async (remeberMe) => {
-    const loginUrl = `${variables.hostingerURl}/auth/login`;
+    const loginUrl = `${variables.localhost}/auth/login`;
 
     try {
       const response = await axios.post(loginUrl, loginForm);
@@ -55,14 +55,16 @@ export const AuthProvider = ({ children }) => {
       setAuthToken(token);
 
       if (remeberMe) {
-        Cookies.set("authToken", token, { expires: 7 }); 
-
+        Cookies.set("authToken", token, { expires: 7 });
       } else {
         Cookies.set("authToken", token);
-      } 
+      }
+
+      if (response.status === 200) {
+        window.location.href = "/search";
+      }
 
       return response;
-
     } catch (error) {
       alert("Erro no login! Verifique seu email ou senha e tente novamente.");
     }
