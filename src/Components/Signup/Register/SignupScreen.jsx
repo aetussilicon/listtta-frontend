@@ -4,10 +4,14 @@ import { SignupFormContext } from "../../../Contexts/SignupLoginFormContext";
 import { StatesContext } from "../../../Contexts/StatesContext";
 import { CitiesContext } from "../../../Contexts/CitiesContext";
 import { FiltersContext } from "../../../Contexts/FiltersConxtext";
+import { AuthContext } from "../../../Contexts/AuthContext";
+import Cookies from "js-cookie";
 
 export default function SignupScreen(props) {
   const { signupFormData, handleInputChange, handleSkillChange, signupUser } =
     useContext(SignupFormContext);
+
+  const { handleLoginInputChange, login } = useContext(AuthContext);
 
   const { statesAPI } = useContext(StatesContext);
   const { setStateName, citiesAPI } = useContext(CitiesContext);
@@ -33,7 +37,7 @@ export default function SignupScreen(props) {
 
   const stateDropdownClick = (stateAcronym, stateName) => {
     setStateName(stateAcronym);
-    handleInputChange(null, "address.state", stateAcronym);
+    handleInputChange(null, "addressDto.state", stateAcronym);
     handleSelectedState(stateName);
     openDropdownMenuStates();
   };
@@ -43,14 +47,24 @@ export default function SignupScreen(props) {
   };
 
   const cityDropdownClick = (cityName) => {
-    handleInputChange(null, "address.city", cityName);
+    handleInputChange(null, "addressDto.city", cityName);
     handleSelectedCity(cityName);
     openDropdownMenuCity();
   };
 
-  const handleSignupSubmit = (e) => {
+  const handleSignupSubmit = async (e) => {
     e.preventDefault();
-    signupUser();
+
+    await signupUser();
+    const loginNewUser = await login();
+
+    if (loginNewUser.status == 200 && signupFormData.role == "PROFESSIONAL") {
+      const userPuid = Cookies.get("PUID");
+      console.log(userPuid);
+      window.location.href = `/profile/${userPuid}`;
+    } else if (loginNewUser.status == 200 && signupFormData.role == "USER") {
+      window.location.href = "/search";
+    }
   };
 
   useEffect(() => {
@@ -106,8 +120,9 @@ export default function SignupScreen(props) {
   const genders = ["MASCULINO", "FEMININO", "OUTROS"];
 
   const handleGenderChange = (gender) => {
-    handleInputChange(null, "userGender", gender);
+    handleInputChange(null, "gender", gender);
   };
+
 
   const displaySkillsMenu = () => {
     const skillsSection = document.getElementById("skillsSection");
@@ -116,6 +131,11 @@ export default function SignupScreen(props) {
     } else {
       skillsSection.style.display = "none";
     }
+  };
+
+  const handleCombinedInputChange = (e, field) => {
+    handleInputChange(e, field);
+    handleLoginInputChange(e, field);
   };
 
   const isSkillsSelected = signupFormData.professionalsDto.skills.length > 0;
@@ -144,7 +164,7 @@ export default function SignupScreen(props) {
                   placeholder="john@gmail.com"
                   value={signupFormData.email}
                   name="email"
-                  onChange={handleInputChange}
+                  onChange={(e) => handleCombinedInputChange(e, "email")}
                 />
               </div>
               <div className="signup-fields">
@@ -157,7 +177,7 @@ export default function SignupScreen(props) {
                   placeholder="**********"
                   value={signupFormData.password}
                   name="password"
-                  onChange={handleInputChange}
+                  onChange={(e) => handleCombinedInputChange(e, "password")}
                 />
               </div>
               <div className="signup-fields signup-fields-location">
@@ -165,7 +185,10 @@ export default function SignupScreen(props) {
                   <button
                     type="button"
                     className="default-dropdown-button signup-dropdown-button signup-location-dropdown-button"
-                    onClick={openDropdownMenuStates}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      openDropdownMenuStates();
+                    }}
                   >
                     {selectedState}
                     <span className="material-symbols-outlined">
@@ -210,7 +233,10 @@ export default function SignupScreen(props) {
                 <div className="default-dropdown-menu signup-location-dropdown-menu">
                   <button
                     className="default-dropdown-button signup-dropdown-button signup-location-dropdown-button"
-                    onClick={openDropdownMenuCity}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      openDropdownMenuCity();
+                    }}
                   >
                     {selectedCity}
                     <span className="material-symbols-outlined">
@@ -259,7 +285,7 @@ export default function SignupScreen(props) {
                     className="default-dropdown-button signup-dropdown-button signup-large-dropdown-button"
                     onClick={openDropdownMenuGenders}
                   >
-                    {signupFormData.userGender || "Gênero"}
+                    {signupFormData.gender || "Gênero"}
                     <span className="material-symbols-outlined">
                       expand_more
                     </span>
@@ -277,7 +303,7 @@ export default function SignupScreen(props) {
                           >
                             <span className="dropdown-span default-span">
                               {gender}
-                              {signupFormData.userGender === gender}
+                              {signupFormData.gender === gender}
                             </span>
                           </li>
                         </ul>
@@ -332,7 +358,7 @@ export default function SignupScreen(props) {
                         <ul className="dropdown-ul">
                           <li className="dropdown-li location-filters-dropdown-li">
                             <span className="default-span">
-                             Sem Especialidades 
+                              Sem Especialidades
                             </span>
                           </li>
                         </ul>
@@ -360,7 +386,11 @@ export default function SignupScreen(props) {
                 </label>
               </div>
               <div className="signup-register-button">
-                <button type="submit" className="btn" disabled={!isTermsCheckboxCheckboxChecked}>
+                <button
+                  type="submit"
+                  className="btn"
+                  disabled={!isTermsCheckboxCheckboxChecked}
+                >
                   Registrar
                 </button>
               </div>

@@ -1,6 +1,7 @@
 import axios from "axios";
 import { createContext, useState } from "react";
 import { variables } from "../Variables";
+import Cookies from "js-cookie";
 
 export const SignupFormContext = createContext();
 
@@ -9,8 +10,8 @@ export const SignupFormProvider = ({ children }) => {
     email: "",
     password: "",
     role: "",
-    userGender: "",
-    address: {
+    gender: "",
+    addressDto: {
       state: "",
       city: "",
     },
@@ -73,6 +74,7 @@ export const SignupFormProvider = ({ children }) => {
 
       if (response.status === 201) {
         alert("Cadastrado com sucesso!");
+        Cookies.set("PUID", data.User);
         console.log(data);
       } else {
         throw new Error("Não foi possível cadastrar!");

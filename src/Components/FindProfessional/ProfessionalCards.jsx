@@ -22,11 +22,11 @@ export default function ProfessionalCards({ displayCount }) {
             <h3>{professional.fullName}</h3>
             <div className="professional-locale">
               <img src="Assets/icons/miscellaneous/location.png" alt="" />
-              <p>{professional.city}/{professional.state}</p>
+              <p>{professional.address.city}/{professional.address.state}</p>
             </div>
             <button className="btn">
               <img src="Assets/icons/social-networks/mono-instagram.svg" alt="" />
-              @{professional.instagramUrl}
+              @{professional.details.instagramUrl}
             </button>
           </div>
         </div>
