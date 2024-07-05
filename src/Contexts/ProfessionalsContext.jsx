@@ -10,7 +10,7 @@ export const ProfessionalsProvider = ({ children }) => {
   const [resultsCount, setResultsCount] = useState(0);
 
   // let professionalsUrl = `${variables.hostingerURl}/professionals/list/all`;
-  let professionalsUrl = `${variables.localhost}/professionals/list/all`;
+  let professionalsUrl = `${variables.hostingerURl}/professionals/list/all`;
 
   useEffect(() => {
     getProfessionals();

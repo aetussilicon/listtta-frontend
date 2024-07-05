@@ -111,7 +111,7 @@ export default function Profile() {
     const getUserData = async () => {
       try {
         const response = await axios.get(
-          `${variables.localhost}/users/list/${puid}`
+          `${variables.hostingerURl}/users/list/${puid}`
         );
 
         const result = await response.data;
@@ -174,8 +174,8 @@ export default function Profile() {
 
   const updateUserInfo = async (e) => {
     e.preventDefault();
-    const updateUserURL = `${variables.localhost}/users/update/${puid}`;
-    const updateProfilePictureURL = `${variables.localhost}/users/update/picture/${puid}`;
+    const updateUserURL = `${variables.hostingerURl}/users/update/${puid}`;
+    const updateProfilePictureURL = `${variables.hostingerURl}/users/update/picture/${puid}`;
 
     const nonEmptyUpdateForm = createNonEmptyForm(updateForm);
 
