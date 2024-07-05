@@ -37,7 +37,7 @@ export default function SignupScreen(props) {
 
   const stateDropdownClick = (stateAcronym, stateName) => {
     setStateName(stateAcronym);
-    handleInputChange(null, "address.state", stateAcronym);
+    handleInputChange(null, "addressDto.state", stateAcronym);
     handleSelectedState(stateName);
     openDropdownMenuStates();
   };
@@ -47,7 +47,7 @@ export default function SignupScreen(props) {
   };
 
   const cityDropdownClick = (cityName) => {
-    handleInputChange(null, "address.city", cityName);
+    handleInputChange(null, "addressDto.city", cityName);
     handleSelectedCity(cityName);
     openDropdownMenuCity();
   };
@@ -120,7 +120,7 @@ export default function SignupScreen(props) {
   const genders = ["MASCULINO", "FEMININO", "OUTROS"];
 
   const handleGenderChange = (gender) => {
-    handleInputChange(null, "userGender", gender);
+    handleInputChange(null, "gender", gender);
   };
 
 
@@ -285,7 +285,7 @@ export default function SignupScreen(props) {
                     className="default-dropdown-button signup-dropdown-button signup-large-dropdown-button"
                     onClick={openDropdownMenuGenders}
                   >
-                    {signupFormData.userGender || "Gênero"}
+                    {signupFormData.gender || "Gênero"}
                     <span className="material-symbols-outlined">
                       expand_more
                     </span>
@@ -303,7 +303,7 @@ export default function SignupScreen(props) {
                           >
                             <span className="dropdown-span default-span">
                               {gender}
-                              {signupFormData.userGender === gender}
+                              {signupFormData.gender === gender}
                             </span>
                           </li>
                         </ul>

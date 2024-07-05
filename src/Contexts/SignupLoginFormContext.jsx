@@ -10,8 +10,8 @@ export const SignupFormProvider = ({ children }) => {
     email: "",
     password: "",
     role: "",
-    userGender: "",
-    address: {
+    gender: "",
+    addressDto: {
       state: "",
       city: "",
     },
@@ -67,14 +67,14 @@ export const SignupFormProvider = ({ children }) => {
   };
 
   const signupUser = async () => {
-    const signupURL = `${variables.hostingerURl}/auth/signup`;
+    const signupURL = `${variables.localhost}/auth/signup`;
     try {
       const response = await axios.post(signupURL, signupFormData);
       const data = await response.data;
-  
+
       if (response.status === 201) {
-        alert("Cadastrado com sucesso!"); 
-        Cookies.set("PUID", data.User);       
+        alert("Cadastrado com sucesso!");
+        Cookies.set("PUID", data.User);
         console.log(data);
       } else {
         throw new Error("Não foi possível cadastrar!");
