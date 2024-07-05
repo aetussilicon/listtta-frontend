@@ -1,4 +1,12 @@
-@media screen and (max-width: 480px) {
+@media screen and (min-width: 480px) {
+    .cards-results {
+        flex-direction: row !important;
+        align-items: center;
+        justify-content: space-between !important;
+    }
+}
+
+@media screen and (max-width: 468px) {
     .search-container h1 {
         font-size: 26px !important;
         text-align: center;
@@ -22,6 +30,13 @@
     }
 }
 
+@media screen and (min-width: 480px) and (max-width: 1024px) {
+  .results-block {
+    align-items: center !important;
+    justify-content: center !important; 
+  } 
+}
+
 @media screen and (min-width: 1200px) {
     .top-bar-professionals-button{
         display: none !important;
@@ -29,24 +44,6 @@
     }
 }
 
-@media screen and (min-width: 480px) {
-    .cards-results {
-        flex-direction: row !important;
-        align-items: center;
-        justify-content: space-between !important;
-    }
-}
-
-@media screen and (min-width: 480px) and (max-width: 1024px)  {
-    .search-container h1 {
-        font-size: 35px !important;
-        text-align: center;
-    }
-}
-
-@media screen and (min-width: 1024px) and (max-width: 1200px) {
-
-}
 .search-banner {
     background-image: var(--search-banner);
     height: 300px;
