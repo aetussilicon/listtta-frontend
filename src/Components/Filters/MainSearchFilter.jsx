@@ -21,13 +21,14 @@ export default function MainSearchFilter() {
   //Filters
   const [state, setState] = useState("");
   const [city, setCity] = useState("");
+  const [cityZone, setCityZone] = useState("");
   const [type, setType] = useState("");
-  const [userGender, setUserGender] = useState("");
+  const [gender, setGender] = useState("");
   const [selectedSkills, setSelectedSkills] = useState([]);
 
   useEffect(() => {
     applyFilters();
-  }, [state, city, seletectButton, type, userGender, selectedSkills]);
+  }, [state, city, seletectButton, type, gender, selectedSkills]);
 
   function openDropdownMenuStates() {
     const dropdown = document.getElementById("dropdownStatesId");
@@ -60,10 +61,10 @@ export default function MainSearchFilter() {
 
     // Se clicar em "Ambos", limpar todos os valores
     if (value === "Ambos" && checked) {
-      setUserGender("");
+      setGender("");
     } else if (checked) {
       // Se clicar em Masculino ou Feminino, definir o valor correspondente
-      setUserGender(value);
+      setGender(value);
     }
   };
 
@@ -73,35 +74,41 @@ export default function MainSearchFilter() {
     // Filtrar por estado, se selecionado
     if (state !== "") {
       filteredProfessionals = filteredProfessionals.filter(
-        (professional) => professional.state === state
+        (professional) => professional.address.state === state
       );
     }
 
     // Filtrar por cidade, se selecionado
     if (city !== "") {
       filteredProfessionals = filteredProfessionals.filter(
-        (professional) => professional.city === city
+        (professional) => professional.address.city === city
+      );
+    }
+
+    if (cityZone !== "") {
+      filteredProfessionals = filteredProfessionals.filter(
+        (professional) => professional.address.cityZone === cityZone
       );
     }
 
     // Filtrar por gênero, se selecionado
-    if (userGender !== "") {
+    if (gender !== "") {
       filteredProfessionals = filteredProfessionals.filter(
-        (professional) => professional.userGender === userGender
+        (professional) => professional.gender === gender
       );
     }
 
     // Filtrar por tipo de profissional, se selecionado
     if (type !== "") {
       filteredProfessionals = filteredProfessionals.filter(
-        (professional) => professional.type === type
+        (professional) => professional.details.type === type
       );
     }
 
     if (selectedSkills.length > 0) {
       filteredProfessionals = filteredProfessionals.filter((professional) =>
-        professional.skills.some((skill) =>
-          selectedSkills.includes(skill.filterId.toString())
+        professional.details.skills.some((skill) =>
+          selectedSkills.includes(skill.toString())
         )
       );
     }
@@ -110,12 +117,12 @@ export default function MainSearchFilter() {
     setFilteredData(filteredProfessionals);
   };
 
-  // useEffect(() => {
-  //   console.log("Estado " + state);
-  //   console.log("Cidade " + city);
-  //   console.log("Tipo " + type);
-  //   console.log("Gênero " + userGender);
-  // });
+  useEffect(() => {
+    console.log("Estado " + state);
+    console.log("Cidade " + city);
+    console.log("Tipo " + type);
+    console.log("Gênero " + gender);
+  });
 
   const stateDropdownClick = (stateAcronym, stateName) => {
     setStateName(stateAcronym);
@@ -139,9 +146,9 @@ export default function MainSearchFilter() {
     const { value } = event.target;
 
     if (event.target.checked) {
-      setSelectedSkills([...selectedSkills, value]); 
+      setSelectedSkills([...selectedSkills, value]);
     } else {
-      setSelectedSkills(selectedSkills.filter((id) => id !== value)); 
+      setSelectedSkills(selectedSkills.filter((id) => id !== value));
     }
   };
 
@@ -149,9 +156,8 @@ export default function MainSearchFilter() {
     <div className="main-filters-container">
       <div className="filters-section filters-button-section">
         <button
-          className={`white-btn ${
-            seletectButton === "button1" ? "selected-filter-button" : ""
-          }`}
+          className={`white-btn ${seletectButton === "button1" ? "selected-filter-button" : ""
+            }`}
           onClick={() => {
             handleSelectedUserTypeButton("button1", "");
           }}
@@ -159,9 +165,8 @@ export default function MainSearchFilter() {
           Todos
         </button>
         <button
-          className={`white-btn ${
-            seletectButton === "button2" ? "selected-filter-button" : ""
-          }`}
+          className={`white-btn ${seletectButton === "button2" ? "selected-filter-button" : ""
+            }`}
           onClick={() => {
             handleSelectedUserTypeButton("button2", "TATTOO");
           }}
@@ -169,9 +174,8 @@ export default function MainSearchFilter() {
           Tatuador
         </button>
         <button
-          className={`white-btn ${
-            seletectButton === "button3" ? "selected-filter-button" : ""
-          }`}
+          className={`white-btn ${seletectButton === "button3" ? "selected-filter-button" : ""
+            }`}
           onClick={() => {
             handleSelectedUserTypeButton("button3", "PIERCER");
           }}
@@ -276,7 +280,7 @@ export default function MainSearchFilter() {
                 id="ambos"
                 name="gender"
                 value={"Ambos"}
-                checked={userGender === ""}
+                checked={gender === ""}
                 onChange={handleCheckboxChange}
               />
               <label htmlFor="tatuador">Ambos</label>
@@ -288,7 +292,7 @@ export default function MainSearchFilter() {
                 id="tatuador"
                 name="gender"
                 value={"MASCULINO"}
-                checked={userGender === "MASCULINO"}
+                checked={gender === "MASCULINO"}
                 onChange={handleCheckboxChange}
               />
               <label htmlFor="tatuador">Tatuador</label>
@@ -300,7 +304,7 @@ export default function MainSearchFilter() {
                 id="tatuador"
                 name="gender"
                 value={"FEMININO"}
-                checked={userGender === "FEMININO"}
+                checked={gender === "FEMININO"}
                 onChange={handleCheckboxChange}
               />
               <label htmlFor="tatuador">Tatuadora</label>
