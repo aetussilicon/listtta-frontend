@@ -1,7 +1,42 @@
 import { variables } from "../../Variables";
 import '../../Styles/Components/Footer/Footer.css'
+import axios from "axios";
+import { useState } from "react";
+import { useEffect } from "react";
 
 export default function Footer() {
+    const [newsletterForm, setNewsletterForm] = useState({
+        "email": ""
+    });
+
+    const newsletterSendRequest = async (e) => {
+        e.preventDefault();
+        let newsletterURL = `${variables.hostingerURl}/newsletter/new`
+
+        try {
+            const response = await axios.post(newsletterURL, newsletterForm);
+            const data = await response.data;
+            console.log(data);
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
+    const handleNewsletterInputChange = (e, nameValue = null, valueValue = null) => {
+        e.preventDefault();
+        const name = nameValue || e?.target.name;
+        const value = valueValue || e?.target.value;
+
+        setNewsletterForm(prevState => ({
+            ...prevState,
+            [name]: value
+        }));
+    };
+
+    useEffect(() => {
+        console.log(newsletterForm)
+    }, [newsletterForm])
+
     return (
         <div className="footer-section">
             <div className="top-line" />
@@ -44,9 +79,10 @@ export default function Footer() {
                         </div>
                     </div>
                     <div className="newsletter-block">
-                        <form>
+                        <form onSubmit={newsletterSendRequest}>
                             <label htmlFor="newsletter-email">Receba nossa newsletter</label>
-                            <input type="text" name="newsletter-email" placeholder="Digite seu email"></input>
+                            <input type="text" name="email" onChange={handleNewsletterInputChange} placeholder="Digite seu email"></input>
+                            <button type="submit">Enviar</button>
                         </form>
                     </div>
                 </div>
