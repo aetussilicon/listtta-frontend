@@ -5,7 +5,7 @@ import { CitiesContext } from "../../Contexts/CitiesContext";
 import { FiltersContext } from "../../Contexts/FiltersConxtext";
 import { ProfessionalsContext } from "../../Contexts/ProfessionalsContext";
 
-const allowedCities = ["São Paulo", "Rio de Janeiro", "SP", "RJ"];
+const allowedCities = ["Sao paulo", "Rio de Janeiro", "SP", "RJ"];
 const citiesZones = [
   { id: 1, zone: "Sul" },
   { id: 2, zone: "Norte" },
@@ -191,43 +191,7 @@ export default function MainSearchFilter() {
       </div>
       <div className="filters-section location-filters">
         <span className="default-span location-filters-span">Localização</span>
-        <div className="default-dropdown-menu filters-dropdown-menu">
-          <button
-            type="button"
-            className="default-dropdown-button"
-            onClick={() => { openDropdownMenu('dropdownZonesId') }}
-          >
-            {selectedZone}
-            <span className="material-symbols-outlined">expand_more</span>
-          </button>
-          <div
-            className="default-dropdown-content location-dropdown-content"
-            id="dropdownZonesId"
-          >
-            {citiesZones.length > 0 ? (
-              citiesZones.map((zone) => (
-                <div key={zone.id}>
-                  <ul className="dropdown-ul">
-                    <li
-                      className="dropdown-li location-filters-dropdown-li"
-                      onClick={() => {
-                        zoneDropdownClick(zone.zone);
-                      }}
-                    >
-                      <span
-                        className="dropdown-span default-span"
-                      >
-                        {zone.zone}
-                      </span>
-                    </li>
-                  </ul>
-                </div>
-              ))
-            ) : (
-              ""
-            )}
-          </div>
-        </div>
+
         <div className="default-dropdown-menu filters-dropdown-menu">
           <button
             type="button"
@@ -311,6 +275,45 @@ export default function MainSearchFilter() {
             )}
           </div>
         </div>
+        {allowedCities.includes(selectedCity) && (
+          <div className="default-dropdown-menu filters-dropdown-menu">
+            <button
+              type="button"
+              className="default-dropdown-button"
+              onClick={() => { openDropdownMenu('dropdownZonesId') }}
+            >
+              {selectedZone}
+              <span className="material-symbols-outlined">expand_more</span>
+            </button>
+            <div
+              className="default-dropdown-content location-dropdown-content"
+              id="dropdownZonesId"
+            >
+              {citiesZones.length > 0 ? (
+                citiesZones.map((zone) => (
+                  <div key={zone.id}>
+                    <ul className="dropdown-ul">
+                      <li
+                        className="dropdown-li location-filters-dropdown-li"
+                        onClick={() => {
+                          zoneDropdownClick(zone.zone);
+                        }}
+                      >
+                        <span
+                          className="dropdown-span default-span"
+                        >
+                          {zone.zone}
+                        </span>
+                      </li>
+                    </ul>
+                  </div>
+                ))
+              ) : (
+                ""
+              )}
+            </div>
+          </div>
+        )}
       </div>
       <div className="filters-section gender-filters">
         <span className="filters-span default-span">Gênero</span>
