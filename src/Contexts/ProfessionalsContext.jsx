@@ -14,7 +14,6 @@ export const ProfessionalsProvider = ({ children }) => {
 
   useEffect(() => {
     getProfessionals();
-    console.log(filteredData);
   }, []);
 
   const getProfessionals = async () => {

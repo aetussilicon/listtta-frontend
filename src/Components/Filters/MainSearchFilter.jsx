@@ -26,9 +26,6 @@ export default function MainSearchFilter() {
   const [gender, setGender] = useState("");
   const [selectedSkills, setSelectedSkills] = useState([]);
 
-  useEffect(() => {
-    applyFilters();
-  }, [state, city, seletectButton, type, gender, selectedSkills]);
 
   function openDropdownMenuStates() {
     const dropdown = document.getElementById("dropdownStatesId");
@@ -74,20 +71,20 @@ export default function MainSearchFilter() {
     // Filtrar por estado, se selecionado
     if (state !== "") {
       filteredProfessionals = filteredProfessionals.filter(
-        (professional) => professional.address.state === state
+        (professional) => professional.address?.state === state
       );
     }
 
     // Filtrar por cidade, se selecionado
     if (city !== "") {
       filteredProfessionals = filteredProfessionals.filter(
-        (professional) => professional.address.city === city
+        (professional) => professional.address?.city === city
       );
     }
 
     if (cityZone !== "") {
       filteredProfessionals = filteredProfessionals.filter(
-        (professional) => professional.address.cityZone === cityZone
+        (professional) => professional.address?.cityZone === cityZone
       );
     }
 
@@ -101,28 +98,35 @@ export default function MainSearchFilter() {
     // Filtrar por tipo de profissional, se selecionado
     if (type !== "") {
       filteredProfessionals = filteredProfessionals.filter(
-        (professional) => professional.details.type === type
+        (professional) => professional.details?.type === type
       );
     }
 
+    // Filtrar por habilidades, se selecionado
     if (selectedSkills.length > 0) {
       filteredProfessionals = filteredProfessionals.filter((professional) =>
-        professional.details.skills.some((skill) =>
-          selectedSkills.includes(skill.toString())
+        professional.details?.skills?.some((skill) =>
+          skill && selectedSkills.includes(skill.toString())
         )
       );
     }
+
+    // console.log("filteredData", filteredProfessionals)
 
     // Atualizar o estado com os resultados filtrados
     setFilteredData(filteredProfessionals);
   };
 
   useEffect(() => {
-    console.log("Estado " + state);
-    console.log("Cidade " + city);
-    console.log("Tipo " + type);
-    console.log("Gênero " + gender);
-  });
+    applyFilters();
+  }, [state, city, seletectButton, type, gender, selectedSkills]);
+
+  // useEffect(() => {
+  //   console.log("Estado " + state);
+  //   console.log("Cidade " + city);
+  //   console.log("Tipo " + type);
+  //   console.log("Gênero " + gender);
+  // });
 
   const stateDropdownClick = (stateAcronym, stateName) => {
     setStateName(stateAcronym);
@@ -143,14 +147,15 @@ export default function MainSearchFilter() {
   };
 
   const handleSkillChange = (event) => {
-    const { value } = event.target;
+    const { value, checked } = event.target;
 
-    if (event.target.checked) {
-      setSelectedSkills([...selectedSkills, value]);
+    if (checked) {
+      setSelectedSkills((prevSelectedSkills) => [...prevSelectedSkills, value]);
     } else {
-      setSelectedSkills(selectedSkills.filter((id) => id !== value));
+      setSelectedSkills((prevSelectedSkills) => prevSelectedSkills.filter((id) => id !== value));
     }
   };
+
 
   return (
     <div className="main-filters-container">
