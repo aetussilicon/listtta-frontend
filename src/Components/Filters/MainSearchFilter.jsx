@@ -5,6 +5,15 @@ import { CitiesContext } from "../../Contexts/CitiesContext";
 import { FiltersContext } from "../../Contexts/FiltersConxtext";
 import { ProfessionalsContext } from "../../Contexts/ProfessionalsContext";
 
+const allowedCities = ["São Paulo", "Rio de Janeiro", "SP", "RJ"];
+const citiesZones = [
+  { id: 1, zone: "Sul" },
+  { id: 2, zone: "Norte" },
+  { id: 3, zone: "Centro" },
+  { id: 4, zone: "Leste" },
+  { id: 5, zone: "Oeste" }
+];
+
 export default function MainSearchFilter() {
   //Contextos
   const { professionalsAPI, setFilteredData } =
@@ -17,6 +26,7 @@ export default function MainSearchFilter() {
   const [seletectButton, setSelectedButton] = useState("");
   const [selectedState, setSelectedState] = useState("Selecione o estado");
   const [selectedCity, setSelectedCity] = useState("Selecione a cidade");
+  const [selectedZone, setSelectedZone] = useState("Selecione a zona");
 
   //Filters
   const [state, setState] = useState("");
@@ -26,9 +36,8 @@ export default function MainSearchFilter() {
   const [gender, setGender] = useState("");
   const [selectedSkills, setSelectedSkills] = useState([]);
 
-
-  function openDropdownMenuStates() {
-    const dropdown = document.getElementById("dropdownStatesId");
+  function openDropdownMenu(divId) {
+    const dropdown = document.getElementById(divId);
     if (dropdown.style.display === "none" || dropdown.style.display === "") {
       dropdown.style.display = "block";
     } else {
@@ -36,22 +45,9 @@ export default function MainSearchFilter() {
     }
   }
 
-  function openDropdownMenuCity() {
-    const dropdown = document.getElementById("dropdownCityId");
-    if (dropdown.style.display === "none" || dropdown.style.display === "") {
-      dropdown.style.display = "block";
-    } else {
-      dropdown.style.display = "none";
-    }
+  const handleSelectedOption = (setSelect, option) => {
+    setSelect(option);
   }
-
-  const handleSelectedState = (option) => {
-    setSelectedState(option);
-  };
-
-  const handleSelectedCity = (option) => {
-    setSelectedCity(option);
-  };
 
   const handleCheckboxChange = (event) => {
     const { value, checked } = event.target;
@@ -119,7 +115,7 @@ export default function MainSearchFilter() {
 
   useEffect(() => {
     applyFilters();
-  }, [state, city, seletectButton, type, gender, selectedSkills]);
+  }, [state, city, seletectButton, type, gender, selectedSkills, cityZone]);
 
   // useEffect(() => {
   //   console.log("Estado " + state);
@@ -131,15 +127,21 @@ export default function MainSearchFilter() {
   const stateDropdownClick = (stateAcronym, stateName) => {
     setStateName(stateAcronym);
     setState(stateAcronym);
-    handleSelectedState(stateName);
-    openDropdownMenuStates();
+    handleSelectedOption(setSelectedState, stateName);
+    openDropdownMenu('dropdownStatesId');
   };
 
   const cityDropdownClick = (cityName) => {
     setCity(cityName);
-    handleSelectedCity(cityName);
-    openDropdownMenuCity();
+    handleSelectedOption(setSelectedCity, cityName);
+    openDropdownMenu('dropdownCityId');
   };
+
+  const zoneDropdownClick = (zone) => {
+    setCityZone(zone);
+    handleSelectedOption(setSelectedZone, zone);
+    openDropdownMenu('dropdownZonesId');
+  }
 
   const handleSelectedUserTypeButton = (button, type) => {
     setSelectedButton(button);
@@ -155,7 +157,6 @@ export default function MainSearchFilter() {
       setSelectedSkills((prevSelectedSkills) => prevSelectedSkills.filter((id) => id !== value));
     }
   };
-
 
   return (
     <div className="main-filters-container">
@@ -194,7 +195,44 @@ export default function MainSearchFilter() {
           <button
             type="button"
             className="default-dropdown-button"
-            onClick={openDropdownMenuStates}
+            onClick={() => { openDropdownMenu('dropdownZonesId') }}
+          >
+            {selectedZone}
+            <span className="material-symbols-outlined">expand_more</span>
+          </button>
+          <div
+            className="default-dropdown-content location-dropdown-content"
+            id="dropdownZonesId"
+          >
+            {citiesZones.length > 0 ? (
+              citiesZones.map((zone) => (
+                <div key={zone.id}>
+                  <ul className="dropdown-ul">
+                    <li
+                      className="dropdown-li location-filters-dropdown-li"
+                      onClick={() => {
+                        zoneDropdownClick(zone.zone);
+                      }}
+                    >
+                      <span
+                        className="dropdown-span default-span"
+                      >
+                        {zone.zone}
+                      </span>
+                    </li>
+                  </ul>
+                </div>
+              ))
+            ) : (
+              ""
+            )}
+          </div>
+        </div>
+        <div className="default-dropdown-menu filters-dropdown-menu">
+          <button
+            type="button"
+            className="default-dropdown-button"
+            onClick={() => openDropdownMenu('dropdownStatesId')}
           >
             {selectedState}
             <span className="material-symbols-outlined">expand_more</span>
@@ -234,7 +272,7 @@ export default function MainSearchFilter() {
         <div className="default-dropdown-menu filters-dropdown-menu">
           <button
             className="default-dropdown-button"
-            onClick={openDropdownMenuCity}
+            onClick={() => openDropdownMenu('dropdownCityId')}
           >
             {selectedCity}
             <span className="material-symbols-outlined">expand_more</span>
