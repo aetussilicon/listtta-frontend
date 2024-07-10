@@ -5,6 +5,15 @@ import { CitiesContext } from "../../Contexts/CitiesContext";
 import { FiltersContext } from "../../Contexts/FiltersConxtext";
 import { ProfessionalsContext } from "../../Contexts/ProfessionalsContext";
 
+const allowedCities = ["Sao paulo", "Rio de Janeiro", "SP", "RJ"];
+const citiesZones = [
+  { id: 1, zone: "Sul" },
+  { id: 2, zone: "Norte" },
+  { id: 3, zone: "Centro" },
+  { id: 4, zone: "Leste" },
+  { id: 5, zone: "Oeste" }
+];
+
 export default function MainSearchFilter() {
   //Contextos
   const { professionalsAPI, setFilteredData } =
@@ -17,6 +26,7 @@ export default function MainSearchFilter() {
   const [seletectButton, setSelectedButton] = useState("");
   const [selectedState, setSelectedState] = useState("Selecione o estado");
   const [selectedCity, setSelectedCity] = useState("Selecione a cidade");
+  const [selectedZone, setSelectedZone] = useState("Selecione a zona");
 
   //Filters
   const [state, setState] = useState("");
@@ -26,12 +36,8 @@ export default function MainSearchFilter() {
   const [gender, setGender] = useState("");
   const [selectedSkills, setSelectedSkills] = useState([]);
 
-  useEffect(() => {
-    applyFilters();
-  }, [state, city, seletectButton, type, gender, selectedSkills]);
-
-  function openDropdownMenuStates() {
-    const dropdown = document.getElementById("dropdownStatesId");
+  function openDropdownMenu(divId) {
+    const dropdown = document.getElementById(divId);
     if (dropdown.style.display === "none" || dropdown.style.display === "") {
       dropdown.style.display = "block";
     } else {
@@ -39,22 +45,9 @@ export default function MainSearchFilter() {
     }
   }
 
-  function openDropdownMenuCity() {
-    const dropdown = document.getElementById("dropdownCityId");
-    if (dropdown.style.display === "none" || dropdown.style.display === "") {
-      dropdown.style.display = "block";
-    } else {
-      dropdown.style.display = "none";
-    }
+  const handleSelectedOption = (setSelect, option) => {
+    setSelect(option);
   }
-
-  const handleSelectedState = (option) => {
-    setSelectedState(option);
-  };
-
-  const handleSelectedCity = (option) => {
-    setSelectedCity(option);
-  };
 
   const handleCheckboxChange = (event) => {
     const { value, checked } = event.target;
@@ -74,20 +67,20 @@ export default function MainSearchFilter() {
     // Filtrar por estado, se selecionado
     if (state !== "") {
       filteredProfessionals = filteredProfessionals.filter(
-        (professional) => professional.address.state === state
+        (professional) => professional.address?.state === state
       );
     }
 
     // Filtrar por cidade, se selecionado
     if (city !== "") {
       filteredProfessionals = filteredProfessionals.filter(
-        (professional) => professional.address.city === city
+        (professional) => professional.address?.city === city
       );
     }
 
     if (cityZone !== "") {
       filteredProfessionals = filteredProfessionals.filter(
-        (professional) => professional.address.cityZone === cityZone
+        (professional) => professional.address?.cityZone === cityZone
       );
     }
 
@@ -101,41 +94,54 @@ export default function MainSearchFilter() {
     // Filtrar por tipo de profissional, se selecionado
     if (type !== "") {
       filteredProfessionals = filteredProfessionals.filter(
-        (professional) => professional.details.type === type
+        (professional) => professional.details?.type === type
       );
     }
 
+    // Filtrar por habilidades, se selecionado
     if (selectedSkills.length > 0) {
       filteredProfessionals = filteredProfessionals.filter((professional) =>
-        professional.details.skills.some((skill) =>
-          selectedSkills.includes(skill.toString())
+        professional.details?.skills?.some((skill) =>
+          skill && selectedSkills.includes(skill.toString())
         )
       );
     }
+
+    // console.log("filteredData", filteredProfessionals)
 
     // Atualizar o estado com os resultados filtrados
     setFilteredData(filteredProfessionals);
   };
 
   useEffect(() => {
-    console.log("Estado " + state);
-    console.log("Cidade " + city);
-    console.log("Tipo " + type);
-    console.log("Gênero " + gender);
-  });
+    applyFilters();
+  }, [state, city, seletectButton, type, gender, selectedSkills, cityZone]);
+
+  // useEffect(() => {
+  //   console.log("Estado " + state);
+  //   console.log("Cidade " + city);
+  //   console.log("Tipo " + type);
+  //   console.log("Gênero " + gender);
+  // });
 
   const stateDropdownClick = (stateAcronym, stateName) => {
     setStateName(stateAcronym);
     setState(stateAcronym);
-    handleSelectedState(stateName);
-    openDropdownMenuStates();
+    handleSelectedOption(setSelectedState, stateName);
+    openDropdownMenu('dropdownStatesId');
   };
 
   const cityDropdownClick = (cityName) => {
     setCity(cityName);
-    handleSelectedCity(cityName);
-    openDropdownMenuCity();
+    handleSelectedOption(setSelectedCity, cityName);
+    openDropdownMenu('dropdownCityId');
   };
+
+  const zoneDropdownClick = (zone) => {
+    setCityZone(zone);
+    handleSelectedOption(setSelectedZone, zone);
+    openDropdownMenu('dropdownZonesId');
+  }
 
   const handleSelectedUserTypeButton = (button, type) => {
     setSelectedButton(button);
@@ -143,12 +149,12 @@ export default function MainSearchFilter() {
   };
 
   const handleSkillChange = (event) => {
-    const { value } = event.target;
+    const { value, checked } = event.target;
 
-    if (event.target.checked) {
-      setSelectedSkills([...selectedSkills, value]);
+    if (checked) {
+      setSelectedSkills((prevSelectedSkills) => [...prevSelectedSkills, value]);
     } else {
-      setSelectedSkills(selectedSkills.filter((id) => id !== value));
+      setSelectedSkills((prevSelectedSkills) => prevSelectedSkills.filter((id) => id !== value));
     }
   };
 
@@ -185,11 +191,12 @@ export default function MainSearchFilter() {
       </div>
       <div className="filters-section location-filters">
         <span className="default-span location-filters-span">Localização</span>
+
         <div className="default-dropdown-menu filters-dropdown-menu">
           <button
             type="button"
             className="default-dropdown-button"
-            onClick={openDropdownMenuStates}
+            onClick={() => openDropdownMenu('dropdownStatesId')}
           >
             {selectedState}
             <span className="material-symbols-outlined">expand_more</span>
@@ -229,7 +236,7 @@ export default function MainSearchFilter() {
         <div className="default-dropdown-menu filters-dropdown-menu">
           <button
             className="default-dropdown-button"
-            onClick={openDropdownMenuCity}
+            onClick={() => openDropdownMenu('dropdownCityId')}
           >
             {selectedCity}
             <span className="material-symbols-outlined">expand_more</span>
@@ -268,6 +275,45 @@ export default function MainSearchFilter() {
             )}
           </div>
         </div>
+        {allowedCities.includes(selectedCity) && (
+          <div className="default-dropdown-menu filters-dropdown-menu">
+            <button
+              type="button"
+              className="default-dropdown-button"
+              onClick={() => { openDropdownMenu('dropdownZonesId') }}
+            >
+              {selectedZone}
+              <span className="material-symbols-outlined">expand_more</span>
+            </button>
+            <div
+              className="default-dropdown-content location-dropdown-content"
+              id="dropdownZonesId"
+            >
+              {citiesZones.length > 0 ? (
+                citiesZones.map((zone) => (
+                  <div key={zone.id}>
+                    <ul className="dropdown-ul">
+                      <li
+                        className="dropdown-li location-filters-dropdown-li"
+                        onClick={() => {
+                          zoneDropdownClick(zone.zone);
+                        }}
+                      >
+                        <span
+                          className="dropdown-span default-span"
+                        >
+                          {zone.zone}
+                        </span>
+                      </li>
+                    </ul>
+                  </div>
+                ))
+              ) : (
+                ""
+              )}
+            </div>
+          </div>
+        )}
       </div>
       <div className="filters-section gender-filters">
         <span className="filters-span default-span">Gênero</span>

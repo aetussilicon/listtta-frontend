@@ -21,8 +21,9 @@ export default function MobileFilter(props) {
   //Filters
   const [state, setState] = useState("");
   const [city, setCity] = useState("");
+  const [cityZone, setCityZone] = useState("");
   const [type, setType] = useState("");
-  const [userGender, setUserGender] = useState("");
+  const [gender, setGender] = useState("");
   const [selectedSkills, setSelectedSkills] = useState([]);
 
   function openDropdownMenuStates() {
@@ -56,10 +57,10 @@ export default function MobileFilter(props) {
 
     // Se clicar em "Ambos", limpar todos os valores
     if (value === "Ambos" && checked) {
-      setUserGender("");
+      setGender("");
     } else if (checked) {
       // Se clicar em Masculino ou Feminino, definir o valor correspondente
-      setUserGender(value);
+      setGender(value);
     }
   };
 
@@ -69,50 +70,59 @@ export default function MobileFilter(props) {
     // Filtrar por estado, se selecionado
     if (state !== "") {
       filteredProfessionals = filteredProfessionals.filter(
-        (professional) => professional.state === state
+        (professional) => professional.address?.state === state
       );
     }
 
     // Filtrar por cidade, se selecionado
     if (city !== "") {
       filteredProfessionals = filteredProfessionals.filter(
-        (professional) => professional.city === city
+        (professional) => professional.address?.city === city
+      );
+    }
+
+    if (cityZone !== "") {
+      filteredProfessionals = filteredProfessionals.filter(
+        (professional) => professional.address?.cityZone === cityZone
       );
     }
 
     // Filtrar por gênero, se selecionado
-    if (userGender !== "") {
+    if (gender !== "") {
       filteredProfessionals = filteredProfessionals.filter(
-        (professional) => professional.userGender === userGender
+        (professional) => professional.gender === gender
       );
     }
 
     // Filtrar por tipo de profissional, se selecionado
     if (type !== "") {
       filteredProfessionals = filteredProfessionals.filter(
-        (professional) => professional.type === type
+        (professional) => professional.details?.type === type
       );
     }
 
+    // Filtrar por habilidades, se selecionado
     if (selectedSkills.length > 0) {
       filteredProfessionals = filteredProfessionals.filter((professional) =>
-        professional.skills.some((skill) =>
-          selectedSkills.includes(skill.filterId.toString())
+        professional.details?.skills?.some((skill) =>
+          skill && selectedSkills.includes(skill.toString())
         )
       );
     }
+
+    // console.log("filteredData", filteredProfessionals)
 
     // Atualizar o estado com os resultados filtrados
     setFilteredData(filteredProfessionals);
     props.setTrigger(false);
   };
 
-  useEffect(() => {
-    console.log("Estado " + state);
-    console.log("Cidade " + city);
-    console.log("Tipo " + type);
-    console.log("Gênero " + userGender);
-  });
+  // useEffect(() => {
+  //   console.log("Estado " + state);
+  //   console.log("Cidade " + city);
+  //   console.log("Tipo " + type);
+  //   console.log("Gênero " + gender);
+  // });
 
   const stateDropdownClick = (stateAcronym, stateName) => {
     setStateName(stateAcronym);
@@ -133,14 +143,12 @@ export default function MobileFilter(props) {
   };
 
   const handleSkillChange = (event) => {
-    const { value } = event.target;
+    const { value, checked } = event.target;
 
-    if (event.target.checked) {
-      setSelectedSkills([...selectedSkills, value]);
-      console.log(selectedSkills);
+    if (checked) {
+      setSelectedSkills((prevSelectedSkills) => [...prevSelectedSkills, value]);
     } else {
-      setSelectedSkills(selectedSkills.filter((id) => id !== value));
-      console.log(selectedSkills);
+      setSelectedSkills((prevSelectedSkills) => prevSelectedSkills.filter((id) => id !== value));
     }
   };
 
@@ -249,9 +257,8 @@ export default function MobileFilter(props) {
             </span>
             <div className="filters-section filters-button-section filters-button-section-mobile filters-dropdown-menu-mobile">
               <button
-                className={`white-btn mobile-dropdown-button ${
-                  seletectButton === "button1" ? "selected-filter-button" : ""
-                }`}
+                className={`white-btn mobile-dropdown-button ${seletectButton === "button1" ? "selected-filter-button" : ""
+                  }`}
                 onClick={() => {
                   handleSelectedUserTypeButton("button1", "");
                 }}
@@ -259,9 +266,8 @@ export default function MobileFilter(props) {
                 Todos
               </button>
               <button
-                className={`white-btn mobile-dropdown-button ${
-                  seletectButton === "button2" ? "selected-filter-button" : ""
-                }`}
+                className={`white-btn mobile-dropdown-button ${seletectButton === "button2" ? "selected-filter-button" : ""
+                  }`}
                 onClick={() => {
                   handleSelectedUserTypeButton("button2", "TATTOO");
                 }}
@@ -269,9 +275,8 @@ export default function MobileFilter(props) {
                 Tatuador
               </button>
               <button
-                className={`white-btn mobile-dropdown-button ${
-                  seletectButton === "button3" ? "selected-filter-button" : ""
-                }`}
+                className={`white-btn mobile-dropdown-button ${seletectButton === "button3" ? "selected-filter-button" : ""
+                  }`}
                 onClick={() => {
                   handleSelectedUserTypeButton("button3", "PIERCER");
                 }}
@@ -292,7 +297,7 @@ export default function MobileFilter(props) {
                   id="ambos"
                   name="gender"
                   value={"Ambos"}
-                  checked={userGender === ""}
+                  checked={gender === ""}
                   onChange={handleCheckboxChange}
                 />
                 <label htmlFor="tatuador">Ambos</label>
@@ -304,7 +309,7 @@ export default function MobileFilter(props) {
                   id="tatuador"
                   name="gender"
                   value={"MASCULINO"}
-                  checked={userGender === "MASCULINO"}
+                  checked={gender === "MASCULINO"}
                   onChange={handleCheckboxChange}
                 />
                 <label htmlFor="tatuador">Tatuador</label>
@@ -316,7 +321,7 @@ export default function MobileFilter(props) {
                   id="tatuador"
                   name="gender"
                   value={"FEMININO"}
-                  checked={userGender === "FEMININO"}
+                  checked={gender === "FEMININO"}
                   onChange={handleCheckboxChange}
                 />
                 <label htmlFor="tatuador">Tatuadora</label>
