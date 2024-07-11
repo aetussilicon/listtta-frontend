@@ -1,7 +1,6 @@
-import { createContext, useEffect, useState } from "react";
-import { variables } from "../Variables";
-import Cookies from "js-cookie";
-import axios from "axios";
+import { createContext, useEffect, useState } from 'react';
+import Cookies from 'js-cookie';
+import Api from '../Api.jsx';
 
 export const AuthContext = createContext();
 
@@ -9,15 +8,15 @@ export const AuthProvider = ({ children }) => {
   const [authToken, setAuthToken] = useState(null);
 
   useEffect(() => {
-    const token = Cookies.get("authToken");
+    const token = Cookies.get('authToken');
     if (token) {
       setAuthToken(token);
     }
   }, []);
 
   const [loginForm, setLoginForm] = useState({
-    email: "",
-    password: "",
+    email: '',
+    password: '',
   });
 
   const handleLoginInputChange = (e, nameValue = null, valueValue = null) => {
@@ -26,7 +25,7 @@ export const AuthProvider = ({ children }) => {
 
     if (!name) return;
 
-    const nameParts = name.split(".");
+    const nameParts = name.split('.');
     if (nameParts.length > 1) {
       setLoginForm((prevState) => {
         const newLoginForm = { ...prevState };
@@ -47,31 +46,30 @@ export const AuthProvider = ({ children }) => {
   };
 
   const login = async (remeberMe) => {
-    const loginUrl = `${variables.hostingerURl}/auth/login`;
     try {
-      const response = await axios.post(loginUrl, loginForm);
+      const response = await Api.post('/auth/login', loginForm);
       const token = await response.data.token;
       setAuthToken(token);
 
       if (remeberMe) {
-        Cookies.set("authToken", token, { expires: 7 });
+        Cookies.set('authToken', token, { expires: 7 });
       } else {
-        Cookies.set("authToken", token);
+        Cookies.set('authToken', token);
       }
 
       if (response.status === 200) {
-        window.location.href = "/search";
+        window.location.href = '/search';
       }
 
       return response;
     } catch (error) {
-      alert("Erro no login! Verifique seu email ou senha e tente novamente.");
+      alert('Erro no login! Verifique seu email ou senha e tente novamente.');
     }
   };
 
   const logout = () => {
     setAuthToken(null);
-    Cookies.remove("authToken");
+    Cookies.remove('authToken');
   };
 
   return (
@@ -83,8 +81,7 @@ export const AuthProvider = ({ children }) => {
         login,
         logout,
         handleLoginInputChange,
-      }}
-    >
+      }}>
       {children}
     </AuthContext.Provider>
   );

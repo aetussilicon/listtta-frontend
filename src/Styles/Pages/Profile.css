@@ -24,6 +24,7 @@
 .profile-input {
   display: flex;
   gap: 20px;
+  align-items: center;
 }
 
 .profile-input p {
@@ -36,7 +37,7 @@
 }
 
 .profile-input-edit {
-  margin: 20px 0;
+  margin: 0;
   padding: 13px;
   cursor: text;
   background-color: transparent;
