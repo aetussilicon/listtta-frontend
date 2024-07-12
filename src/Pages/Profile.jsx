@@ -46,7 +46,20 @@ function createNonEmptyForm(originalForm) {
   return nonEmptyForm;
 }
 
-const allowedCities = ['São Paulo', 'Rio de Janeiro', 'SP', 'RJ'];
+const allowedCities = [
+  'Sao paulo',
+  'São paulo',
+  'São Paulo',
+  'sao paulo',
+  'são paulo',
+  'Rio de Janeiro',
+  'Rio de janeiro',
+  'rio de janeiro,',
+  'SP',
+  'sp',
+  'RJ',
+  'rj',
+];
 
 export default function Profile() {
   const [userData, setUserData] = useState(null);
