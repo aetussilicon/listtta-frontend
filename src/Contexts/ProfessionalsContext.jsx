@@ -1,6 +1,5 @@
-import axios from "axios";
-import { createContext, useEffect, useState } from "react";
-import { variables } from "../Variables";
+import { createContext, useEffect, useState } from 'react';
+import Api from '../Api';
 
 export const ProfessionalsContext = createContext();
 
@@ -9,19 +8,16 @@ export const ProfessionalsProvider = ({ children }) => {
   const [filteredData, setFilteredData] = useState([]);
   const [resultsCount, setResultsCount] = useState(0);
 
-  // let professionalsUrl = `${variables.hostingerURl}/professionals/list/all`;
-  let professionalsUrl = `${variables.hostingerURl}/professionals/list/all`;
-
   useEffect(() => {
     getProfessionals();
   }, []);
 
   const getProfessionals = async () => {
     try {
-      const response = await axios.get(professionalsUrl);
+      const response = await Api.get('/professionals/list/all');
       const data = await response.data.Data;
 
-      setResultsCount(data.length > 500 ? "mais de 500" : data.length);
+      setResultsCount(data.length > 500 ? 'mais de 500' : data.length);
       setProfessionalsAPI(data);
       setFilteredData(data);
     } catch (error) {
@@ -31,8 +27,7 @@ export const ProfessionalsProvider = ({ children }) => {
 
   return (
     <ProfessionalsContext.Provider
-      value={{ professionalsAPI, resultsCount, filteredData, setFilteredData }}
-    >
+      value={{ professionalsAPI, resultsCount, filteredData, setFilteredData }}>
       {children}
     </ProfessionalsContext.Provider>
   );

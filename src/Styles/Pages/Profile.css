@@ -1,7 +1,28 @@
+/* Container */
 .profile-container {
   margin: 30px 0;
 }
 
+.base-info-container {
+  background-color: #f9f9f9;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 350px;
+  height: 419px;
+  border-radius: 15px;
+  row-gap: 10px;
+  padding: 20px;
+}
+
+.complement-info-container {
+  background-color: #f9f9f9;
+  padding: 20px;
+  border-radius: 15px;
+}
+
+/* Form */
 .profile-container form {
   display: flex;
   flex-direction: row;
@@ -9,21 +30,11 @@
   gap: 30px;
 }
 
-.spliter {
-  height: 0;
-  width: 100%;
-  border: 1px solid #e3e3e6;
-  margin: 20px 0;
-}
-
-.edit-button {
-  color: #ff083b;
-  cursor: pointer;
-}
-
+/* Inputs */
 .profile-input {
   display: flex;
   gap: 20px;
+  align-items: center;
 }
 
 .profile-input p {
@@ -36,12 +47,18 @@
 }
 
 .profile-input-edit {
-  margin: 20px 0;
+  margin: 0;
   padding: 13px;
   cursor: text;
   background-color: transparent;
   border: 0px;
 }
+
+.profile-input-bottom {
+  font-size: 20px;
+}
+
+/* Input profile picture */
 
 .profile-image-input {
   position: relative;
@@ -56,27 +73,16 @@
   cursor: pointer;
 }
 
-.profile-input-bottom {
-  font-size: 20px;
+/* Buttons */
+.edit-button {
+  color: #ff083b;
+  cursor: pointer;
 }
 
-.base-info {
-  background-color: #f9f9f9;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  width: 350px;
-  height: 419px;
-  border-radius: 15px;
-  row-gap: 10px;
-  padding: 20px;
-}
-
-.complement-info {
-  background-color: #f9f9f9;
-  padding: 20px;
-  border-radius: 15px;
+.profile-buttons {
+  margin: 0 !important;
+  width: 200px !important;
+  font-size: 18px !important;
 }
 
 .right-profile-block-buttons {
@@ -88,17 +94,22 @@
   margin-top: 20px;
 }
 
-.profile-buttons {
-  margin: 0 !important;
-  width: 200px !important;
-  font-size: 18px !important;
-}
-
 .delete-button {
   background-color: transparent !important;
   border: 2px solid #ff083b !important;
   color: #ff083b !important;
 }
+
+/* Spliter */
+
+.spliter {
+  height: 0;
+  width: 100%;
+  border: 1px solid #e3e3e6;
+  margin: 20px 0;
+}
+
+/*Title h1*/
 
 .profile-block-title h1 {
   margin: 0;

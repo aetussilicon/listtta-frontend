@@ -1,15 +1,16 @@
-import "../Styles/Pages/Profile.css";
-import Header from "../Components/Header/Header.jsx";
-import Footer from "../Components/Footer/Footer.jsx";
-import "../Styles/Pages/Profile.css";
-import { useEffect, useRef, useState } from "react";
-import { variables } from "../Variables.jsx";
-import axios from "axios";
-import { useParams } from "react-router-dom";
-import TattooStyles from "../Components/Profile/TattoStyles.jsx";
-import EditableFields from "../Components/Profile/EditableFIelds.jsx";
-import EditableInstagramUrl from "../Components/Profile/EditableInstagram.jsx";
-import EditableAddress from "../Components/Profile/EditableLocationFields.jsx";
+import '../Styles/Pages/Profile.css';
+import Header from '../Components/Header/Header.jsx';
+import Footer from '../Components/Footer/Footer.jsx';
+import '../Styles/Pages/Profile.css';
+import { useEffect, useRef, useState } from 'react';
+import { variables } from '../Variables.jsx';
+import axios from 'axios';
+import { useParams } from 'react-router-dom';
+import TattooStyles from '../Components/Profile/TattoStyles.jsx';
+import EditableFields from '../Components/Profile/EditableFIelds.jsx';
+import EditableInstagramUrl from '../Components/Profile/EditableInstagram.jsx';
+import EditableAddress from '../Components/Profile/EditableLocationFields.jsx';
+import Api from '../Api.jsx';
 
 function createNonEmptyForm(originalForm) {
   const nonEmptyForm = {};
@@ -21,13 +22,13 @@ function createNonEmptyForm(originalForm) {
 
       // Verifica se o valor não é vazio (considerando string vazia, null, undefined e arrays vazios)
       if (
-        value !== "" &&
+        value !== '' &&
         value !== null &&
         value !== undefined &&
         (!Array.isArray(value) || value.length > 0)
       ) {
         // Se não for vazio, verifica se é um objeto
-        if (typeof value === "object" && !Array.isArray(value)) {
+        if (typeof value === 'object' && !Array.isArray(value)) {
           // Se for um objeto, chama a função recursivamente
           targetObj[key] = {};
           checkFields(value, targetObj[key]);
@@ -45,7 +46,7 @@ function createNonEmptyForm(originalForm) {
   return nonEmptyForm;
 }
 
-const allowedCities = ["São Paulo", "Rio de Janeiro", "SP", "RJ"];
+const allowedCities = ['São Paulo', 'Rio de Janeiro', 'SP', 'RJ'];
 
 export default function Profile() {
   const [userData, setUserData] = useState(null);
@@ -77,24 +78,24 @@ export default function Profile() {
   });
 
   const [updateForm, setUpdateForm] = useState({
-    fullName: "",
-    userGener: "",
-    taxNumber: "",
-    email: "",
-    phoneNumber: "",
-    whatsappContact: "",
+    fullName: '',
+    userGener: '',
+    taxNumber: '',
+    email: '',
+    phoneNumber: '',
+    whatsappContact: '',
     address: {
-      state: "",
-      city: "",
-      cityZone: "",
-      district: "",
-      street: "",
-      complement: "",
-      zipCode: "",
+      state: '',
+      city: '',
+      cityZone: '',
+      district: '',
+      street: '',
+      complement: '',
+      zipCode: '',
     },
     professionalsDetails: {
-      type: "",
-      instagramUrl: "",
+      type: '',
+      instagramUrl: '',
       skills: [],
     },
   });
@@ -110,16 +111,14 @@ export default function Profile() {
   useEffect(() => {
     const getUserData = async () => {
       try {
-        const response = await axios.get(
-          `${variables.hostingerURl}/users/list/${puid}`
-        );
+        const response = await Api.get(`/users/list/${puid}`);
 
         const result = await response.data;
         setUserData(result);
 
         console.log(result);
       } catch (error) {
-        console.error("Error fetching user data:", error);
+        console.error('Error fetching user data:', error);
       }
     };
 
@@ -162,7 +161,7 @@ export default function Profile() {
           ...prevData,
           Data: {
             ...prevData.Data,
-            profilePicture: reader.result.split(",")[1],
+            profilePicture: reader.result.split(',')[1],
             profilePictureMimeType: file.type,
           },
         }));
@@ -174,7 +173,7 @@ export default function Profile() {
 
   const updateUserInfo = async (e) => {
     e.preventDefault();
-    const updateUserURL = `${variables.hostingerURl}/users/update/${puid}`;
+    const updateUserURL = `/users/update/${puid}`;
     const updateProfilePictureURL = `${variables.hostingerURl}/users/update/picture/${puid}`;
 
     const nonEmptyUpdateForm = createNonEmptyForm(updateForm);
@@ -189,14 +188,14 @@ export default function Profile() {
       if (profilePictureForm) {
         try {
           const formData = new FormData();
-          formData.append("profilePicture", profilePictureForm);
+          formData.append('profilePicture', profilePictureForm);
 
           const updatePictureResponse = await axios.patch(
             updateProfilePictureURL,
             formData,
             {
               headers: {
-                "Content-Type": "multipart/form-data",
+                'Content-Type': 'multipart/form-data',
               },
             }
           );
@@ -214,13 +213,13 @@ export default function Profile() {
             },
           }));
         } catch (error) {
-          console.error("Error updating profile picture:", error);
+          console.error('Error updating profile picture:', error);
         }
       }
       console.log(data);
       setFormSubmitted(true);
     } catch (error) {
-      console.error("Error updating user info:", error);
+      console.error('Error updating user info:', error);
     }
   };
 
@@ -229,67 +228,75 @@ export default function Profile() {
       <Header />
       <div className='container profile-container'>
         <form onSubmit={updateUserInfo}>
-          <div className='base-info'>
-            <EditableFields
-              label='fullName'
-              value={updateForm.fullName}
-              fieldName='fullName'
-              isEditing={isEditing}
-              setIsEditing={setIsEditing}
-              updateForm={updateForm}
-              setUpdateForm={setUpdateForm}
-              placeholder='Nome de Exibição'
-              userData={userData}
-            />
-            <EditableFields
-              label='cpf'
-              value={updateForm.taxNumber}
-              fieldName='taxNumber'
-              fieldTitle='CPF:'
-              isEditing={isEditing}
-              setIsEditing={setIsEditing}
-              updateForm={updateForm}
-              setUpdateForm={setUpdateForm}
-              placeholder='000.000.000-00'
-              userData={userData}
-            />
-            <div className='profile-input profile-image-input'>
-              <div
-                className='profile-image-placeholder'
-                onClick={handleDivClick}
-                style={{
-                  backgroundImage: `url(${
-                    userData.Data.profilePictureMimeType &&
-                    userData.Data.profilePicture
-                      ? `data:${userData.Data.profilePictureMimeType};base64,${userData.Data.profilePicture}`
-                      : "/Assets/imgs/cards/choose-picture.png"
-                  })`,
-                  backgroundSize: "cover",
-                  backgroundPosition: "center",
-                }}
-              >
-                <input
-                  type='file'
-                  ref={fileInputRef}
-                  style={{ display: "none" }}
-                  onChange={handleFileChange}
-                />
+          <section className='left-profile-block-container'>
+            <div className='base-info-container'>
+              <EditableFields
+                label='fullName'
+                value={updateForm.fullName}
+                fieldName='fullName'
+                isEditing={isEditing}
+                setIsEditing={setIsEditing}
+                updateForm={updateForm}
+                setUpdateForm={setUpdateForm}
+                placeholder='Nome de Exibição'
+                userData={userData}
+              />
+              <EditableFields
+                label='cpf'
+                value={updateForm.taxNumber}
+                fieldName='taxNumber'
+                fieldTitle='CPF:'
+                isEditing={isEditing}
+                setIsEditing={setIsEditing}
+                updateForm={updateForm}
+                setUpdateForm={setUpdateForm}
+                placeholder='000.000.000-00'
+                userData={userData}
+              />
+              <div className='profile-input profile-image-input'>
+                <div
+                  className='profile-image-placeholder'
+                  onClick={handleDivClick}
+                  style={{
+                    backgroundImage: `url(${
+                      userData.Data.profilePictureMimeType &&
+                      userData.Data.profilePicture
+                        ? `data:${userData.Data.profilePictureMimeType};base64,${userData.Data.profilePicture}`
+                        : '/Assets/imgs/cards/choose-picture.png'
+                    })`,
+                    backgroundSize: 'cover',
+                    backgroundPosition: 'center',
+                  }}>
+                  <input
+                    type='file'
+                    ref={fileInputRef}
+                    style={{ display: 'none' }}
+                    onChange={handleFileChange}
+                  />
+                </div>
               </div>
+              <EditableInstagramUrl
+                value={updateForm.professionalsDetails.instagramUrl}
+                fieldName='instagramUrl'
+                fieldTitle='Instagram'
+                isEditing={isEditing}
+                setIsEditing={setIsEditing}
+                updateForm={updateForm}
+                setUpdateForm={setUpdateForm}
+                placeholder='@Seu_Instagram'
+                userData={userData}
+              />
             </div>
-            <EditableInstagramUrl
-              value={updateForm.professionalsDetails.instagramUrl}
-              fieldName='instagramUrl'
-              fieldTitle='Instagram:'
-              isEditing={isEditing}
-              setIsEditing={setIsEditing}
-              updateForm={updateForm}
-              setUpdateForm={setUpdateForm}
-              placeholder='@Seu_Instagram'
-              userData={userData}
-            />
-          </div>
+            <div className='left-profile-block-buttons'>
+              <button
+                className='btn profile-buttons green-profile-button'
+                type='button'>
+                Destaque seu perfil
+              </button>
+            </div>
+          </section>
           <div className='right-profile-block'>
-            <div className='complement-info'>
+            <div className='complement-info-container'>
               <div className='contact-info'>
                 <div className='profile-block-title'>
                   <h1>Contato</h1>
@@ -420,9 +427,9 @@ export default function Profile() {
                 />
               </div>
 
-              {userData.Data.type == "TATTOO" ? (
+              {userData.Data.type == 'TATTOO' ? (
                 <>
-                  <div className='spliter'></div>{" "}
+                  <div className='spliter'></div>{' '}
                   <div className='tattoo-styles'>
                     <div className='profile-block-title'>
                       <h1>Especialidades</h1>
@@ -443,11 +450,13 @@ export default function Profile() {
                   />
                 </>
               ) : (
-                ""
+                ''
               )}
             </div>
             <div className='right-profile-block-buttons'>
-              <button className='btn profile-buttons' type='submit'>
+              <button
+                className='btn profile-buttons'
+                type='submit'>
                 Salvar
               </button>
               <button className='btn profile-buttons delete-button'>

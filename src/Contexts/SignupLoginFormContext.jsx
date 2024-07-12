@@ -1,23 +1,22 @@
-import axios from "axios";
-import { createContext, useState } from "react";
-import { variables } from "../Variables";
-import Cookies from "js-cookie";
+import { createContext, useState } from 'react';
+import Api from '../Api';
+import Cookies from 'js-cookie';
 
 export const SignupFormContext = createContext();
 
 export const SignupFormProvider = ({ children }) => {
   const [signupFormData, setSignupFormData] = useState({
-    email: "",
-    password: "",
-    role: "",
-    gender: "",
+    email: '',
+    password: '',
+    role: '',
+    gender: '',
     addressDto: {
-      state: "",
-      city: "",
+      state: '',
+      city: '',
     },
     professionalsDto: {
-      type: "",
-      instagramUrl: "",
+      type: '',
+      instagramUrl: '',
       skills: [],
     },
   });
@@ -46,7 +45,7 @@ export const SignupFormProvider = ({ children }) => {
 
     if (!name) return;
 
-    const nameParts = name.split(".");
+    const nameParts = name.split('.');
     if (nameParts.length > 1) {
       setSignupFormData((prevState) => {
         const newFormData = { ...prevState };
@@ -67,17 +66,16 @@ export const SignupFormProvider = ({ children }) => {
   };
 
   const signupUser = async () => {
-    const signupURL = `${variables.hostingerURl}/auth/signup`;
     try {
-      const response = await axios.post(signupURL, signupFormData);
+      const response = await Api.post('/auth/signup', signupFormData);
       const data = await response.data;
 
       if (response.status === 201) {
-        alert("Cadastrado com sucesso!");
-        Cookies.set("PUID", data.User);
+        alert('Cadastrado com sucesso!');
+        Cookies.set('PUID', data.User);
         console.log(data);
       } else {
-        throw new Error("Não foi possível cadastrar!");
+        throw new Error('Não foi possível cadastrar!');
       }
     } catch (error) {
       console.log(error);
@@ -91,8 +89,7 @@ export const SignupFormProvider = ({ children }) => {
         handleInputChange,
         handleSkillChange,
         signupUser,
-      }}
-    >
+      }}>
       {children}
     </SignupFormContext.Provider>
   );
