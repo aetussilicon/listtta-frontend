@@ -186,14 +186,12 @@ export default function Profile() {
 
   const updateUserInfo = async (e) => {
     e.preventDefault();
-    const updateUserURL = `/users/update/${puid}`;
-    const updateProfilePictureURL = `${variables.hostingerURl}/users/update/picture/${puid}`;
 
     const nonEmptyUpdateForm = createNonEmptyForm(updateForm);
 
     try {
-      const updateResponse = await axios.patch(
-        updateUserURL,
+      const updateResponse = await Api.patch(
+        `/users/update/${puid}`,
         nonEmptyUpdateForm
       );
       const data = await updateResponse.data;
@@ -203,8 +201,8 @@ export default function Profile() {
           const formData = new FormData();
           formData.append('profilePicture', profilePictureForm);
 
-          const updatePictureResponse = await axios.patch(
-            updateProfilePictureURL,
+          const updatePictureResponse = await Api.patch(
+            `/users/profile/${puid}`,
             formData,
             {
               headers: {
