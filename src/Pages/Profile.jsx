@@ -3,8 +3,6 @@ import Header from '../Components/Header/Header.jsx';
 import Footer from '../Components/Footer/Footer.jsx';
 import '../Styles/Pages/Profile.css';
 import { useEffect, useRef, useState } from 'react';
-import { variables } from '../Variables.jsx';
-import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import TattooStyles from '../Components/Profile/TattoStyles.jsx';
 import EditableFields from '../Components/Profile/EditableFIelds.jsx';
@@ -202,7 +200,7 @@ export default function Profile() {
           formData.append('profilePicture', profilePictureForm);
 
           const updatePictureResponse = await Api.patch(
-            `/users/picture/${puid}`,
+            `/users/update/picture/${puid}`,
             formData,
             {
               headers: {
