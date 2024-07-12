@@ -173,7 +173,7 @@ export default function Profile() {
 
   const updateUserInfo = async (e) => {
     e.preventDefault();
-    const updateUserURL = `${variables.hostingerURl}/users/update/${puid}`;
+    const updateUserURL = `/users/update/${puid}`;
     const updateProfilePictureURL = `${variables.hostingerURl}/users/update/picture/${puid}`;
 
     const nonEmptyUpdateForm = createNonEmptyForm(updateForm);
@@ -228,66 +228,75 @@ export default function Profile() {
       <Header />
       <div className='container profile-container'>
         <form onSubmit={updateUserInfo}>
-          <div className='base-info'>
-            <EditableFields
-              label='fullName'
-              value={updateForm.fullName}
-              fieldName='fullName'
-              isEditing={isEditing}
-              setIsEditing={setIsEditing}
-              updateForm={updateForm}
-              setUpdateForm={setUpdateForm}
-              placeholder='Nome de Exibição'
-              userData={userData}
-            />
-            <EditableFields
-              label='cpf'
-              value={updateForm.taxNumber}
-              fieldName='taxNumber'
-              fieldTitle='CPF:'
-              isEditing={isEditing}
-              setIsEditing={setIsEditing}
-              updateForm={updateForm}
-              setUpdateForm={setUpdateForm}
-              placeholder='000.000.000-00'
-              userData={userData}
-            />
-            <div className='profile-input profile-image-input'>
-              <div
-                className='profile-image-placeholder'
-                onClick={handleDivClick}
-                style={{
-                  backgroundImage: `url(${
-                    userData.Data.profilePictureMimeType &&
-                    userData.Data.profilePicture
-                      ? `data:${userData.Data.profilePictureMimeType};base64,${userData.Data.profilePicture}`
-                      : '/Assets/imgs/cards/choose-picture.png'
-                  })`,
-                  backgroundSize: 'cover',
-                  backgroundPosition: 'center',
-                }}>
-                <input
-                  type='file'
-                  ref={fileInputRef}
-                  style={{ display: 'none' }}
-                  onChange={handleFileChange}
-                />
+          <section className='left-profile-block-container'>
+            <div className='base-info-container'>
+              <EditableFields
+                label='fullName'
+                value={updateForm.fullName}
+                fieldName='fullName'
+                isEditing={isEditing}
+                setIsEditing={setIsEditing}
+                updateForm={updateForm}
+                setUpdateForm={setUpdateForm}
+                placeholder='Nome de Exibição'
+                userData={userData}
+              />
+              <EditableFields
+                label='cpf'
+                value={updateForm.taxNumber}
+                fieldName='taxNumber'
+                fieldTitle='CPF:'
+                isEditing={isEditing}
+                setIsEditing={setIsEditing}
+                updateForm={updateForm}
+                setUpdateForm={setUpdateForm}
+                placeholder='000.000.000-00'
+                userData={userData}
+              />
+              <div className='profile-input profile-image-input'>
+                <div
+                  className='profile-image-placeholder'
+                  onClick={handleDivClick}
+                  style={{
+                    backgroundImage: `url(${
+                      userData.Data.profilePictureMimeType &&
+                      userData.Data.profilePicture
+                        ? `data:${userData.Data.profilePictureMimeType};base64,${userData.Data.profilePicture}`
+                        : '/Assets/imgs/cards/choose-picture.png'
+                    })`,
+                    backgroundSize: 'cover',
+                    backgroundPosition: 'center',
+                  }}>
+                  <input
+                    type='file'
+                    ref={fileInputRef}
+                    style={{ display: 'none' }}
+                    onChange={handleFileChange}
+                  />
+                </div>
               </div>
+              <EditableInstagramUrl
+                value={updateForm.professionalsDetails.instagramUrl}
+                fieldName='instagramUrl'
+                fieldTitle='Instagram'
+                isEditing={isEditing}
+                setIsEditing={setIsEditing}
+                updateForm={updateForm}
+                setUpdateForm={setUpdateForm}
+                placeholder='@Seu_Instagram'
+                userData={userData}
+              />
             </div>
-            <EditableInstagramUrl
-              value={updateForm.professionalsDetails.instagramUrl}
-              fieldName='instagramUrl'
-              fieldTitle='Instagram'
-              isEditing={isEditing}
-              setIsEditing={setIsEditing}
-              updateForm={updateForm}
-              setUpdateForm={setUpdateForm}
-              placeholder='@Seu_Instagram'
-              userData={userData}
-            />
-          </div>
+            <div className='left-profile-block-buttons'>
+              <button
+                className='btn profile-buttons green-profile-button'
+                type='button'>
+                Destaque seu perfil
+              </button>
+            </div>
+          </section>
           <div className='right-profile-block'>
-            <div className='complement-info'>
+            <div className='complement-info-container'>
               <div className='contact-info'>
                 <div className='profile-block-title'>
                   <h1>Contato</h1>
