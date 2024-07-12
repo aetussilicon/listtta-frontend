@@ -202,7 +202,7 @@ export default function Profile() {
           formData.append('profilePicture', profilePictureForm);
 
           const updatePictureResponse = await Api.patch(
-            `/users/profile/${puid}`,
+            `/users/picture/${puid}`,
             formData,
             {
               headers: {
