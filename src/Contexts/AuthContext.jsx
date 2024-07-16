@@ -45,7 +45,7 @@ export const AuthProvider = ({ children }) => {
       if (loginForm.rememberMe) {
         Cookies.set('authToken', token, { expires: 7 });
       } else {
-        sessionStorage.set('authToken', token);
+        Cookies.set('authToken', token);
       }
 
       if (response.status === 200) {
@@ -60,11 +60,7 @@ export const AuthProvider = ({ children }) => {
 
   const logout = () => {
     setAuthToken(null);
-    if (Cookies.get('authToke')) {
-      Cookies.remove('authToken');
-    } else if (sessionStorage.getItem('authToken')) {
-      sessionStorage.removeItem('authToken');
-    }
+    Cookies.remove('authToken');
   };
 
   return (

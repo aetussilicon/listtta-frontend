@@ -19,8 +19,8 @@ export default function Footer() {
 
     try {
       const response = await Api.post('/newsletter/new', newsletterForm);
-      const data = await response.data;
-      console.log(data);
+      // const data = await response.data;
+      // console.log(data);
 
       if (response.status === 200) {
         alert('Email enviado com sucesso para a newsletter!');

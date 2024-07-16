@@ -1,17 +1,17 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState } from 'react';
 import {
   FiltersContext,
   FiltersProvider,
-} from "../../Contexts/FiltersConxtext";
-import "../../Styles/Components/Profile/TattooStyles.css";
+} from '../../Contexts/FiltersConxtext';
+import '../../Styles/Components/Profile/TattooStyles.css';
 
 const TattooStyles = ({ skills, setSkills, initialSkills }) => {
   const { specialtiesAPI } = useContext(FiltersContext);
   const [showedSkills, setShowedSkills] = useState([]);
 
   useEffect(() => {
-    console.log(initialSkills);
-    console.log("skills", skills);
+    // console.log(initialSkills);
+    // console.log("skills", skills);
     setSkills(initialSkills);
 
     const sortedSpecialties = specialtiesAPI.sort(

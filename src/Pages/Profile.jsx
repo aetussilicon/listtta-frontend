@@ -116,9 +116,9 @@ export default function Profile() {
 
   const fileInputRef = useRef(null);
 
-  useEffect(() => {
-    console.log(`updateForm`, updateForm);
-  });
+  // useEffect(() => {
+  //   console.log(`updateForm`, updateForm);
+  // });
 
   useEffect(() => {
     const getUserData = async () => {
@@ -132,7 +132,7 @@ export default function Profile() {
         const result = await response.data;
         setUserData(result);
 
-        console.log(result);
+        // console.log(result);
       } catch (error) {
         console.error('Error fetching user data:', error);
       }
@@ -221,7 +221,7 @@ export default function Profile() {
           );
 
           const pictureData = await updatePictureResponse.data;
-          console.log(pictureData);
+          // console.log(pictureData);
 
           // Atualiza a foto de perfil no estado userData
           setUserData((prevData) => ({
@@ -236,7 +236,7 @@ export default function Profile() {
           console.error('Error updating profile picture:', error);
         }
       }
-      console.log(data);
+      // console.log(data);
       setFormSubmitted(true);
     } catch (error) {
       console.error('Error updating user info:', error);
