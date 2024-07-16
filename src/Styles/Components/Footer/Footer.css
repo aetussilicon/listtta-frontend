@@ -24,6 +24,14 @@
   .footer-bottom-content {
     flex-direction: column;
   }
+
+  .newsletter-block form {
+    flex-direction: column !important;
+  }
+
+  .newsletter-block form button {
+    width: 100% !important;
+  }
 }
 
 @media screen and (min-width: 1024px) and (max-width: 1280px) {
@@ -40,11 +48,6 @@
 
 .footer-section {
   background-color: var(--footer-container-color);
-  /* position: fixed;
-  bottom: 0;
-  height: 40px;
-  width: 100%; */
-  /* margin-top: 60px;  */
 }
 
 .top-line {
@@ -54,7 +57,6 @@
 .footer-container {
   display: flex;
   flex-direction: column;
-  
 }
 
 .listtta-logo {
@@ -102,6 +104,11 @@
 .newsletter-block form {
   display: flex;
   flex-direction: column;
+  width: fit-content;
+}
+
+.newsletter-input {
+  width: min-content;
 }
 
 .newsletter-block form label {
@@ -120,6 +127,17 @@
   border-radius: 15px;
   margin-top: 15px;
   outline: none;
+  cursor: text;
+}
+
+.newsletter-block form button {
+  display: flex;
+  align-self: flex-end;
+  height: 35px;
+  align-items: center;
+  justify-content: center;
+  margin-top: 10px;
+  width: 342px;
 }
 
 .footer-footer {
@@ -171,7 +189,7 @@
 
 .footer-bottom-content div .circle-text {
   font-size: 10px;
-  font-variation-settings: "FILL" 1, "wght" 400, "GRAD" 0, "opsz" 24;
+  font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
 }
 
 .footer-bottom-content .footer-p a {
