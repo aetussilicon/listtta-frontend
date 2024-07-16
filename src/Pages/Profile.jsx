@@ -9,6 +9,7 @@ import EditableFields from '../Components/Profile/EditableFIelds.jsx';
 import EditableInstagramUrl from '../Components/Profile/EditableInstagram.jsx';
 import EditableAddress from '../Components/Profile/EditableLocationFields.jsx';
 import Api from '../Api.jsx';
+import Cookies from 'js-cookie';
 
 function createNonEmptyForm(originalForm) {
   const nonEmptyForm = {};
@@ -115,19 +116,23 @@ export default function Profile() {
 
   const fileInputRef = useRef(null);
 
-  useEffect(() => {
-    console.log(`updateForm`, updateForm);
-  });
+  // useEffect(() => {
+  //   console.log(`updateForm`, updateForm);
+  // });
 
   useEffect(() => {
     const getUserData = async () => {
       try {
-        const response = await Api.get(`/users/list/${puid}`);
+        const response = await Api.get(`/users/list/${puid}`, {
+          headers: {
+            Authorization: `Bearer ${Cookies.get('authToken')}`,
+          },
+        });
 
         const result = await response.data;
         setUserData(result);
 
-        console.log(result);
+        // console.log(result);
       } catch (error) {
         console.error('Error fetching user data:', error);
       }
@@ -190,7 +195,12 @@ export default function Profile() {
     try {
       const updateResponse = await Api.patch(
         `/users/update/${puid}`,
-        nonEmptyUpdateForm
+        nonEmptyUpdateForm,
+        {
+          headers: {
+            Authorization: `Bearer ${Cookies.get('authToken')}`,
+          },
+        }
       );
       const data = await updateResponse.data;
 
@@ -205,12 +215,13 @@ export default function Profile() {
             {
               headers: {
                 'Content-Type': 'multipart/form-data',
+                Authorization: `Bearer ${Cookies.get('authToken')}`,
               },
             }
           );
 
           const pictureData = await updatePictureResponse.data;
-          console.log(pictureData);
+          // console.log(pictureData);
 
           // Atualiza a foto de perfil no estado userData
           setUserData((prevData) => ({
@@ -225,7 +236,7 @@ export default function Profile() {
           console.error('Error updating profile picture:', error);
         }
       }
-      console.log(data);
+      // console.log(data);
       setFormSubmitted(true);
     } catch (error) {
       console.error('Error updating user info:', error);
@@ -419,7 +430,7 @@ export default function Profile() {
                   setIsEditing={setIsEditing}
                   updateForm={updateForm}
                   setUpdateForm={setUpdateForm}
-                  placeholder='Adicionar Complemento'
+                  placeholder='Adicionar Comp.'
                   userData={userData}
                 />
                 <EditableFields
@@ -435,7 +446,6 @@ export default function Profile() {
                   userData={userData}
                 />
               </div>
-
               {userData.Data.type == 'TATTOO' ? (
                 <>
                   <div className='spliter'></div>{' '}
@@ -467,6 +477,11 @@ export default function Profile() {
                 className='btn profile-buttons'
                 type='submit'>
                 Salvar
+              </button>
+              <button
+                className='btn profile-buttons green-profile-button'
+                type='button'>
+                Destaque seu perfil
               </button>
               <button className='btn profile-buttons delete-button'>
                 Excluir Perfil
