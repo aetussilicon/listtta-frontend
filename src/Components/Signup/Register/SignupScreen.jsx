@@ -1,11 +1,11 @@
-import '../../../Styles/Components/Auth/SignupScreen.css';
+import Cookies from 'js-cookie';
 import { useContext, useEffect, useState } from 'react';
-import { SignupFormContext } from '../../../Contexts/SignupLoginFormContext';
-import { StatesContext } from '../../../Contexts/StatesContext';
+import { AuthContext } from '../../../Contexts/AuthContext';
 import { CitiesContext } from '../../../Contexts/CitiesContext';
 import { FiltersContext } from '../../../Contexts/FiltersConxtext';
-import { AuthContext } from '../../../Contexts/AuthContext';
-import Cookies from 'js-cookie';
+import { SignupFormContext } from '../../../Contexts/SignupLoginFormContext';
+import { StatesContext } from '../../../Contexts/StatesContext';
+import '../../../Styles/Components/Auth/SignupScreen.css';
 
 export default function SignupScreen(props) {
   const { signupFormData, handleInputChange, handleSkillChange, signupUser } =
@@ -25,6 +25,12 @@ export default function SignupScreen(props) {
 
   const handleTermsCheckbox = () => {
     setIsTermsCheckboxChecked(!isTermsCheckboxCheckboxChecked);
+  };
+
+  const [isLgpdChecked, setIsLgpdChecked] = useState(false);
+
+  const handleLgpdChecked = () => {
+    setIsLgpdChecked(!isLgpdChecked);
   };
 
   const handleSelectedState = (option) => {
@@ -378,11 +384,22 @@ export default function SignupScreen(props) {
                   do site.
                 </label>
               </div>
+              <div className='signup-fields terms-fields'>
+                <input
+                  type='checkbox'
+                  checked={isLgpdChecked}
+                  onChange={handleLgpdChecked}
+                />
+                <label>
+                  Concordo que meus dados sejam usados pelo Listtta para envio
+                  de ofertas e promoções.
+                </label>
+              </div>
               <div className='signup-register-button'>
                 <button
                   type='submit'
                   className='btn'
-                  disabled={!isTermsCheckboxCheckboxChecked}>
+                  disabled={!isTermsCheckboxCheckboxChecked || !isLgpdChecked}>
                   Registrar
                 </button>
               </div>
