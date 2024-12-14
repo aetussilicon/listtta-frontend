@@ -66,7 +66,7 @@ export default function HomeHeader() {
           </div>
         </nav>
         {signinScreen && (
-          <SigninScreen trigger={signinScreen} setTrigger={setSigninScreen} />
+          <SigninScreen trigger={signinScreen} setTrigger={setSigninScreen} menuClick={menuClick}/>
         )}
         {loginScreen && (
           <Login trigger={loginScreen} setTrigger={setLoginScreen} />

@@ -9,6 +9,7 @@ import SigninScreen from '../Components/Signup/SigninScreen';
 
 export default function Home() {
   const [loginPopupButton, setLoginPopupButton] = useState(false);
+  
   return (
     <div className='page-home'>
       <HomeHeader />

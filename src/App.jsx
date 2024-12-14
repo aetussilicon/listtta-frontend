@@ -1,6 +1,8 @@
 import { Route, Routes } from "react-router-dom";
 import "./App.css";
 import Profile from "./Pages/Profile.jsx";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 import ProfessionalsListWIthContext from "./ContextPages/ProfessionalsListWIthContext.jsx";
 import HomeWithContext from "./ContextPages/HomeWithContext.jsx";
@@ -31,6 +33,7 @@ function App() {
                   path='/search'
                 />
               </Routes>
+              <ToastContainer />
             </CitiesProvider>
           </StatesProvider>
         </FiltersProvider>
