@@ -10,6 +10,7 @@ import EditableInstagramUrl from '../Components/Profile/EditableInstagram.jsx';
 import EditableAddress from '../Components/Profile/EditableLocationFields.jsx';
 import Api from '../Api.jsx';
 import Cookies from 'js-cookie';
+import SelectableField from "../Components/ExperienceTimeDropdown.jsx";
 
 function createNonEmptyForm(originalForm) {
   const nonEmptyForm = {};
@@ -86,6 +87,7 @@ export default function Profile() {
       type: false,
       instagramUrl: false,
       skills: false,
+      experienceTime: false
     },
   });
 
@@ -109,6 +111,7 @@ export default function Profile() {
       type: '',
       instagramUrl: '',
       skills: [],
+      experienceTime: ''
     },
   });
 
@@ -305,6 +308,14 @@ export default function Profile() {
                 setUpdateForm={setUpdateForm}
                 placeholder='@Seu_Instagram'
                 userData={userData}
+              />
+              <SelectableField
+                  label="experienceTime"
+                  value={updateForm.professionalsDetails.experienceTime}
+                  fieldName="experienceTime"
+                  fieldTitle='Tempo de Experiência'
+                  updateForm={updateForm}
+                  setUpdateForm={setUpdateForm}
               />
             </div>
             <div className='left-profile-block-buttons'>
