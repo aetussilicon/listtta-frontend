@@ -27,6 +27,12 @@ const citiesZones = [
   { id: 5, zone: 'Oeste' },
 ];
 
+const experienceTimes = [
+  {id: "LESS_THAN_3_YEARS", label: "Até 3 anos"},
+  {id: "FROM_3_TO_7_YEARS", label: "Entre 3 a 7 anos"},
+  {id: "MORE_THAN_7_YEARS", label: "Mais de 7 anos"}
+]
+
 export default function MobileFilter(props) {
   //   Contextos
   const { professionalsAPI, setFilteredData } =
@@ -40,6 +46,7 @@ export default function MobileFilter(props) {
   const [selectedState, setSelectedState] = useState('Selecione o estado');
   const [selectedCity, setSelectedCity] = useState('Selecione a cidade');
   const [selectedZone, setSelectedZone] = useState('Selecione a zona');
+  const [selectedExperienceTime, setSelectedExperienceTime] = useState('Tempo de experiência');
 
   //Filters
   const [state, setState] = useState('');
@@ -48,6 +55,7 @@ export default function MobileFilter(props) {
   const [type, setType] = useState('');
   const [gender, setGender] = useState('');
   const [selectedSkills, setSelectedSkills] = useState([]);
+  const [experienceTime, setExperienceTime] = useState('');
 
   function openDropdownMenuStates() {
     const dropdown = document.getElementById('dropdownStatesMobileId');
@@ -142,6 +150,12 @@ export default function MobileFilter(props) {
       );
     }
 
+    if (experienceTime !== '') {
+      filteredProfessionals = filteredProfessionals.filter(
+          (professional) => professional.experienceTime === experienceTime
+      );
+    }
+
     // console.log("filteredData", filteredProfessionals)
 
     // Atualizar o estado com os resultados filtrados
@@ -168,6 +182,12 @@ export default function MobileFilter(props) {
     handleSelectedCity(cityName);
     openDropdownMenuCity();
   };
+
+  const experienceDropdownClick = (experienceTime, selectedExperience) => {
+    setExperienceTime(experienceTime);
+    handleSelectedOption(setSelectedExperienceTime, selectedExperience);
+    openDropdownMenu('dropdownExperienceTimeMobileId');
+  }
 
   const zoneDropdownClick = (zone) => {
     setCityZone(zone);
@@ -363,6 +383,48 @@ export default function MobileFilter(props) {
                 }}>
                 Body Piercer
               </button>
+            </div>
+          </div>
+          <div className="filters-section filters-button-section filters-button-section-mobile">
+            <span className='default-span mobile-filter-span'>Tempo de experiência</span>
+            <div className='default-dropdown-menu filters-dropdown-menu filters-dropdown-menu-mobile'>
+              <button
+                  className='default-dropdown-button mobile-dropdown-button'
+                  onClick={() => openDropdownMenu('dropdownExperienceTimeMobileId')}>
+                {selectedExperienceTime}
+                <span className='material-symbols-outlined'>expand_more</span>
+              </button>
+              <div
+                  className='default-dropdown-content experience-dropdown-content location-dropdown-content-mobile'
+                  id='dropdownExperienceTimeMobileId'>
+                {experienceTimes.length > 0 ? (
+                    experienceTimes.map((option) => (
+                        <div key={option.id}>
+                          <ul className='dropdown-ul'>
+                            <li
+                                className='dropdown-li'
+                                onClick={() => {
+                                  experienceDropdownClick(option.id, option.label);
+                                }}>
+                      <span className='dropdown-span default-span'>
+                        {option.label}
+                      </span>
+                            </li>
+                          </ul>
+                        </div>
+                    ))
+                ) : (
+                    <div>
+                      <ul className='dropdown-ul'>
+                        <li className='dropdown-li'>
+                    <span className='default-span'>
+                      Nenhuma cidade encontrada
+                    </span>
+                        </li>
+                      </ul>
+                    </div>
+                )}
+              </div>
             </div>
           </div>
           <div className='filters-section gender-filters gender-filters-mobile'>

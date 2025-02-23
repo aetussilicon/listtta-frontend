@@ -4,7 +4,6 @@ import {StatesContext} from '../../Contexts/StatesContext';
 import {CitiesContext} from '../../Contexts/CitiesContext';
 import {FiltersContext} from '../../Contexts/FiltersConxtext';
 import {ProfessionalsContext} from '../../Contexts/ProfessionalsContext';
-import {useNavigate} from "react-router-dom";
 
 const allowedCities = [
     'Sao paulo',
@@ -36,8 +35,6 @@ const experienceTimes = [
 ]
 
 export default function MainSearchFilter() {
-    const navigate = useNavigate();
-
     //Contextos
     const {professionalsAPI, setFilteredData} =
         useContext(ProfessionalsContext);
@@ -140,10 +137,6 @@ export default function MainSearchFilter() {
 
         // Atualizar o estado com os resultados filtrados
         setFilteredData(filteredProfessionals);
-
-        console.log(filteredProfessionals);
-
-        // navigate('/search/1')
     };
 
     useEffect(() => {
@@ -356,7 +349,7 @@ export default function MainSearchFilter() {
                         <span className='material-symbols-outlined'>expand_more</span>
                     </button>
                     <div
-                        className='default-dropdown-content location-dropdown-content'
+                        className='default-dropdown-content experience-dropdown-content'
                         id='dropdownExperienceTimeId'>
                         {experienceTimes.length > 0 ? (
                             experienceTimes.map((option) => (
