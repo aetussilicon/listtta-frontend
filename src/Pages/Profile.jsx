@@ -313,7 +313,7 @@ export default function Profile() {
                   label="experienceTime"
                   value={updateForm.professionalsDetails.experienceTime}
                   fieldName="experienceTime"
-                  fieldTitle='Tempo de Experiência'
+                  fieldTitle='Tempo de Experiência: '
                   updateForm={updateForm}
                   setUpdateForm={setUpdateForm}
               />

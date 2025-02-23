@@ -30,7 +30,7 @@ function App() {
                 <Route Component={Profile} path='/profile/:puid' />
                 <Route
                   Component={ProfessionalsListWIthContext}
-                  path='/search'
+                  path='/search/:page?'
                 />
               </Routes>
               <ToastContainer />
