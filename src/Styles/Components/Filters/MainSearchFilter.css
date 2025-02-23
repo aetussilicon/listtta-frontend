@@ -75,6 +75,17 @@
     width: 270px;
 }
 
+.experience-dropdown-content {
+    height: fit-content !important;
+    width: 265px;
+
+}
+
+.experience-dropdown-content li {
+    font-size: 15px;
+    text-align: center;
+}
+
 .filters-ul {
     list-style: none;
     padding: 0;
